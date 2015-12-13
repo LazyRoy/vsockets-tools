@@ -1,4 +1,4 @@
-# README #
+# vsockets tools README #
 
 VMware Player/Workstation/ESXi supports “VMware vsockets”, which a vendor-specific socket interface for communication between the host and the guest machine
 
@@ -31,7 +31,8 @@ VMware Player has port “vsockets[connection-oriented]/976” open, for communi
 
 /// Ligação guest => host
 
-`[root@localhost:/vmfs/volumes/5548c165-50642975-ae44-000c29bd161f/ftp] ./vsockets_nc -l 5000
+~~~~
+[root@localhost:/vmfs/volumes/5548c165-50642975-ae44-000c29bd161f/ftp] ./vsockets_nc -l 5000
 VMware vsockets environment properties
 =======================================
 vmci address familly=56
@@ -50,8 +51,8 @@ como vai
 Wrote 9 bytes to channel 2
 o hospedeiro vai bem
 Read 21 bytes from channel 2
-Wrote 21 bytes to channel 1`
-
+Wrote 21 bytes to channel 1
+~~~~
 
 
 
