@@ -55,6 +55,40 @@ Wrote 21 bytes to channel 1
 ~~~~
 
 
+//// Erro quando o CID remoto não existe
+
+~~~~
+[root@localhost:/vmfs/volumes/5548c165-50642975-ae44-000c29bd161f/ftp] ./vsockets_nc -c 942893562 -s 7000
+VMware vsockets environment properties
+=======================================
+vmci address familly=56
+vmci is present
+vmci local CID=2
+vmware ESXi host machine detected (CID=0)
+...Connecting to CID=942893562 : Port:7000
+vmci connecting to=[CID]942893562:7000
+vmci socket=5
+connect: Invalid argument
+Closing vmci socket 5
+...Connection failed: Invalid argument
+~~~~
+
+/// Ligação  host => guest
+
+~~~~
+[root@localhost:/vmfs/volumes/5548c165-50642975-ae44-000c29bd161f/ftp] ./vsockets_nc -c 942803562 -s 7000
+VMware vsockets environment properties
+=======================================
+vmci address familly=56
+vmci is present
+vmci local CID=2
+vmware ESXi host machine detected (CID=0)
+...Connecting to CID=942803562 : Port:7000
+vmci connecting to=[CID]942803562:7000
+vmci socket=5
+...Connection established to CID=942803562 : Port:7000
+~~~~
+
 
 
 ### Who do I talk to? ###
