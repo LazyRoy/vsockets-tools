@@ -10,13 +10,13 @@ VMware Player has port “vsockets[connection-oriented]/976” open, for communi
 ### What is this repository for? ###
 
 * Quick summary
-   * Network tools for VMware vsockets
+   + Network tools for VMware vsockets
 * Version: 0.1
-   * working on Linux
+   + working on Linux
 * [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
 * Tools:
-   * vsockets_nc
-   * vsockets_hostname
+   + vsockets_nc
+   + vsockets_hostname
 
 ### How do I get set up? ###
 
