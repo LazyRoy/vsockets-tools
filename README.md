@@ -90,6 +90,20 @@ vmci socket=5
 ~~~~
 
 
+### ESXi port scans ###
+
+* guest => CID=2 : só vê os portos novos abertos pelo vsockets_nc
+* guest => CID=0 : vê o porto 976 aberto
+* guest => guest : só vê os portos novos abertos pelo vsockets_nc
+
+* host => guest : só vê os portos novos abertos pelo vsockets_nc
+   * (fica muito lento, o ESXi deve dar pouca prioridade a processos lançados na linha de comandos)
+
+* host => CID=0 : não vê nenhum porto aberto
+   * (fica muito lento, o ESXi deve dar pouca prioridade a processos lançados na linha de comandos)
+
+* host => CID=2 : vê porto 2222 aberto
+
 
 ### Who do I talk to? ###
 
