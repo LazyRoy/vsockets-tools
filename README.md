@@ -1,17 +1,22 @@
 # README #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+VMware Player/Workstation/ESXi supports “VMware vsockets”, which a vendor-specific socket interface for communication between the host and the guest machine
+
+* not to be confused with TCP/IP sockets
+* vsockets have a different address familly
+
+VMware Player has port “vsockets[connection-oriented]/976” open, for communication with the guest OS and the VMware tools running in the guest
 
 ### What is this repository for? ###
 
 * Quick summary
- * Network tools for VMware vsockets
+   * Network tools for VMware vsockets
 * Version: 0.1
- * working on Linux
+   * working on Linux
 * [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
 * Tools:
- * vsockets_nc
- * vsockets_hostname
+   * vsockets_nc
+   * vsockets_hostname
 
 ### How do I get set up? ###
 
@@ -26,7 +31,7 @@ This README would normally document whatever steps are necessary to get your app
 
 /// Ligação guest => host
 
-[root@localhost:/vmfs/volumes/5548c165-50642975-ae44-000c29bd161f/ftp] ./vsockets_nc -l 5000
+`[root@localhost:/vmfs/volumes/5548c165-50642975-ae44-000c29bd161f/ftp] ./vsockets_nc -l 5000
 VMware vsockets environment properties
 =======================================
 vmci address familly=56
@@ -45,7 +50,11 @@ como vai
 Wrote 9 bytes to channel 2
 o hospedeiro vai bem
 Read 21 bytes from channel 2
-Wrote 21 bytes to channel 1
+Wrote 21 bytes to channel 1`
+
+
+
+
 
 ### Who do I talk to? ###
 
