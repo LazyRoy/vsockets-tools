@@ -7,6 +7,13 @@ VMware Player/Workstation/ESXi supports “VMware vsockets”, which a vendor-sp
 
 VMware Player has port “vsockets[connection-oriented]/976” open, for communication with the guest OS and the VMware tools running in the guest
 
+* vsockets_nc: similar to “nc” but supporting additionally 
+ * vsockets tcp => vsockets tunneling
+ * tunnel persistency for multiple connections
+ * can be very useful to integrate with tcp/ip oriented tools
+
+* vsockets_hostname: returns the guest's CID (the ID used for vsockets communications)
+
 ### What is this repository for? ###
 
 * Quick summary
