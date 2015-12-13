@@ -111,6 +111,10 @@ vmci socket=5
 
 * host => CID=2 : vê porto 2222 aberto
 
+### References ###
+
+* VMware vSockets references
+   + http://pubs.vmware.com/vsphere-60/topic/com.vmware.ICbase/PDF/ws9_esx60_vmci_sockets.pdf
 
 ### Who do I talk to? ###
 
