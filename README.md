@@ -121,9 +121,8 @@ vmci socket=5
 
 ![Bitcoin-accepted-here-printable.png](https://bitbucket.org/repo/XE88rK/images/1985448334-Bitcoin-accepted-here-printable.png)
 
-Bitcoin address: 18T5tnGrUyKMnYw59bi7h2tt8CvEu19KrG
-
-[Bitcoin URI](bitcoin:18T5tnGrUyKMnYw59bi7h2tt8CvEu19KrG?label=vsockets%20donations&message=vsockets%20development%20support%20donations)
+* Bitcoin address: 18T5tnGrUyKMnYw59bi7h2tt8CvEu19KrG
+* Bitcoin URI: bitcoin:18T5tnGrUyKMnYw59bi7h2tt8CvEu19KrG?label=vsockets%20donations&message=vsockets%20development%20support%20donations
 
 ### Who do I talk to? ###
 
