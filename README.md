@@ -123,7 +123,7 @@ vmci socket=5
 
 Bitcoin address: 18T5tnGrUyKMnYw59bi7h2tt8CvEu19KrG
 
-bitcoin:18T5tnGrUyKMnYw59bi7h2tt8CvEu19KrG?label=vsockets%20donations&message=vsockets%20development%20support%20donations
+[Bitcoin URI](bitcoin:18T5tnGrUyKMnYw59bi7h2tt8CvEu19KrG?label=vsockets%20donations&message=vsockets%20development%20support%20donations)
 
 ### Who do I talk to? ###
 
