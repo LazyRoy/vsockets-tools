@@ -117,6 +117,13 @@ vmci socket=5
 * VMware vSockets references
    + http://pubs.vmware.com/vsphere-60/topic/com.vmware.ICbase/PDF/ws9_esx60_vmci_sockets.pdf
 
+### Donations ###
+
+![Bitcoin-accepted-here-printable.png](https://bitbucket.org/repo/XE88rK/images/1985448334-Bitcoin-accepted-here-printable.png)
+
+Bitcoin address: 18T5tnGrUyKMnYw59bi7h2tt8CvEu19KrG
+
+
 ### Who do I talk to? ###
 
 * Repo owner or admin
