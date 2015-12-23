@@ -117,6 +117,9 @@ vmci socket=5
 * VMware vSockets references
    + http://pubs.vmware.com/vsphere-60/topic/com.vmware.ICbase/PDF/ws9_esx60_vmci_sockets.pdf
 
+* Open Source
+    + http://www.smashingmagazine.com/2013/01/starting-an-open-source-project/
+
 ### Donations ###
 
 ![Bitcoin-accepted-here-printable.png](https://bitbucket.org/repo/XE88rK/images/1985448334-Bitcoin-accepted-here-printable.png)
