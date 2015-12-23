@@ -1,5 +1,5 @@
 /*
- * vsockets_hostname.c - vsockets hostname (CID) fetcher
+ * sockets_common.c - support for cross-platform sockets
  *
  * Copyright (C) 2015 Pedro Mendes da Silva
  *
@@ -18,19 +18,34 @@
  *  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
+
 #include <stdlib.h>
 
-#include "vmci_sockets.h"
 #include <stdio.h>
 #include <sys/socket.h>
+#include <netinet/in.h>
 
 
-extern int dump_vsocket_properties();
+/* TODO: implementar umas cascas */
 
-int main()
-{
+socket(afVMCI, SOCK_STREAM, 0);
 
-   dump_vsocket_properties();
+   if (bind(sockfd_stream, (struct sockaddr *) &my_addr, sizeof my_addr) == -1) {
 
-   return 0;
-}
+
+   if ((connect(sockfd_stream, (struct sockaddr *) &their_addr, sizeof their_addr)) == -1) {
+
+
+   if (setsockopt(sockfd_stream, SOL_SOCKET, SO_REUSEADDR, &enable, sizeof(int)) < 0)
+
+
+   if (listen(sockfd_stream, 100) == -1) {
+
+accept
+
+read
+
+write
+
+
+
