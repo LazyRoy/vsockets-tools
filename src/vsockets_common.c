@@ -22,8 +22,10 @@
 #include <stdlib.h>
 
 #include "vmci_sockets.h"
+#include "sockets_common.h"
 #include <stdio.h>
-#include <sys/socket.h>
+
+/* #include <sys/socket.h> */
 
 #define VMWARE_PLAYER_HOST_CID 0
 #define VMWARE_ESXI_HOST_CID 2
@@ -165,7 +167,7 @@ int dump_vsocket_properties()
      fprintf(stderr, "vmci is present\n", afVMCI);
 
      int localCID = VMCISock_GetLocalCID();
-     fprintf(stderr, "vmci local CID=%d\n", localCID);
+     fprintf(stderr, "vmci local CID=%u\n", localCID);
 
      if (localCID == VMWARE_PLAYER_HOST_CID) {
         fprintf(stderr, "vmware player host machine detected (CID=0)\n");

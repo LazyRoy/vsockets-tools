@@ -20,22 +20,24 @@
 
 CC:=gcc
 
-COPTIONS:=-g -static
+COPTIONS:=-g -static -Wall
+
+COMMON_C_FILES:= vsockets_common.c sockets_common.c
 
 TARGETDIR:=./target
 
 TARGETBINDIR:=$(TARGETDIR)/bin
 
-LIBS:=
+LIBS:= ../lib/tmp/list.o
 
 BINS:=
 
 all: vsockets_hostname vsockets_nc 
 
-vsockets_hostname: ./vsockets_hostname.c vsockets_common.c
+vsockets_hostname: ./vsockets_hostname.c $(COMMON_C_FILES)
 	@echo "### Making vsockets_hostname"
-	$(CC) $(COPTIONS) vsockets_hostname.c vsockets_common.c -o $(TARGETBINDIR)/vsockets_hostname
+	$(CC) $(COPTIONS) $(LIBS)  vsockets_hostname.c $(COMMON_C_FILES) -o $(TARGETBINDIR)/vsockets_hostname
 
-vsockets_nc: ./vsockets_nc.c vsockets_common.c ipv4_common.c
+vsockets_nc: ./vsockets_nc.c $(COMMON_C_FILES) ipv4_common.c
 	@echo "### Making vsockets_nc"
-	$(CC) $(COPTIONS) vsockets_nc.c vsockets_common.c ipv4_common.c -o $(TARGETBINDIR)/vsockets_nc 
+	$(CC) $(COPTIONS) $(LIBS) vsockets_nc.c $(COMMON_C_FILES) ipv4_common.c -o $(TARGETBINDIR)/vsockets_nc 

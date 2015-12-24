@@ -26,6 +26,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <getopt.h>
+#include "list.h"
 
 
 #define true 1
@@ -171,36 +172,43 @@ main(int argc, char *argv[])
 
            while ((opt = getopt(argc, argv, "c:s:l:f:i:tn")) != -1) {
                switch (opt) {
-               case 'c':
                    
-                   //remote_cid = atol(optarg);
+                /* Remote CID to connect to */
+               case 'c':             
                    sscanf(optarg, "%u", &remote_cid);
                    break;
+                   
+               /* Remote port to connect to */
                case 's':
                    remote_port = atoi(optarg);
                    break;
 
+               /* Listen port (local) for vsockets address family */
                case 'l':
                    local_port = atoi(optarg);
-		   flag_listen = true;
+		           flag_listen = true;
                    break;
 
+               /* Listen port (local) for IPv4 address family */
                case 'i':
                    local_port = atoi(optarg);
-		   flag_tcp_ip_v4_listen = true;
+		           flag_tcp_ip_v4_listen = true;
                    break;
 
+               /* Fork (?) and exec */
                case 'f':
                    strcpy(fork_cmd_line,optarg);
-		   flag_fork_and_execute = true;
+		           flag_fork_and_execute = true;
                    break;
 
+               /* Tunnel connections ( connects inbound listen address => remote address ) */
                case 't':
-		   flag_tunnel_incomming_connections =true;
+		           flag_tunnel_incomming_connections = true;
                    break;
 
+               /* vsockets port scan mode */
                case 'n':
-		   flag_port_scan =true;
+		           flag_port_scan = true;
                    break;
 
 
@@ -230,8 +238,7 @@ main(int argc, char *argv[])
        if (socket > 0) {
           fprintf(stderr, "...Connection established to CID=%u : Port:%hu\n", remote_cid, remote_port);
 
-	// TODO: ler do socket e do stdin + escrever no socket e no stdout
-        bridge_sockets_and_descriptors(socket, stdin, stdout);
+          bridge_sockets_and_descriptors(socket, stdin, stdout);
 
        } else {
           perror("...Connection failed");
@@ -252,7 +259,7 @@ main(int argc, char *argv[])
  	  while (1) {
 
              int new_sock=-1;
-	     struct sockaddr_vm their_addr;
+	         struct sockaddr_vm their_addr;
              socklen_t their_addr_len = sizeof their_addr;
 
              if ((new_sock = accept(socket, (struct sockaddr *) &their_addr, &their_addr_len)) == -1) {

@@ -21,8 +21,10 @@
 #include <stdlib.h>
 
 #include "vmci_sockets.h"
+#include "sockets_common.h"
+
 #include <stdio.h>
-#include <sys/socket.h>
+
 
 
 extern int dump_vsocket_properties();

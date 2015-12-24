@@ -462,8 +462,10 @@ struct uuid_2_cid {
          io.u2c_context_id = VMADDR_CID_ANY;
          if (INVALID_HANDLE_VALUE != device) {
             DWORD ioReturn;
+/* TODO: fix
             strncpy_s(io.u2c_uuid_string, sizeof io.u2c_uuid_string,
                       uuidString, _TRUNCATE);
+*/
             DeviceIoControl(device, VMCI_SOCKETS_UUID_2_CID, &io, sizeof io,
                             &io, sizeof io, &ioReturn, NULL);
             CloseHandle(device);

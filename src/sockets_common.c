@@ -22,12 +22,14 @@
 #include <stdlib.h>
 
 #include <stdio.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
 
+#include "vmci_sockets.h"
+
+#include "list.h"
 
 /* TODO: implementar umas cascas */
 
+/*
 socket(afVMCI, SOCK_STREAM, 0);
 
    if (bind(sockfd_stream, (struct sockaddr *) &my_addr, sizeof my_addr) == -1) {
@@ -47,5 +49,13 @@ read
 
 write
 
+*/
 
+typedef struct {
+    LIST *sockets;
+} SOCKET_LIST;
 
+int socket_list_init(SOCKET_LIST *socket_list)
+{
+    socket_list->sockets = list_init();
+}
