@@ -120,6 +120,9 @@ vmci socket=5
 * Open Source
     + http://www.smashingmagazine.com/2013/01/starting-an-open-source-project/
 
+* Dependencies
+    * liblist: http://ohnopub.net/~ohnobinki/liblist/doc/
+
 ### Donations ###
 
 ![Bitcoin-accepted-here-printable.png](https://bitbucket.org/repo/XE88rK/images/1985448334-Bitcoin-accepted-here-printable.png)
