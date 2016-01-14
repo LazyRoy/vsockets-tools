@@ -27,6 +27,8 @@
 #include <stdlib.h>
 #include <getopt.h>
 #include "list.h"
+#include "sockets_common.h"
+#include "vsockets_common.h"
 
 
 #define true 1
@@ -56,83 +58,79 @@ extern int host_port_scan(int CID);
 
 #define BRIDGE_BUF_SIZE 64000
 
-void bridge_descriptors(int fd1_in, int fd1_out, int fd2_in, int fd2_out )
+SOCKET_LIST sockets;
+
+typedef struct {
+
+	int flag_listen_vsockets;
+	int flag_listen_ipv4;
+	int flag_tunnel_connections;
+
+	unsigned int local_port;
+	unsigned int remote_port;
+	unsigned int remote_cid;
+	
+} VSOCKETS_NC_SESSION_OPTIONS;
+
+VSOCKETS_NC_SESSION_OPTIONS session_options;
+
+
+int bridged_socket_event_handler(SOCKET_HANDLE socket_in, void *context_data)
 {
-           fd_set rfds;
-           struct timeval tv;
-           int retval;
-           char buffer[BRIDGE_BUF_SIZE];
-	   int len;
+	char buffer[BRIDGE_BUF_SIZE];
+	int len;
+	
+	SOCKET_HANDLE socket_out = *((SOCKET_HANDLE*)context_data);
 
-	while (true) {
+	len = read(socket_in, buffer, BRIDGE_BUF_SIZE);
 
-           FD_ZERO(&rfds);
-           FD_SET(fd1_in, &rfds);
-           FD_SET(fd2_in, &rfds);
+	if (len > 0) {
 
-           /* Wait up to five seconds. */
-           //tv.tv_sec = 5;
-           //tv.tv_usec = 0;
+		fprintf(stderr, "Read %u bytes from channel 1\n", len);
 
-           retval = select(100, &rfds, NULL, NULL, NULL);
+		len = write(socket_out, buffer, len);
 
-           if (retval == -1)
-               perror("select()");
-           else if (retval) {
-               //printf("Data is available now.\n");
-
-               if ( FD_ISSET(fd1_in, &rfds) ) {
-
-                 len = read(fd1_in, buffer, BRIDGE_BUF_SIZE );
-
-		 if (len > 0) {
-
-		    fprintf( stderr, "Read %u bytes from channel 1\n",len);
-
-                    len = write( fd2_out, buffer, len );
-
-		    if (len <= 0) {
+		if (len <= 0) {
 			perror("Error writing to descriptor");
 			exit(1);
-                    }
+		}
 
-		    fprintf(stderr, "Wrote %u bytes to channel 2\n",len);
-                 } else {
-                    perror("Lost connection channel 1\n");
-		    exit(1); 
-                 }
+		fprintf(stderr, "Wrote %u bytes to channel 2\n", len);
+		
+		return true;
+	}
+	else {
+		perror("Lost connection channel 1\n");
+		
+		// TODO: remove bridged sockets from list and close
 
-               } else if ( FD_ISSET(fd2_in, &rfds) ) {
+		// exit(1);
 
-                 len = read(fd2_in, buffer, BRIDGE_BUF_SIZE );
-		 if (len > 0) {
-		    fprintf( stderr, "Read %u bytes from channel 2\n",len);
-                
-                    len = write( fd1_out, buffer, len );
+		return 0;
+	}
+}
 
-		    if (len <= 0) {
-			perror("Error writing to descriptor 1");
-			exit(1);
-                    }
 
-		    fprintf(stderr, "Wrote %u bytes to channel 1\n",len);
-		 } else {
-                    perror("Lost connection channel 2\n");
-		    exit(1);
-                 }
+void bridge_descriptors(int fd1_in, int fd1_out, int fd2_in, int fd2_out)
+{
+	
 
-               } else {
-		    perror("Lost connection\n");
-		    exit(1);
-               }
+	fprintf(stderr, "...bridging\n");
 
-	   }
-           else
-               perror("No data within five seconds.\n");
+	socket_list_insert(&sockets,
+		fd1_in,
+		bridged_socket_event_handler,
+		&fd2_out, sizeof(fd2_out));
 
-       }
+	socket_list_insert(&sockets,
+		fd2_in,
+		bridged_socket_event_handler,
+		&fd1_out, sizeof(fd1_out));
 
 }
+
+
+
 
 
 void bridge_sockets_and_descriptors(int socket, FILE *f_in, FILE *f_out)
@@ -148,6 +146,89 @@ void bridge_sockets_and_descriptors(int socket, FILE *f_in, FILE *f_out)
    bridge_descriptors(socket, socket, fd_in, fd_out );
 
 }
+
+
+
+
+
+int vsocket_listen_event_handler(SOCKET_HANDLE socket, void *context_data)
+{
+	int new_sock = -1;
+	struct sockaddr_vm their_addr;
+	socklen_t their_addr_len = sizeof their_addr;
+
+	if ((new_sock = accept(socket, (struct sockaddr *) &their_addr, &their_addr_len)) == -1) {
+		perror("accept");
+		exit(1);
+	}
+	else {
+		fprintf(stderr, "....Accepted\n");
+
+		if (session_options.flag_tunnel_connections) {
+			// Tunelling
+
+			int tunnel_socket;
+
+			fprintf(stderr, "[Tunnel]...Connecting to CID=%hu : Port:%hu\n", 
+				session_options.remote_cid, session_options.remote_port);
+
+
+			tunnel_socket = try_connection(session_options.remote_cid, 
+				session_options.remote_port);
+
+			if (tunnel_socket > 0) {
+				fprintf(stderr, "[Tunnel]...Connection established to CID=%u : Port:%hu\n", 
+					session_options.remote_cid, session_options.remote_port);
+
+				bridge_descriptors(new_sock, new_sock, tunnel_socket, tunnel_socket);
+
+			}
+			else {
+				perror("[Tunnel]...Connection failed");
+			}
+		}
+		else {
+
+			// Single connection
+			bridge_sockets_and_descriptors(new_sock, stdin, stdout);
+
+		}
+
+		/* continue traversing */
+		return TRUE;
+	}
+}
+
+
+/* Listening mode */
+void listening_mode(short listen_on_vsockets, 
+	                unsigned int local_port)
+{
+	
+	int socket;
+
+	if (listen_on_vsockets)
+		socket = try_listen(local_port);
+	else
+		socket = try_ipv4_listen(local_port);
+
+
+	if (socket > 0) {
+		fprintf(stderr, "...listening in port:%hu\n", local_port);
+
+		socket_list_insert(&sockets,
+							socket,
+							vsocket_listen_event_handler,
+							NULL, 0);
+	}
+
+	while (1) {
+		fprintf(stderr, "...entering main cycle\n");
+
+		socket_list_select_and_handle_events(&sockets);
+	}
+}
+
 
 int
 main(int argc, char *argv[])
@@ -222,15 +303,24 @@ main(int argc, char *argv[])
 
     dump_vsocket_properties();
 
+	socket_list_init(&sockets);
+
     if ( flag_port_scan == true ) {
      host_port_scan(remote_cid);
     }
+
+	session_options.flag_listen_vsockets = flag_listen;
+	session_options.flag_listen_ipv4 = flag_tcp_ip_v4_listen;
+	session_options.flag_tunnel_connections = flag_tunnel_incomming_connections;
+	session_options.local_port = local_port;
+	session_options.remote_port = remote_port;
+	session_options.remote_cid = remote_cid;
 
     if ( (flag_listen == false) && (flag_tcp_ip_v4_listen == false) ) {
 
        int socket;
       
-       fprintf(stderr, "...Connecting to CID=%ld : Port:%hu\n", remote_cid, remote_port);
+       fprintf(stderr, "...Connecting to CID=%hu : Port:%u\n", remote_cid, remote_port);
 
       
        socket = try_connection(remote_cid, remote_port);
@@ -240,13 +330,26 @@ main(int argc, char *argv[])
 
           bridge_sockets_and_descriptors(socket, stdin, stdout);
 
+		  while (1) {
+			  fprintf(stderr, "...entering main cycle\n");
+
+			  socket_list_select_and_handle_events(&sockets);
+		  }
+
        } else {
           perror("...Connection failed");
        }
 
 
     } else {
+
+	   /* Listening mode */
+
        int socket;
+
+	   listening_mode(flag_listen,
+						local_port);
+
 
        if (flag_listen == true)
          socket = try_listen(local_port);
@@ -268,7 +371,7 @@ main(int argc, char *argv[])
              } else {
 		
 		// TODO: supportar outros endereços
-                printf("Accepted connection from CID=%ld , port=%hu\n", their_addr.svm_cid, their_addr.svm_port );
+                printf("Accepted connection from CID=%u , port=%hu\n", their_addr.svm_cid, their_addr.svm_port );
 
                 if ( flag_fork_and_execute ) {
                   // Multiple connections with external command
@@ -303,7 +406,7 @@ main(int argc, char *argv[])
                        // Connect to a new server and bridge the connections
 		       int tunnel_socket;
 		      
-		       fprintf(stderr, "[Tunnel]...Connecting to CID=%ld : Port:%hu\n", remote_cid, remote_port);
+		       fprintf(stderr, "[Tunnel]...Connecting to CID=%u : Port:%hu\n", remote_cid, remote_port);
 		
 		      
 		       tunnel_socket = try_connection(remote_cid, remote_port);

@@ -19,16 +19,17 @@
  */
 
 
+#include <stdio.h>
 #include <stdlib.h>
+#include <sys/wait.h>
 
 #include "vmci_sockets.h"
 #include "sockets_common.h"
-#include <stdio.h>
+#include "vsockets_common.h"
+
+
 
 /* #include <sys/socket.h> */
-
-#define VMWARE_PLAYER_HOST_CID 0
-#define VMWARE_ESXI_HOST_CID 2
 
 //
 // Connection-oriented 
@@ -76,6 +77,8 @@ int try_connection(int CID, int port)
 
 // Connection-oriented port scan
 //
+// TODO: refactor for WINDOWS
+
 int host_port_scan(int CID)
 {
    int i;
@@ -106,6 +109,7 @@ int host_port_scan(int CID)
       }
    }
 
+   return FALSE;
 }
 
 
@@ -164,7 +168,7 @@ int dump_vsocket_properties()
 
    if (afVMCI > 0) {
 
-     fprintf(stderr, "vmci is present\n", afVMCI);
+     fprintf(stderr, "vmci is present\n" );
 
      int localCID = VMCISock_GetLocalCID();
      fprintf(stderr, "vmci local CID=%u\n", localCID);
@@ -181,7 +185,7 @@ int dump_vsocket_properties()
 
    } else {
  
-    fprintf(stderr, "vmci is NOT present\n", afVMCI);
+    fprintf(stderr, "vmci is NOT present\n");
     return 0;
    }
 
