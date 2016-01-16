@@ -69,6 +69,8 @@ int socket_list_insert(SOCKET_LIST *socket_list, SOCKET_HANDLE socket,
 
 	entry.socket = socket;
 	entry.handler = handler;
+	entry.deleted = FALSE;
+	
 
 	if (context_data != NULL) {
 
@@ -98,11 +100,16 @@ int sock_delete_list_traverse_func(void *data, void *element)
 	pEntry = (SOCKET_ENTRY *)element;
 	socket = *((SOCKET_HANDLE*)data);
 
+	fprintf(stderr, ">sock_delete_list_traverse_func (socket_entry=%u socket2delete=%u)\n", socket, pEntry->socket);
+
 	if (pEntry->socket == socket) {
 	
 		if (pEntry->context_data != NULL)
 			free(pEntry->context_data);
 
+		pEntry->deleted = TRUE;
+
+		fprintf(stderr, "<sock_delete_list_traverse_func\n");
 		/* Element found, stop traversing */
 		return FALSE;
 	}
@@ -116,14 +123,22 @@ int sock_delete_list_traverse_func(void *data, void *element)
 
 int socket_list_delete(SOCKET_LIST *socket_list, SOCKET_HANDLE socket)
 {
-	
+
+	fprintf(stderr, ">socket_list_delete (socket=%u)\n", socket);
+
 	if ( list_traverse(socket_list->sockets, (void*)&socket, sock_delete_list_traverse_func, 0) == LIST_OK ) {			
 
-		list_remove_curr(socket_list->sockets);
+		/* list_remove_curr(socket_list->sockets); */
+
+
+		fprintf(stderr, "<socket_list_delete(TRUE)\n");
 
 		return TRUE;
 	}
 	else {
+		
+		fprintf(stderr, "<socket_list_delete(FALSE)\n");
+
 		return FALSE;
 	}
 	
@@ -137,8 +152,8 @@ int sock_debug_dump_list_traverse_func(void *data, void *element)
 	pEntry = (SOCKET_ENTRY *)element;
 
 
-	fprintf(stderr, "----> socket=%d [h=%p cdata=%p]\n", 
-		pEntry->socket, pEntry->handler, pEntry->context_data);
+	fprintf(stderr, "----> socket=%d [h=%p cdata=%p del=%hu]\n", 
+		pEntry->socket, pEntry->handler, pEntry->context_data, pEntry->deleted);
 	
 	/* continue traversing */
 	return TRUE;
@@ -165,7 +180,9 @@ int sock_fdset_list_traverse_func(void *data, void *element)
 	pEntry = (SOCKET_ENTRY *)element;
 	mask = (fd_set*)data;
 
-	FD_SET(pEntry->socket, mask);
+	if (!pEntry->deleted) {
+		FD_SET(pEntry->socket, mask);
+	}
 
 	/* continue traversing */
 	fprintf(stderr, "<sock_fdset_list_traverse_func\n");
@@ -182,6 +199,28 @@ void socket_list2fd_set(SOCKET_LIST *socket_list, fd_set *socket_mask)
 }
 
 
+
+int sock_remove_marked_for_removal_list_traverse_func(void *data, void *element)
+{
+	SOCKET_ENTRY *pEntry;
+
+	pEntry = (SOCKET_ENTRY *)element;
+
+	fprintf(stderr, ">sock_remove_marked_for_removal_list_traverse_func (socket_entry=%u )\n", pEntry->socket);
+
+	if (pEntry->deleted) {	
+
+		fprintf(stderr, "<sock_remove_marked_for_removal_list_traverse_func\n");
+		/* Element found, stop traversing */
+		return FALSE;
+	}
+	else {
+		/* Element not found, continue traversing */
+		return TRUE;
+	}
+
+
+}
 
 
 int sock_handle_event_list_traverse_func(void *data, void *element)
@@ -205,7 +244,7 @@ int sock_handle_event_list_traverse_func(void *data, void *element)
 }
 
 
-void socket_list_select_and_handle_events(SOCKET_LIST *socket_list)
+int socket_list_select_and_handle_events(SOCKET_LIST *socket_list)
 {
 	fd_set socket_mask;
 
@@ -213,17 +252,27 @@ void socket_list_select_and_handle_events(SOCKET_LIST *socket_list)
 
 	socket_list_debug_dump(socket_list);
 
+	// Remove marked items
+
+	while (list_traverse(socket_list->sockets, NULL, sock_remove_marked_for_removal_list_traverse_func, 0) == LIST_OK) {
+		fprintf(stderr, "Going to remove...\n");
+		list_remove_curr(socket_list->sockets); 
+	}
+
 	socket_list2fd_set(socket_list, &socket_mask);
 
-	if (select(100, &socket_mask, NULL, NULL, NULL) > 0) { // TODO: fix N_FDs
-	
-		fprintf(stderr, "selected...");
+	if (!list_empty(socket_list->sockets)) {
+		if (select(100, &socket_mask, NULL, NULL, NULL) > 0) { // TODO: fix N_FDs
 
-		list_traverse(socket_list->sockets, &socket_mask, sock_handle_event_list_traverse_func, 0);
+			fprintf(stderr, "selected...");
 
-	
+			list_traverse(socket_list->sockets, &socket_mask, sock_handle_event_list_traverse_func, 0);
+
+
+		}
 	}
 
 	fprintf(stderr, "<socket_list_select_and_handle_events\n");
 
+	return !list_empty(socket_list->sockets);
 }

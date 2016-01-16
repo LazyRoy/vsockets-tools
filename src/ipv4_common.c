@@ -25,8 +25,7 @@
 #include <stdio.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
-
-#define VMWARE_HOST_CID 0
+#include "ipv4_common.h"
 
 //
 // Connection-oriented 

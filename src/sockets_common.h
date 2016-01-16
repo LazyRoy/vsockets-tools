@@ -40,6 +40,9 @@ typedef struct {
 	socket_event_handler_func_t handler;
 	void *context_data;
 	char *label;
+
+	short deleted;
+
 } SOCKET_ENTRY;
 
 
@@ -64,7 +67,7 @@ void socket_list_debug_dump(SOCKET_LIST *socket_list);
 
 void socket_list2fd_set(SOCKET_LIST * socket_list, fd_set * socket_mask);
 
-void socket_list_select_and_handle_events(SOCKET_LIST * socket_list);
+int socket_list_select_and_handle_events(SOCKET_LIST * socket_list);
 
 
 #endif

@@ -29,7 +29,7 @@
 #include "list.h"
 #include "sockets_common.h"
 #include "vsockets_common.h"
-
+#include "ipv4_common.h"
 
 #define true 1
 #define false 0
@@ -47,14 +47,6 @@
 	hyphens in port names must be backslash escaped (e.g. 'ftp\-data').
 
 *******/
-
-// TODO: includes
-
-extern int dump_vsocket_properties();
-
-extern int try_ipv4_listen(int port);
-
-extern int host_port_scan(int CID);
 
 #define BRIDGE_BUF_SIZE 64000
 
@@ -104,6 +96,15 @@ int bridged_socket_event_handler(SOCKET_HANDLE socket_in, void *context_data)
 		
 		// TODO: remove bridged sockets from list and close
 
+		// Corrigir: marcar a entrada como apagada até terminar o ciclo de eventos
+		// Quando voltar ao ciclo principal, apaga o lixo
+
+		socket_list_delete(&sockets, socket_in);
+		close(socket_in);
+
+		socket_list_delete(&sockets, socket_out);
+		close(socket_out);
+
 		// exit(1);
 
 		return 0;
@@ -120,12 +121,12 @@ void bridge_descriptors(int fd1_in, int fd1_out, int fd2_in, int fd2_out)
 	socket_list_insert(&sockets,
 		fd1_in,
 		bridged_socket_event_handler,
-		&fd2_out, sizeof(fd2_out));
+		&fd2_in, sizeof(fd2_in));
 
 	socket_list_insert(&sockets,
 		fd2_in,
 		bridged_socket_event_handler,
-		&fd1_out, sizeof(fd1_out));
+		&fd1_in, sizeof(fd1_in));
 
 }
 
@@ -330,10 +331,7 @@ main(int argc, char *argv[])
 
           bridge_sockets_and_descriptors(socket, stdin, stdout);
 
-		  while (1) {
-			  fprintf(stderr, "...entering main cycle\n");
-
-			  socket_list_select_and_handle_events(&sockets);
+		  while ( socket_list_select_and_handle_events(&sockets) ) {
 		  }
 
        } else {
