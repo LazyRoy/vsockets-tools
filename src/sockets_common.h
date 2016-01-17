@@ -1,4 +1,4 @@
-/*
+﻿/*
  * sockets_common.h - support for cross-platform sockets
  *
  * Copyright (C) 2015 Pedro Mendes da Silva
@@ -24,7 +24,19 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "vmci_sockets.h"
+
 #include "list.h"
+
+#ifdef LINUX
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#else
+#include <Windows.h>
+#include <WinSock2.h>
+
+typedef int socklen_t;
+#endif
 
 /* Socket types*/
 
@@ -43,11 +55,14 @@ typedef struct {
 
 	short deleted;
 
+	short is_special_descriptor;
 } SOCKET_ENTRY;
 
 
 typedef struct {
 	list_t sockets;
+
+	int n_special_descriptors;
 } SOCKET_LIST;
 
 
@@ -69,5 +84,35 @@ void socket_list2fd_set(SOCKET_LIST * socket_list, fd_set * socket_mask);
 
 int socket_list_select_and_handle_events(SOCKET_LIST * socket_list);
 
+
+/*
+The  accept()  system  call  is used with connection - based socket types
+(SOCK_STREAM, SOCK_SEQPACKET).
+The  argument  sockfd is a socket
+
+The argument addr is a pointer to a sockaddr structure.This structure
+is filled in with the address of the peer socket, as known to the  com‐
+munications  layer.The  exact format of the address returned addr is
+determined by the  socket's  address  family  (see  socket(2)  and  the
+respective  protocol  man pages).When addr is NULL, nothing is filled
+in; in this case, addrlen is not used, and should also be NULL.
+
+The addrlen argument is a value - result argument : the caller  must  ini‐
+tialize  it  to contain the size(in bytes) of the structure pointed to
+by addr; on return it will contain the actual size of the peer address.
+*/
+
+int socket_init_api();
+
+int socket_accept(SOCKET_HANDLE sockfd, struct sockaddr *addr, socklen_t *addrlen);
+int socket_close(SOCKET_HANDLE sockfd);
+
+int socket_read(int fd, void *buf, size_t count);
+int socket_write(int fd, void *buf, size_t count);
+
+int socket_getsockname(int sockfd, struct sockaddr *addr, socklen_t *addrlen);
+int socket_getpeername(int sockfd, struct sockaddr *addr, socklen_t *addrlen);
+
+char* socket_handle2string(SOCKET_HANDLE socket);
 
 #endif

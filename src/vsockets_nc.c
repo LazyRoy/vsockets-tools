@@ -22,7 +22,6 @@
 
 #include "vmci_sockets.h"
 #include <stdio.h>
-#include <sys/socket.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include <getopt.h>
@@ -74,13 +73,15 @@ int bridged_socket_event_handler(SOCKET_HANDLE socket_in, void *context_data)
 	
 	SOCKET_HANDLE socket_out = *((SOCKET_HANDLE*)context_data);
 
-	len = read(socket_in, buffer, BRIDGE_BUF_SIZE);
+	fprintf(stderr, "...Reading from socket %d ...\n", socket_in);
+
+	len = socket_read(socket_in, buffer, BRIDGE_BUF_SIZE);
 
 	if (len > 0) {
 
 		fprintf(stderr, "Read %u bytes from channel 1\n", len);
 
-		len = write(socket_out, buffer, len);
+		len = socket_write(socket_out, buffer, len);
 
 		if (len <= 0) {
 			perror("Error writing to descriptor");
@@ -100,10 +101,10 @@ int bridged_socket_event_handler(SOCKET_HANDLE socket_in, void *context_data)
 		// Quando voltar ao ciclo principal, apaga o lixo
 
 		socket_list_delete(&sockets, socket_in);
-		close(socket_in);
+		socket_close(socket_in);
 
 		socket_list_delete(&sockets, socket_out);
-		close(socket_out);
+		socket_close(socket_out);
 
 		// exit(1);
 
@@ -158,7 +159,7 @@ int vsocket_listen_event_handler(SOCKET_HANDLE socket, void *context_data)
 	struct sockaddr_vm their_addr;
 	socklen_t their_addr_len = sizeof their_addr;
 
-	if ((new_sock = accept(socket, (struct sockaddr *) &their_addr, &their_addr_len)) == -1) {
+	if ((new_sock = socket_accept(socket, (struct sockaddr *) &their_addr, &their_addr_len)) == -1) {
 		perror("accept");
 		exit(1);
 	}
@@ -239,9 +240,7 @@ main(int argc, char *argv[])
            unsigned int remote_cid = 0;
 
            int flag_listen = false;            
-           int flag_tcp_ip_v4_listen = false;            
-
-           int flag_fork_and_execute = false;
+           int flag_tcp_ip_v4_listen = false;                     
 
            int flag_tunnel_incomming_connections = false;
 
@@ -252,7 +251,7 @@ main(int argc, char *argv[])
            char opt;
 
 
-           while ((opt = getopt(argc, argv, "c:s:l:f:i:tn")) != -1) {
+           while ((opt = getopt(argc, argv, "c:s:l:i:tn")) != -1) {
                switch (opt) {
                    
                 /* Remote CID to connect to */
@@ -275,13 +274,7 @@ main(int argc, char *argv[])
                case 'i':
                    local_port = atoi(optarg);
 		           flag_tcp_ip_v4_listen = true;
-                   break;
-
-               /* Fork (?) and exec */
-               case 'f':
-                   strcpy(fork_cmd_line,optarg);
-		           flag_fork_and_execute = true;
-                   break;
+                   break;               
 
                /* Tunnel connections ( connects inbound listen address => remote address ) */
                case 't':
@@ -303,6 +296,8 @@ main(int argc, char *argv[])
 
 
     dump_vsocket_properties();
+
+	socket_init_api();
 
 	socket_list_init(&sockets);
 
@@ -348,105 +343,6 @@ main(int argc, char *argv[])
 	   listening_mode(flag_listen,
 						local_port);
 
-
-       if (flag_listen == true)
-         socket = try_listen(local_port);
-       else 
-         socket = try_ipv4_listen(local_port);
-
-       if (socket > 0) {
-          fprintf(stderr, "...listening in port:%hu\n", local_port);
-
- 	  while (1) {
-
-             int new_sock=-1;
-	         struct sockaddr_vm their_addr;
-             socklen_t their_addr_len = sizeof their_addr;
-
-             if ((new_sock = accept(socket, (struct sockaddr *) &their_addr, &their_addr_len)) == -1) {
-                perror("accept");
-                exit(1);
-             } else {
-		
-		// TODO: supportar outros endereços
-                printf("Accepted connection from CID=%u , port=%hu\n", their_addr.svm_cid, their_addr.svm_port );
-
-                if ( flag_fork_and_execute ) {
-                  // Multiple connections with external command
-
-	
-
-                  if (fork()  == 0) {
-                    int pipe_fd_1to2[2];                       
-
-                    pipe(pipe_fd_1to2);
-
-		    fprintf(stderr, "Child process 1 (vsockets_nc)\n");
-
-  		    /**** TODO: acabar os pipes
-
-                    if (fork()  == 0) {
-		      fprintf(stderr, "Child process 2 (vsockets_nc), going to exec\n");
-
-                      dup2(pipe_fd_1to2[0], 
-
-                      pipe(pipe_fd_1to2, 0);
-                      pipe(pipe_fd_2to1, 0);
-
-                      exec(...)
-
-                    } else {
-
-                  *******/                    
-
-                    if ( flag_tunnel_incomming_connections == true ) {
-
-                       // Connect to a new server and bridge the connections
-		       int tunnel_socket;
-		      
-		       fprintf(stderr, "[Tunnel]...Connecting to CID=%u : Port:%hu\n", remote_cid, remote_port);
-		
-		      
-		       tunnel_socket = try_connection(remote_cid, remote_port);
-		
-		       if (tunnel_socket > 0) {
-		          fprintf(stderr, "[Tunnel]...Connection established to CID=%u : Port:%hu\n", remote_cid, remote_port);
-		
-		          bridge_descriptors(new_sock, new_sock, tunnel_socket, tunnel_socket);
-		
-		       } else {
-		          perror("[Tunnel]...Connection failed");
-       		       }
-
-                    } else {
-
-                       // Use stdin/stdout
-    		       bridge_sockets_and_descriptors(new_sock, stdin, stdout);
-
-                    }
-
-                  } else {
-
-                    // Parent process
-                    close (new_sock);
-                    fprintf(stderr, "Parent process closed new sock (vsockets_nc)\n");
-                  }
-
-                } else {
-                  // Single connection
-    		   bridge_sockets_and_descriptors(new_sock, stdin, stdout);
-                }
-
-
-            } // Accept
-
-            fprintf(stderr, "Waiting for more connections ... (vsockets_nc)\n");
-
-	 } // while
-       } 
-        else {
-          perror("...Connection failed");
-       }
 
 	
     }

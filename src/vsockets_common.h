@@ -28,6 +28,8 @@
 #define VMWARE_PLAYER_HOST_CID 0
 #define VMWARE_ESXI_HOST_CID 2
 
+#define VMWARE_HYPERVISOR_CID 2
+
 // TODO: define typedef for CID
 
  //

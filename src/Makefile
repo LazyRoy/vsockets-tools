@@ -20,7 +20,12 @@
 
 CC:=gcc
 
-COPTIONS:=-g -static -Wall
+INCLUDES:= ../lib/tmp/liblist-2.4.mingw32/include
+LIBS:= -L../lib/tmp/liblist-2.4.mingw32/lib  -llist -lws2_32
+
+# -L../lib/tmp/liblist-2.4.mingw32/lib
+
+COPTIONS:=-g -static -Wall -I$(INCLUDES)
 
 COMMON_C_FILES:= vsockets_common.c sockets_common.c
 
@@ -28,7 +33,8 @@ TARGETDIR:=./target
 
 TARGETBINDIR:=$(TARGETDIR)/bin
 
-LIBS:= ../lib/tmp/list.o
+#LIBS:= ../lib/tmp/list.o
+
 
 BINS:=
 
@@ -36,8 +42,8 @@ all: vsockets_hostname vsockets_nc
 
 vsockets_hostname: ./vsockets_hostname.c $(COMMON_C_FILES)
 	@echo "### Making vsockets_hostname"
-	$(CC) $(COPTIONS) $(LIBS)  vsockets_hostname.c $(COMMON_C_FILES) -o $(TARGETBINDIR)/vsockets_hostname
+	$(CC) $(COPTIONS)  vsockets_hostname.c $(COMMON_C_FILES) $(LIBS) -o $(TARGETBINDIR)/vsockets_hostname
 
 vsockets_nc: ./vsockets_nc.c $(COMMON_C_FILES) ipv4_common.c
 	@echo "### Making vsockets_nc"
-	$(CC) $(COPTIONS) $(LIBS) vsockets_nc.c $(COMMON_C_FILES) ipv4_common.c -o $(TARGETBINDIR)/vsockets_nc 
+	$(CC) $(COPTIONS) vsockets_nc.c $(COMMON_C_FILES) ipv4_common.c $(LIBS) -o $(TARGETBINDIR)/vsockets_nc 

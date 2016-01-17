@@ -22,9 +22,8 @@
 #include <stdlib.h>
 
 #include "vmci_sockets.h"
+#include "sockets_common.h"
 #include <stdio.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
 #include "ipv4_common.h"
 
 //
@@ -53,7 +52,7 @@ int try_ipv4_connection(int CID, int port)
 
    if (bind(sockfd_stream, (struct sockaddr *) &my_addr, sizeof my_addr) == -1) {
      perror("bind");
-     close(sockfd_stream);
+     socket_close(sockfd_stream);
      exit(1);
    }
 
@@ -63,7 +62,7 @@ int try_ipv4_connection(int CID, int port)
    their_addr.svm_port = port;
    if ((connect(sockfd_stream, (struct sockaddr *) &their_addr, sizeof their_addr)) == -1) {
      perror("connect");
-     close(sockfd_stream);
+     socket_close(sockfd_stream);
      return -1;
    }
 
@@ -88,7 +87,7 @@ int try_ipv4_listen(int port)
    fprintf(stderr, "ipv4 socket=%d\n", sockfd_stream);
 
    int enable = 1;
-   if (setsockopt(sockfd_stream, SOL_SOCKET, SO_REUSEADDR, &enable, sizeof(int)) < 0)
+   if (setsockopt(sockfd_stream, SOL_SOCKET, SO_REUSEADDR, (char*)&enable, sizeof(int)) < 0)
      perror("setsockopt(SO_REUSEADDR) failed");
 
    my_addr.sin_family = AF_INET;
@@ -97,7 +96,7 @@ int try_ipv4_listen(int port)
 
    if (bind(sockfd_stream, (struct sockaddr *) &my_addr, sizeof my_addr) == -1) {
      perror("bind");
-     close(sockfd_stream);
+     socket_close(sockfd_stream);
      return -1;
    }
 
