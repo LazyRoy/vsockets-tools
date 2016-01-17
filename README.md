@@ -114,8 +114,8 @@ vmci socket=5
 
 ### VMware Player 7 port scans ###
 
-* guest => CID=2 : só vê os portos novos abertos pelo vsockets_nc
-* guest => CID=0 : vê o porto 976 aberto
+* guest => host (CID=2) : só vê os portos novos abertos pelo vsockets_nc
+* guest => hypervisor (CID=0) : vê o porto 976 aberto
 * guest => guest : só vê os portos novos abertos pelo vsockets_nc
 
 * host => CID=2 : não vê nada aberto 
