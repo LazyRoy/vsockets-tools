@@ -97,6 +97,20 @@ vmci socket=5
 ...Connection established to CID=942803562 : Port:7000
 ~~~~
 
+### vsockets_hostname examples ###
+
+#### Windows VMWare Player Host ###
+
+~~~~
+D:\vsockets tools [GIT]\src\target\bin>vsockets_hostname.exe
+VMware vsockets environment properties
+=======================================
+VMware vmci address familly=28
+VMware vmci is present
+VMware vmci local CID=2
+VMware Hypervisor host machine detected (CID=2)
+~~~~
+
 
 ### ESXi port scans ###
 
