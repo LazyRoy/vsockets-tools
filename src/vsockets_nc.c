@@ -39,11 +39,9 @@
 
 	root@kali:~/projects/vmci# vsockets_nc -h
 	[v0.01]
-	connect to somewhere:	vsockets_nc [-options] -c CID -s port [-r [ports] ]... 
+	connect to somewhere:	vsockets_nc [-options] -c CID -s port ... 
 	listen for inbound:	vsockets_nc -l [port]
-
-	port numbers can be individual or ranges: lo-hi [inclusive];
-	hyphens in port names must be backslash escaped (e.g. 'ftp\-data').
+		
 
 *******/
 
@@ -223,6 +221,9 @@ void listening_mode(short listen_on_vsockets,
 							vsocket_listen_event_handler,
 							NULL, 0);
 	}
+	else {
+		exit(0);
+	}
 
 	while (1) {
 		fprintf(stderr, "...entering main cycle\n");
@@ -231,6 +232,12 @@ void listening_mode(short listen_on_vsockets,
 	}
 }
 
+
+void display_help(char *bin)
+{
+	fprintf(stderr, "Usage: %s [-c <connect to CID>] [-s <connect port>] \n\t\t[-l <listen port vsocket>] [-i <listen port ipv4>] [-t]\n",
+		bin);
+}
 
 int
 main(int argc, char *argv[])
@@ -241,12 +248,16 @@ main(int argc, char *argv[])
 
            int flag_listen = false;            
            int flag_tcp_ip_v4_listen = false;                     
+		   int flag_connect = false;
+
 
            int flag_tunnel_incomming_connections = false;
 
            int flag_port_scan = false;
 
            char fork_cmd_line[1000];
+
+		   int flag_remote_port = false;
 
            char opt;
 
@@ -257,11 +268,13 @@ main(int argc, char *argv[])
                 /* Remote CID to connect to */
                case 'c':             
                    sscanf(optarg, "%u", &remote_cid);
+				   flag_connect = true;
                    break;
                    
                /* Remote port to connect to */
                case 's':
                    remote_port = atoi(optarg);
+				   flag_remote_port = true;
                    break;
 
                /* Listen port (local) for vsockets address family */
@@ -288,8 +301,7 @@ main(int argc, char *argv[])
 
 
                default: /* '?' */
-                   fprintf(stderr, "Usage: %s [-c <connect to CID>] [-s <connect port>] \n\t\t[-l <listen port vsocket>] [-i <listen port ipv4>] [-t] [-f]\n",
-                           argv[0]);
+				   display_help(argv[0]);
                    exit(EXIT_FAILURE);
                }
            }
@@ -297,12 +309,18 @@ main(int argc, char *argv[])
 
     dump_vsocket_properties();
 
+	if (!vsockets_is_available()) {
+		fprintf(stderr, "vsockets are not available in this system\n");
+		exit(EXIT_FAILURE);
+	}
+
 	socket_init_api();
 
 	socket_list_init(&sockets);
 
     if ( flag_port_scan == true ) {
      host_port_scan(remote_cid);
+	 exit(1);
     }
 
 	session_options.flag_listen_vsockets = flag_listen;
@@ -312,7 +330,9 @@ main(int argc, char *argv[])
 	session_options.remote_port = remote_port;
 	session_options.remote_cid = remote_cid;
 
-    if ( (flag_listen == false) && (flag_tcp_ip_v4_listen == false) ) {
+    if ((flag_connect == true) && (flag_remote_port == true)) {
+
+		/* Client-connect mode */
 
        int socket;
       
@@ -334,7 +354,7 @@ main(int argc, char *argv[])
        }
 
 
-    } else {
+    } else if ((flag_listen == true) || (flag_tcp_ip_v4_listen == true))  {
 
 	   /* Listening mode */
 
@@ -345,7 +365,12 @@ main(int argc, char *argv[])
 
 
 	
-    }
+	}
+	else {
+
+		/* Invalid arguments, display help */
+		display_help(argv[0]);
+	}
 	
 
    return 0;

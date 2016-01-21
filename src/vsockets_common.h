@@ -30,6 +30,9 @@
 
 #define VMWARE_HYPERVISOR_CID 2
 
+/* Physical machine with the vsockets driver but without hypervisor */
+#define VMWARE_INVALID_CID -1
+
 // TODO: define typedef for CID
 
  //
@@ -47,5 +50,6 @@ int try_listen(int port);
 
 int dump_vsocket_properties();
 
+int vsockets_is_available();
 
 #endif

@@ -44,7 +44,7 @@ int try_connection(int CID, int port)
 
    sockfd_stream = socket(afVMCI, SOCK_STREAM, 0);
    if (sockfd_stream < 0) {
-     perror("error creating socket\n");  
+     perror("error creating socket\n"); 
      exit(1);
    }
 
@@ -57,6 +57,7 @@ int try_connection(int CID, int port)
 
    if (bind(sockfd_stream, (struct sockaddr *) &my_addr, sizeof my_addr) == -1) {
      perror("bind");
+	 
      socket_close(sockfd_stream);
      exit(1);
    }
@@ -139,6 +140,9 @@ int try_listen(int port)
 
    if (bind(sockfd_stream, (struct sockaddr *) &my_addr, sizeof my_addr) == -1) {
      perror("bind");
+	 fprintf(stderr, "Maybe you are not running as root or Administrator\n");
+	 if (port < 1024)
+		 fprintf(stderr, "Listening in ports lower than 1024 require running as root or Administrator\n");
      socket_close(sockfd_stream);
      return -1;
    }
@@ -153,8 +157,21 @@ int try_listen(int port)
 }
 
 
+int vsockets_is_available()
+{
 
+	int afVMCI = VMCISock_GetAFValue();
+	int localCID = -1;
 
+	fprintf(stderr, "vsocket_is_available>>VMware vmci address familly=%d\n", afVMCI);
+
+	if (afVMCI > 0) {
+	   localCID = VMCISock_GetLocalCID();
+	   fprintf(stderr, "VMware vmci local CID=%u\n", localCID);
+	}
+
+	return ((afVMCI > 0) && (localCID > 0));
+}
 
 int dump_vsocket_properties()
 {
@@ -183,8 +200,12 @@ int dump_vsocket_properties()
 	if (localCID == VMWARE_HYPERVISOR_CID) {
 		fprintf(stderr, "VMware Hypervisor host machine detected (CID=%u)\n", VMWARE_HYPERVISOR_CID);
 
-     } else {
-	fprintf(stderr, "guest machine detected (CID=%u)\n", localCID);
+     } else if (localCID == VMWARE_INVALID_CID) {
+		 fprintf(stderr, "Physical machine without hypervisor installation detected (CID=%u)\n", VMWARE_INVALID_CID);
+
+	 }
+	 else {
+	fprintf(stderr, "Guest machine detected (CID=%u)\n", localCID);
      }
 
      return 1;
