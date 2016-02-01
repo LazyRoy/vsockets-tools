@@ -203,6 +203,8 @@ void listening_mode(short listen_on_vsockets,
 	
 	int socket;
 
+	DEBUG_ENTER(listening_mode);
+
 	if (listen_on_vsockets)
 		socket = try_listen(local_port);
 	else
@@ -221,6 +223,7 @@ void listening_mode(short listen_on_vsockets,
 
 	}
 	else {
+		DEBUG_LEAVE(listening_mode);
 		exit(0);
 	}
 
@@ -229,6 +232,8 @@ void listening_mode(short listen_on_vsockets,
 
 		socket_list_select_and_handle_events(&sockets);
 	}
+
+	DEBUG_LEAVE(listening_mode);
 }
 
 
@@ -337,7 +342,7 @@ main(int argc, char *argv[])
 	session_options.remote_port = remote_port;
 	session_options.remote_cid = remote_cid;
 
-    if ((flag_connect == true) && (flag_remote_port == true)) {
+    if ((flag_tunnel_incomming_connections==false) && (flag_connect == true) && (flag_remote_port == true)) {
 
 		/* Client-connect mode */
 

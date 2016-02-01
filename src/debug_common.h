@@ -36,13 +36,17 @@ void debug_disable();
 int debug_is_active();
 
 char *debug_get_time_str_now();
+char *debug_get_time_stack_tabs();
+
+
+extern int debug_stack_depth;
 
 
 /* Reference: https://gcc.gnu.org/onlinedocs/cpp/Variadic-Macros.html#Variadic-Macros */
 
-#define debug_printf(...) { if (debug_is_active()) { fprintf (stderr,"(%s) ", debug_get_time_str_now()); fprintf (stderr, __VA_ARGS__); fprintf (stderr,"\n"); } }
+#define debug_printf(...) { if (debug_is_active()) { fprintf (stderr,"(%s) %s", debug_get_time_str_now(), debug_get_time_stack_tabs()); fprintf (stderr, __VA_ARGS__); fprintf (stderr,"\n"); } }
 
-#define DEBUG_ENTER(function) debug_printf(">" #function )
-#define DEBUG_LEAVE(function) debug_printf("<" #function )
+#define DEBUG_ENTER(function) { debug_printf(">" #function ); debug_stack_depth++; }
+#define DEBUG_LEAVE(function) { debug_stack_depth--; debug_printf("<" #function );  }
 
 #endif

@@ -57,7 +57,25 @@ char *debug_get_time_str_now()
 	return c_time_string;
 }
 
+
+char *debug_get_time_stack_tabs()
+{
+	static char c_tab_string[20000];
+
+	int i;
+
+	c_tab_string[0] = '\0';
+
+	for (i = 0; i < debug_stack_depth; i++) {
+		strcat(c_tab_string, "    ");
+	}
+
+	return c_tab_string;
+}
+
 static int debug_status = FALSE;
+int debug_stack_depth = 0;
+
 
 void debug_start_message()
 {
@@ -68,6 +86,7 @@ void debug_start_message()
 void debug_enable()
 {
 	debug_status = TRUE;
+	debug_stack_depth = 0;
 
 	debug_start_message();
 }

@@ -68,8 +68,9 @@ int try_connection(int CID, int port)
    their_addr.svm_cid = (CID==-1) ? VMADDR_CID_ANY : CID;
    their_addr.svm_port = port;
    if ((connect(sockfd_stream, (struct sockaddr *) &their_addr, sizeof their_addr)) == -1) {
-     perror("connect");
-     debug_printf( "Closing vmci socket %u", sockfd_stream );
+     //perror("connect");
+	 debug_printf("connect failed");
+     debug_printf("Closing vmci socket %u", sockfd_stream );
 	 socket_close(sockfd_stream);
      return -1;
    }
@@ -84,6 +85,8 @@ int try_connection(int CID, int port)
 int host_port_scan(int CID)
 {
    int i;
+
+   DEBUG_ENTER(host_port_scan);
 
    printf("Scanning vsocket ports for CID=%u...\n", CID);
 
@@ -110,6 +113,8 @@ int host_port_scan(int CID)
 	 // wait(&status);
       } */
    }
+
+   DEBUG_LEAVE(host_port_scan);
 
    return FALSE;
 }

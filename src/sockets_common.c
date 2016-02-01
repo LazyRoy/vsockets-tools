@@ -356,7 +356,7 @@ int socket_list_select_and_handle_events(SOCKET_LIST *socket_list)
 	fd_set socket_mask;
 	struct timeval timeout, *pTimeout;
 
-	debug_printf( ">socket_list_select_and_handle_events");
+	DEBUG_ENTER(socket_list_select_and_handle_events);
 
 	socket_list_debug_dump(socket_list);
 
@@ -393,7 +393,7 @@ int socket_list_select_and_handle_events(SOCKET_LIST *socket_list)
 		}
 	}
 
-	debug_printf( "<socket_list_select_and_handle_events");
+	DEBUG_LEAVE(socket_list_select_and_handle_events);
 
 	return !list_empty(socket_list->sockets);
 }
