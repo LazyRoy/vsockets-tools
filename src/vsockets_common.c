@@ -170,7 +170,15 @@ int vsockets_is_available()
 	   fprintf(stderr, "VMware vmci local CID=%u\n", localCID);
 	}
 
-	return ((afVMCI > 0) && (localCID > 0));
+	if ((afVMCI > 0) && (localCID !=-1)) {
+		fprintf(stderr, "TRUE\n");
+		return TRUE;
+	}
+	else {
+		fprintf(stderr, "FALSE %d %d\n", afVMCI, localCID);
+		return FALSE;
+	}
+
 }
 
 int dump_vsocket_properties()

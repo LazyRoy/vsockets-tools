@@ -27,7 +27,7 @@
 
 #include "list.h"
 
-#ifdef LINUX
+#ifdef linux
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>

@@ -20,10 +20,30 @@
 
 CC:=gcc
 
+host-type := $(shell uname)
+
+ifeq ($(host-type),Linux)
+PLATFORM := LINUX
+else
+PLATFORM := WIN32
+endif
+
+ifeq ($(PLATFORM),WIN32)
+
 INCLUDES:= ../lib/tmp/liblist-2.4.mingw32/include
 LIBS:= -L../lib/tmp/liblist-2.4.mingw32/lib  -llist -lws2_32
 
+else
+
 # -L../lib/tmp/liblist-2.4.mingw32/lib
+
+#LIBS:= -L../lib/tmp/  -llist 
+
+LIBS:= ../lib/tmp/list.o
+INCLUDES:= .
+
+endif
+
 
 COPTIONS:=-g -static -Wall -I$(INCLUDES)
 

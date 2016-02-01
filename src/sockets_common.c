@@ -56,6 +56,7 @@ write
 
 */
 
+#ifdef WINNT
 
 #define STDIN_READ_BUFFER_SIZE 1024
 
@@ -94,6 +95,7 @@ static DWORD WINAPI stdin_read_thread(void *param)
 	return 0;
 }
 
+#endif // WINNT
 
 int socket_list_init(SOCKET_LIST *socket_list)
 {
@@ -128,7 +130,7 @@ int socket_list_insert(SOCKET_LIST *socket_list, SOCKET_HANDLE socket,
 		entry.context_data = NULL;
 	}
 
-#ifndef LINUX
+#ifndef linux
 	if (socket == fileno(stdout) || socket == fileno(stdin) || socket == fileno(stderr)) {
 		socket_list->n_special_descriptors++;
 		entry.is_special_descriptor = TRUE;
@@ -236,7 +238,7 @@ int sock_fdset_list_traverse_func(void *data, void *element)
 	mask = (fd_set*)data;
 
 	if (!pEntry->deleted) {
-#ifdef LINUX
+#ifdef linux
 		FD_SET(pEntry->socket, mask);
 #else 
 		if (!pEntry->is_special_descriptor)
@@ -286,7 +288,7 @@ int sock_remove_marked_for_removal_list_traverse_func(void *data, void *element)
 
 int sock_handle_poll_for_special_descriptor_event(SOCKET_ENTRY *entry)
 {
-#ifndef LINUX
+#ifdef WINNT
 	int fd = entry->socket;
 
 	/* STDIN */
@@ -496,7 +498,7 @@ char* socket_handle2string(SOCKET_HANDLE socket)
 
 int socket_init_api()
 {
-#ifdef LINUX
+#ifdef linux
 	return TRUE;
 #else
 	WORD wVersionRequested;
@@ -546,7 +548,7 @@ int socket_accept(SOCKET_HANDLE sockfd, struct sockaddr *addr, socklen_t *addrle
 
 int socket_read(int fd, void *buf, size_t count)
 {
-#ifdef LINUX
+#ifdef linux
 	return read(fd, buf, count);
 #else
 	if (fd == fileno(stdin)) {
@@ -564,7 +566,7 @@ int socket_read(int fd, void *buf, size_t count)
 
 int socket_write(int fd, void *buf, size_t count)
 {
-#ifdef LINUX
+#ifdef linux
 	return write(fd, buf, count);
 #else
 
@@ -588,8 +590,11 @@ int socket_write(int fd, void *buf, size_t count)
 
 int socket_close(SOCKET_HANDLE sockfd)
 {
-#ifdef LINUX
-	return close(sockfd);
+#ifdef linux
+	if (sockfd != fileno(stdin))
+		return close(sockfd);
+	else
+		return FALSE;
 #else
 	return closesocket(sockfd);
 #endif
