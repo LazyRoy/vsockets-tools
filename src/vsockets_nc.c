@@ -29,6 +29,8 @@
 #include "sockets_common.h"
 #include "vsockets_common.h"
 #include "ipv4_common.h"
+#include "debug_common.h"
+#include "vsockets_tools_version.h"
 
 #define true 1
 #define false 0
@@ -71,13 +73,13 @@ int bridged_socket_event_handler(SOCKET_HANDLE socket_in, void *context_data)
 	
 	SOCKET_HANDLE socket_out = *((SOCKET_HANDLE*)context_data);
 
-	fprintf(stderr, "...Reading from socket %d ...\n", socket_in);
+	debug_printf( "...Reading from socket %d ...", socket_in);
 
 	len = socket_read(socket_in, buffer, BRIDGE_BUF_SIZE);
 
 	if (len > 0) {
 
-		fprintf(stderr, "Read %u bytes from channel 1\n", len);
+		debug_printf( "Read %u bytes from channel 1", len);
 
 		len = socket_write(socket_out, buffer, len);
 
@@ -86,25 +88,19 @@ int bridged_socket_event_handler(SOCKET_HANDLE socket_in, void *context_data)
 			exit(1);
 		}
 
-		fprintf(stderr, "Wrote %u bytes to channel 2\n", len);
+		debug_printf( "Wrote %u bytes to channel 2", len);
 		
 		return true;
 	}
 	else {
 		perror("Lost connection channel 1\n");
-		
-		// TODO: remove bridged sockets from list and close
-
-		// Corrigir: marcar a entrada como apagada até terminar o ciclo de eventos
-		// Quando voltar ao ciclo principal, apaga o lixo
+	
 
 		socket_list_delete(&sockets, socket_in);
 		socket_close(socket_in);
 
 		socket_list_delete(&sockets, socket_out);
 		socket_close(socket_out);
-
-		// exit(1);
 
 		return 0;
 	}
@@ -115,7 +111,7 @@ void bridge_descriptors(int fd1_in, int fd1_out, int fd2_in, int fd2_out)
 {
 	
 
-	fprintf(stderr, "...bridging\n");
+	debug_printf( "...bridging");
 
 	socket_list_insert(&sockets,
 		fd1_in,
@@ -162,14 +158,14 @@ int vsocket_listen_event_handler(SOCKET_HANDLE socket, void *context_data)
 		exit(1);
 	}
 	else {
-		fprintf(stderr, "....Accepted\n");
+		debug_printf( "....Accepted");
 
 		if (session_options.flag_tunnel_connections) {
 			// Tunelling
 
 			int tunnel_socket;
 
-			fprintf(stderr, "[Tunnel]...Connecting to CID=%hu : Port:%hu\n", 
+			debug_printf( "[Tunnel]...Connecting to CID=%hu : Port:%hu", 
 				session_options.remote_cid, session_options.remote_port);
 
 
@@ -177,7 +173,7 @@ int vsocket_listen_event_handler(SOCKET_HANDLE socket, void *context_data)
 				session_options.remote_port);
 
 			if (tunnel_socket > 0) {
-				fprintf(stderr, "[Tunnel]...Connection established to CID=%u : Port:%hu\n", 
+				debug_printf( "[Tunnel]...Connection established to CID=%u : Port:%hu", 
 					session_options.remote_cid, session_options.remote_port);
 
 				bridge_descriptors(new_sock, new_sock, tunnel_socket, tunnel_socket);
@@ -214,19 +210,22 @@ void listening_mode(short listen_on_vsockets,
 
 
 	if (socket > 0) {
-		fprintf(stderr, "...listening in port:%hu\n", local_port);
+		
+		debug_printf("...listening in port:%hu", local_port);
+
 
 		socket_list_insert(&sockets,
 							socket,
 							vsocket_listen_event_handler,
 							NULL, 0);
+
 	}
 	else {
 		exit(0);
 	}
 
 	while (1) {
-		fprintf(stderr, "...entering main cycle\n");
+		debug_printf( "...entering main cycle");
 
 		socket_list_select_and_handle_events(&sockets);
 	}
@@ -235,8 +234,11 @@ void listening_mode(short listen_on_vsockets,
 
 void display_help(char *bin)
 {
-	fprintf(stderr, "Usage: %s [-c <connect to CID>] [-s <connect port>] \n\t\t[-l <listen port vsocket>] [-i <listen port ipv4>] [-t]\n",
+	printf("Usage: %s [-c <connect to CID>] [-p <connect port>] \n\t\t[-l <listen port vsocket>] [-i <listen port ipv4>] [-t] [-d]\n",
 		bin);
+
+
+	printf("\nVersion=%s\n",VSOCKETS_TOOLS_VERSION_STRING);
 }
 
 int
@@ -262,7 +264,7 @@ main(int argc, char *argv[])
            char opt;
 
 
-           while ((opt = getopt(argc, argv, "c:s:l:i:tn")) != -1) {
+           while ((opt = getopt(argc, argv, "c:p:l:i:tnd")) != -1) {
                switch (opt) {
                    
                 /* Remote CID to connect to */
@@ -272,7 +274,7 @@ main(int argc, char *argv[])
                    break;
                    
                /* Remote port to connect to */
-               case 's':
+               case 'p':
                    remote_port = atoi(optarg);
 				   flag_remote_port = true;
                    break;
@@ -298,6 +300,11 @@ main(int argc, char *argv[])
                case 'n':
 		           flag_port_scan = true;
                    break;
+
+			   /* activate debugging */
+			   case 'd':
+				   debug_enable();
+				   break;
 
 
                default: /* '?' */
@@ -336,13 +343,13 @@ main(int argc, char *argv[])
 
        int socket;
       
-       fprintf(stderr, "...Connecting to CID=%hu : Port:%u\n", remote_cid, remote_port);
+       debug_printf( "...Connecting to CID=%hu : Port:%u", remote_cid, remote_port);
 
       
        socket = try_connection(remote_cid, remote_port);
 
        if (socket > 0) {
-          fprintf(stderr, "...Connection established to CID=%u : Port:%hu\n", remote_cid, remote_port);
+          debug_printf( "...Connection established to CID=%u : Port:%hu", remote_cid, remote_port);
 
           bridge_sockets_and_descriptors(socket, stdin, stdout);
 

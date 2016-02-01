@@ -32,6 +32,8 @@
 
 #include "sockets_common.h"
 
+#include "debug_common.h"
+
 /* TODO: implementar umas cascas */
 
 /*
@@ -72,25 +74,25 @@ static DWORD WINAPI stdin_read_thread(void *param)
 
 	DWORD nBytesRead, nBytesWriten;
 
-	fprintf(stderr, ">>>>Starting stdin thread\n\n");
+	debug_printf( ">>>>Starting stdin thread\n");
 
 	inhandle = GetStdHandle(STD_INPUT_HANDLE);
 
-	fprintf(stderr, ">>>>THREAD: inhandle=%p\n\n", inhandle);
+	debug_printf( ">>>>THREAD: inhandle=%p\n", inhandle);
 
 	CreatePipe(&hReadPipe, &hWritePipe,	NULL, 0);
 
 	while (ReadFile(inhandle, read_buffer, sizeof(read_buffer),
 		&nBytesRead, NULL) && (nBytesRead > 0) ) {
 
-		fprintf(stderr, ">>>>THREAD: read some bytes=%d\n\n", nBytesRead);
+		debug_printf( ">>>>THREAD: read some bytes=%d\n", nBytesRead);
 
 		WriteFile(hWritePipe, read_buffer, nBytesRead, &nBytesWriten, NULL);
 		
-		fprintf(stderr, ">>>>THREAD: wrote some bytes=%d\n\n", nBytesWriten);
+		debug_printf( ">>>>THREAD: wrote some bytes=%d\n", nBytesWriten);
 	}
 
-	fprintf(stderr, ">>>>THREAD: found EOF, ending\n\n");
+	debug_printf( ">>>>THREAD: found EOF, ending\n");
 
 	return 0;
 }
@@ -155,7 +157,7 @@ int sock_delete_list_traverse_func(void *data, void *element)
 	pEntry = (SOCKET_ENTRY *)element;
 	socket = *((SOCKET_HANDLE*)data);
 
-	fprintf(stderr, ">sock_delete_list_traverse_func (socket_entry=%u socket2delete=%u)\n", socket, pEntry->socket);
+	debug_printf( ">sock_delete_list_traverse_func (socket_entry=%u socket2delete=%u)", socket, pEntry->socket);
 
 	if (pEntry->socket == socket) {
 	
@@ -164,7 +166,7 @@ int sock_delete_list_traverse_func(void *data, void *element)
 
 		pEntry->deleted = TRUE;
 
-		fprintf(stderr, "<sock_delete_list_traverse_func\n");
+		debug_printf( "<sock_delete_list_traverse_func");
 		/* Element found, stop traversing */
 		return FALSE;
 	}
@@ -179,20 +181,20 @@ int sock_delete_list_traverse_func(void *data, void *element)
 int socket_list_delete(SOCKET_LIST *socket_list, SOCKET_HANDLE socket)
 {
 
-	fprintf(stderr, ">socket_list_delete (socket=%u)\n", socket);
+	debug_printf( ">socket_list_delete (socket=%u)", socket);
 
 	if ( list_traverse(socket_list->sockets, (void*)&socket, sock_delete_list_traverse_func, 0) == LIST_OK ) {			
 
 		/* list_remove_curr(socket_list->sockets); */
 
 
-		fprintf(stderr, "<socket_list_delete(TRUE)\n");
+		debug_printf( "<socket_list_delete(TRUE)");
 
 		return TRUE;
 	}
 	else {
 		
-		fprintf(stderr, "<socket_list_delete(FALSE)\n");
+		debug_printf( "<socket_list_delete(FALSE)");
 
 		return FALSE;
 	}
@@ -207,7 +209,7 @@ int sock_debug_dump_list_traverse_func(void *data, void *element)
 	pEntry = (SOCKET_ENTRY *)element;
 
 
-	fprintf(stderr, "----> socket=%d [h=%p cdata=%p del=%hu %s]\n", 
+	debug_printf( "----> socket=%d [h=%p cdata=%p del=%hu %s]", 
 		pEntry->socket, pEntry->handler, pEntry->context_data, pEntry->deleted,
 		socket_handle2string(pEntry->socket)
 		);
@@ -232,7 +234,7 @@ int sock_fdset_list_traverse_func(void *data, void *element)
 	SOCKET_ENTRY *pEntry;
 	fd_set *mask;
 
-	fprintf(stderr, ">sock_fdset_list_traverse_func\n");
+	debug_printf( ">sock_fdset_list_traverse_func");
 
 	pEntry = (SOCKET_ENTRY *)element;
 	mask = (fd_set*)data;
@@ -243,13 +245,14 @@ int sock_fdset_list_traverse_func(void *data, void *element)
 #else 
 		if (!pEntry->is_special_descriptor)
 			FD_SET(pEntry->socket, mask);
-		else
-			fprintf(stderr, "file descriptor %d ignored\n", pEntry->socket);
+		else {
+			debug_printf("file descriptor %d ignored", pEntry->socket);
+		}
 #endif
 	}
 
 	/* continue traversing */
-	fprintf(stderr, "<sock_fdset_list_traverse_func\n");
+	debug_printf( "<sock_fdset_list_traverse_func");
 
 	return TRUE;
 }
@@ -270,11 +273,11 @@ int sock_remove_marked_for_removal_list_traverse_func(void *data, void *element)
 
 	pEntry = (SOCKET_ENTRY *)element;
 
-	fprintf(stderr, ">sock_remove_marked_for_removal_list_traverse_func (socket_entry=%u )\n", pEntry->socket);
+	debug_printf( ">sock_remove_marked_for_removal_list_traverse_func (socket_entry=%u )", pEntry->socket);
 
 	if (pEntry->deleted) {	
 
-		fprintf(stderr, "<sock_remove_marked_for_removal_list_traverse_func\n");
+		debug_printf( "<sock_remove_marked_for_removal_list_traverse_func");
 		/* Element found, stop traversing */
 		return FALSE;
 	}
@@ -323,7 +326,7 @@ int sock_handle_event_list_traverse_func(void *data, void *element)
 	SOCKET_ENTRY *pEntry;
 	fd_set *mask;
 
-	fprintf(stderr, ">sock_handle_event_list_traverse_func\n");
+	debug_printf( ">sock_handle_event_list_traverse_func");
 
 	pEntry = (SOCKET_ENTRY *)element;
 	mask = (fd_set*)data;
@@ -341,7 +344,7 @@ int sock_handle_event_list_traverse_func(void *data, void *element)
 		}
 	}
 
-	fprintf(stderr, "<sock_handle_event_list_traverse_func\n");
+	debug_printf( "<sock_handle_event_list_traverse_func");
 
 	/* continue traversing */
 	return TRUE;	
@@ -353,14 +356,14 @@ int socket_list_select_and_handle_events(SOCKET_LIST *socket_list)
 	fd_set socket_mask;
 	struct timeval timeout, *pTimeout;
 
-	fprintf(stderr, ">socket_list_select_and_handle_events\n");
+	debug_printf( ">socket_list_select_and_handle_events");
 
 	socket_list_debug_dump(socket_list);
 
 	// Remove marked items
 
 	while (list_traverse(socket_list->sockets, NULL, sock_remove_marked_for_removal_list_traverse_func, 0) == LIST_OK) {
-		fprintf(stderr, "Going to remove...\n");
+		debug_printf( "Going to remove...");
 		list_remove_curr(socket_list->sockets); 
 	}
 
@@ -379,7 +382,7 @@ int socket_list_select_and_handle_events(SOCKET_LIST *socket_list)
 	if (!list_empty(socket_list->sockets)) {
 		if (select(500, &socket_mask, NULL, NULL, pTimeout) >= 0) { // TODO: fix N_FDs
 
-			fprintf(stderr, "selected...");
+			debug_printf( "selected...");
 
 			list_traverse(socket_list->sockets, &socket_mask, sock_handle_event_list_traverse_func, 0);
 
@@ -390,7 +393,7 @@ int socket_list_select_and_handle_events(SOCKET_LIST *socket_list)
 		}
 	}
 
-	fprintf(stderr, "<socket_list_select_and_handle_events\n");
+	debug_printf( "<socket_list_select_and_handle_events");
 
 	return !list_empty(socket_list->sockets);
 }
@@ -511,7 +514,7 @@ int socket_init_api()
 	if (err != 0) {
 		/* Tell the user that we could not find a usable */
 		/* Winsock DLL.                                  */
-		fprintf(stderr,"WSAStartup failed with error: %d\n", err);
+		debug_printf("WSAStartup failed with error: %d", err);
 		return FALSE;
 	}
 	else {
@@ -533,15 +536,15 @@ int socket_accept(SOCKET_HANDLE sockfd, struct sockaddr *addr, socklen_t *addrle
 {
 	int result;
 
-	fprintf(stderr, ">socket_accept\n");
+	debug_printf( ">socket_accept");
 
 	result = accept(sockfd, addr, addrlen);
 
 	if (addr != NULL) {
-		fprintf(stderr, "[accepted connection from %s]\n", socket_addr2string(addr));
+		debug_printf( "[accepted connection from %s]", socket_addr2string(addr));
 	}
 
-	fprintf(stderr, "<socket_accept (sock=%d)\n", result);
+	debug_printf( "<socket_accept (sock=%d)", result);
 
 	return result;
 }
@@ -570,8 +573,8 @@ int socket_write(int fd, void *buf, size_t count)
 	return write(fd, buf, count);
 #else
 
-	fprintf(stderr, "> socket_write fd=%d count=%d...\n",fd, count);
-	fprintf(stderr, "stdinfd=%d stdoutfd=%d stderrfd=%d \n", 
+	debug_printf( "> socket_write fd=%d count=%d...",fd, count);
+	debug_printf( "stdinfd=%d stdoutfd=%d stderrfd=%d ", 
 		fileno(stdin), fileno(stdout), fileno(stderr));
 
 

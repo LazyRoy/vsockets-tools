@@ -24,8 +24,13 @@ host-type := $(shell uname)
 
 ifeq ($(host-type),Linux)
 PLATFORM := LINUX
+BUILD_DATE := $(shell date --utc)
+
 else
+
 PLATFORM := WIN32
+BUILD_DATE := $(shell date /t) $(shell time /t)
+
 endif
 
 ifeq ($(PLATFORM),WIN32)
@@ -44,10 +49,11 @@ INCLUDES:= .
 
 endif
 
+DEFINES:= -DBUILD_DATE="$(BUILD_DATE)"
 
-COPTIONS:=-g -static -Wall -I$(INCLUDES)
+COPTIONS:=-g -static -Wall -I$(INCLUDES) $(DEFINES)
 
-COMMON_C_FILES:= vsockets_common.c sockets_common.c
+COMMON_C_FILES:= vsockets_common.c sockets_common.c debug_common.c
 
 TARGETDIR:=./target
 

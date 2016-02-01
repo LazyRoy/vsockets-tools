@@ -26,6 +26,7 @@
 #include "vmci_sockets.h"
 #include "sockets_common.h"
 #include "vsockets_common.h"
+#include "debug_common.h"
 
 
 
@@ -40,7 +41,7 @@ int try_connection(int CID, int port)
 
    int sockfd_stream;
 
-   fprintf(stderr, "vmci connecting to=[CID]%u:%u\n", CID, port);
+   debug_printf( "vmci connecting to=[CID]%u:%u", CID, port);
 
    sockfd_stream = socket(afVMCI, SOCK_STREAM, 0);
    if (sockfd_stream < 0) {
@@ -48,7 +49,7 @@ int try_connection(int CID, int port)
      exit(1);
    }
 
-   fprintf(stderr, "vmci socket=%d\n", sockfd_stream);
+   debug_printf( "vmci socket=%d", sockfd_stream);
 
    struct sockaddr_vm my_addr = {0};
    my_addr.svm_family = afVMCI;
@@ -68,7 +69,7 @@ int try_connection(int CID, int port)
    their_addr.svm_port = port;
    if ((connect(sockfd_stream, (struct sockaddr *) &their_addr, sizeof their_addr)) == -1) {
      perror("connect");
-     fprintf( stderr, "Closing vmci socket %u\n", sockfd_stream );
+     debug_printf( "Closing vmci socket %u", sockfd_stream );
 	 socket_close(sockfd_stream);
      return -1;
    }
@@ -123,7 +124,7 @@ int try_listen(int port)
 
    int sockfd_stream;
 
-   fprintf(stderr, "vmci listening in port %d\n", port);
+   debug_printf( "vmci listening in port %d", port);
 
    sockfd_stream = socket(afVMCI, SOCK_STREAM, 0);
    if (sockfd_stream < 0) {
@@ -131,7 +132,7 @@ int try_listen(int port)
      exit(1);
    }
 
-   fprintf(stderr, "vmci socket=%d\n", sockfd_stream);
+   debug_printf( "vmci socket=%d", sockfd_stream);
 
    struct sockaddr_vm my_addr = {0};
    my_addr.svm_family = afVMCI;
@@ -163,19 +164,19 @@ int vsockets_is_available()
 	int afVMCI = VMCISock_GetAFValue();
 	int localCID = -1;
 
-	fprintf(stderr, "vsocket_is_available>>VMware vmci address familly=%d\n", afVMCI);
+	debug_printf( "vsocket_is_available>>VMware vmci address familly=%d", afVMCI);
 
 	if (afVMCI > 0) {
 	   localCID = VMCISock_GetLocalCID();
-	   fprintf(stderr, "VMware vmci local CID=%u\n", localCID);
+	   debug_printf( "VMware vmci local CID=%u", localCID);
 	}
 
 	if ((afVMCI > 0) && (localCID !=-1)) {
-		fprintf(stderr, "TRUE\n");
+		debug_printf( "TRUE");
 		return TRUE;
 	}
 	else {
-		fprintf(stderr, "FALSE %d %d\n", afVMCI, localCID);
+		debug_printf( "FALSE %d %d", afVMCI, localCID);
 		return FALSE;
 	}
 

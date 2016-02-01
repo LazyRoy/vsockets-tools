@@ -25,6 +25,8 @@
 #include "sockets_common.h"
 #include <stdio.h>
 #include "ipv4_common.h"
+#include "debug_common.h"
+
 
 //
 // Connection-oriented 
@@ -35,7 +37,7 @@ int try_ipv4_connection(int CID, int port)
 
    int sockfd_stream;
 
-   fprintf(stderr, "vmci connecting to=[CID]%d:%d\n", CID, port);
+   debug_printf( "vmci connecting to=[CID]%d:%d", CID, port);
 
    sockfd_stream = socket(afVMCI, SOCK_STREAM, 0);
    if (sockfd_stream < 0) {
@@ -43,7 +45,7 @@ int try_ipv4_connection(int CID, int port)
      exit(1);
    }
 
-   fprintf(stderr, "vmci socket=%d\n", sockfd_stream);
+   debug_printf( "vmci socket=%d", sockfd_stream);
 
    struct sockaddr_vm my_addr = {0};
    my_addr.svm_family = afVMCI;
@@ -76,7 +78,7 @@ int try_ipv4_listen(int port)
    int sockfd_stream;
    struct sockaddr_in my_addr;
 
-   fprintf(stderr, "ipv4 listening in port %d\n", port);
+   debug_printf( "ipv4 listening in port %d", port);
 
    sockfd_stream = socket(AF_INET, SOCK_STREAM, 0);
    if (sockfd_stream < 0) {
@@ -84,7 +86,7 @@ int try_ipv4_listen(int port)
      exit(1);
    }
 
-   fprintf(stderr, "ipv4 socket=%d\n", sockfd_stream);
+   debug_printf( "ipv4 socket=%d", sockfd_stream);
 
    int enable = 1;
    if (setsockopt(sockfd_stream, SOL_SOCKET, SO_REUSEADDR, (char*)&enable, sizeof(int)) < 0)
