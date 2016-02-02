@@ -239,11 +239,29 @@ void listening_mode(short listen_on_vsockets,
 
 void display_help(char *bin)
 {
-	printf("Usage: %s [-c <connect to CID>] [-p <connect port>] \n\t\t[-l <listen port vsocket>] [-i <listen port ipv4>] [-t] [-d]\n",
+	printf("Usage: %s [-c <connect to CID>] [-p <connect port>] \n\t\t[-l <listen port vsocket>] [-i <listen port ipv4>] [-t] [-n] [-d]\n",
 		bin);
 
 
-	printf("\nVersion=%s\n",VSOCKETS_TOOLS_VERSION_STRING);
+	printf("\nVersion=%s\n\n",VSOCKETS_TOOLS_VERSION_STRING);
+
+	printf("	OPTIONS\n");
+	printf("		-c CID       Remote CID(address) to connect to\n\n");
+
+	printf("		-p port      Remote port to connect to\n\n");
+
+	printf("		-l port      listen mode, for vsocket address family inbound connects,\n");
+	printf("		             in local port\n\n");
+
+	printf("		-i port      listen mode, for IPv4 address family inbound connects,\n");
+	printf("		             in local port\n\n");
+
+	printf("		-t           tunnel connections\n");
+	printf("		             connects inbound listen address = > remote address\n\n");
+
+	printf("		-n           vsockets port scan mode, performs a port scan over vsockets ports\n\n");
+
+	printf("		-d           print verbose debug information to stderr\n");
 }
 
 int

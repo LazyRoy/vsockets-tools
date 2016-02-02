@@ -1,65 +1,58 @@
 VSOCKETS_NC(1)                                                                    NC(1)
 
 
-
 NAME
        vsockets_nc - vsockets and TCP/IP swiss army knife
 
 SYNOPSIS
-       vsockets_nc [-options] hostname port[s] [ports] ...
-       vsockets_nc -l -p port [-options] [hostname] [port]
+       
+       vsockets_nc [-c <connect to CID>] [-p <connect port>] 
+	               [-l <listen port vsocket>] [-i <listen port ipv4>] 
+				   [-t] [-d]
+				   [-n]
 
 DESCRIPTION
-       netcat is a simple unix utility which reads and writes data across net‐
-       work connections, using TCP or UDP protocol. It is  designed  to  be  a
-       reliable  "back-end" tool that can be used directly or easily driven by
-       other programs and scripts.  At the same time,  it  is  a  feature-rich
-       network  debugging and exploration tool, since it can create almost any
+       vsockets_nc is a simple utility which reads and writes data across net‐
+       work connections, using vsockets connection-oriented protocol
+	   (VMware sockets for host-guest communication, using the "vmci" device). 
+	   It is  designed  to  be  a reliable  "back-end" tool that can be used 
+	   directly or easily driven by other programs and scripts.  
+	   At the same time,  it  is  a  feature-rich
+       vsockets network  debugging and exploration tool, 
+	   since it can create almost any
        kind of connection you would need and has several interesting  built-in
-       capabilities.   Netcat,  or "nc" as the actual program is named, should
-       have been supplied long ago as another one of those cryptic  but  stan‐
-       dard Unix tools.
+       capabilities. It is inspired in the "nc" TCP/IP utility and can be
+	   used in combination with it.
 
-       In  the  simplest usage, "nc host port" creates a TCP connection to the
-       given port on the given target host.  Your standard input is then  sent
+       In  the  simplest usage, 
+	   "vsockets_nc -c <connect to CID>] [-p <connect port>]" creates a 
+	   vsockets connection to the given port on the given target host.  
+	   Your standard input is then  sent
        to the host, and anything that comes back across the connection is sent
        to your standard output.  This continues indefinitely, until  the  net‐
        work  side  of  the  connection shuts down.  Note that this behavior is
        different from most other applications which shut everything  down  and
        exit after an end-of-file on the standard input.
 
-       Netcat  can also function as a server, by listening for inbound connec‐
+       vsockets_nc  can also function as a server, by listening for inbound connec‐
        tions on arbitrary ports and then doing the same reading  and  writing.
-       With  minor  limitations,  netcat  doesn't  really  care  if it runs in
+       With  minor  limitations,  vsockets_nc  doesn't  really  care  if it runs in
        "client" or "server" mode -- it still shovels data back and forth until
-       there isn't any more left. In either mode, shutdown can be forced after
-       a configurable time of inactivity on the network side.
+       there isn't any more left. In either mode, shutdown can be 
+	   forced by Ctrl-C
 
-       And it can do this via UDP too, so netcat is possibly the "udp  telnet-
-       like"  application you always wanted for testing your UDP-mode servers.
-       UDP, as the "U" implies, gives less reliable data transmission than TCP
-       connections  and some systems may have trouble sending large amounts of
-       data that way, but it's still a useful capability to have.
+       "vsockets_nc" can tunnel (forward) connections from 
+	   the TCP/IP address familly to the vsockets address familly. This
+	   can be very useful to integrate with existing TCP/IP tools,
+	   such as nmap, telnet, and so on.
 
-       You may be asking "why not just use  telnet  to  connect  to  arbitrary
-       ports?"  Valid  question,  and  here  are some reasons.  Telnet has the
-       "standard input EOF" problem, so one must introduce  calculated  delays
-       in driving scripts to allow network output to finish.  This is the main
-       reason netcat stays running until the *network*  side  closes.   Telnet
-       also  will  not transfer arbitrary binary data, because certain charac‐
-       ters are interpreted as telnet options and are thus  removed  from  the
-       data  stream.   Telnet  also  emits  some of its diagnostic messages to
-       standard output, where netcat keeps such things  religiously  separated
-       from its *output* and will never modify any of the real data in transit
-       unless you *really* want it to.  And of course telnet is  incapable  of
-       listening  for  inbound  connections,  or  using  UDP  instead.  Netcat
-       doesn't have any of these limitations, is much smaller and faster  than
-       telnet, and has many other advantages.
+	   "vsockets_nc" can perform basic port scanning for vsockets
+	   open ports.
 
 OPTIONS
        -c CID       Remote CID (address) to connect to
 
-       -s port      Remote port to connect to
+       -p port      Remote port to connect to
 
        -l port      listen mode, for vsocket address family inbound connects, 
                     in local port
@@ -67,117 +60,61 @@ OPTIONS
        -i port      listen mode, for IPv4 address family inbound connects, 
                     in local port
 
-       -f cmdline   ? fork and execute
-
        -t           tunnel connections
                     connects inbound listen address => remote address
 
-       -p           vsockets port scan mode, performs a port scan over vsockets ports
+       -n           vsockets port scan mode, performs a port scan over vsockets ports
 
+	   -d		    print verbose debug information to stderr
 
-NOT IMPLEMENTED
-
-       -e filename  specify filename to exec after connect (use with caution).
-                    See the -c option for enhanced functionality.
-
-       -g gateway   source-routing hop point[s], up to 8
-
-       -G num       source-routing pointer: 4, 8, 12, ...
-
-       -h           display help
-
-       -i secs      delay interval for lines sent, ports scanned
-
-       -l           listen mode, for inbound connects
-
-       -n           numeric-only IP addresses, no DNS
-
-       -o file      hex dump of traffic
-
-       -p port      local  port  number  (port  numbers  can  be individual or
-                    ranges: lo-hi [inclusive])
-
-       -q seconds   after EOF on stdin, wait the specified number  of  seconds
-                    and then quit. If seconds is negative, wait forever.
-
-       -b           allow UDP broadcasts
-
-       -r           randomize local and remote ports
-
-       -s addr      local source address
-
-       -t           enable telnet negotiation
-
-       -u           UDP mode
-
-       -v           verbose [use twice to be more verbose]
-
-       -w secs      timeout for connects and final net reads
-
-       -z           zero-I/O mode [used for scanning]
-
-       -T type      set  TOS flag (type may be one of "Minimize-Delay", "Maxi‐
-                    mize-Throughput",  "Maximize-Reliability",  or  "Minimize-
-                    Cost".)
 
 PORT SCANNING
      It	may be useful to know which ports are open and running services	on a
-     target machine.  The -z flag can be used to tell nc to report open	ports,
-     rather than initiate a connection.	 For example
+     target machine.  The -n flag can be used to tell vsockets_nc to 
+	 report open ports,rather than initiate a connection.	 
+	 For example
 
-	   $ nc	-z host.example.com 20-30
-	   Connection to host.example.com 22 port [tcp/ssh] succeeded!
-	   Connection to host.example.com 25 port [tcp/smtp] succeeded!
+	   $ vsockets_nc -c 2 -n
+	   VMware vsockets environment properties
+	   =======================================
+	   VMware vmci address familly=28
+	   VMware vmci is present
+	   VMware vmci local CID=2
+	   VMware Hypervisor host machine detected (CID=2)
+	   Scanning vsocket ports for CID=3669014335...
+	   -+-host port 4000 open
 
-     The port range was	specified to limit the search to ports 20 - 30.
-
-     Alternatively, it might be	useful to know which server software is	run-
-     ning, and which versions.	This information is often contained within the
-     greeting banners.	In order to retrieve these, it is necessary to first
-     make a connection,	and then break the connection when the banner has been
-     retrieved.	 This can be accomplished by specifying	a small	timeout	with
-     the -w flag, or perhaps by	issuing	a "QUIT" command to the	server:
-
-	   $ echo "QUIT" | nc host.example.com 20-30
-	   SSH-1.99-OpenSSH_3.6.1p2
-	   Protocol mismatch.
-	   220 host.example.com	IMS SMTP Receiver Version 0.84 Ready
 
 COPYRIGHT
        vsockets_nc  is  entirely my own creation, although plenty of other code was
        used as examples.  It is freely given away to the Internet community in
-       the  hope  that  it  will be useful, with no restrictions except giving
-       credit where it is due.  No GPLs, Berkeley copyrights or  any  of  that
-       nonsense.  The author assumes NO responsibility for how anyone uses it.
+       the  hope  that  it  will be useful.
+	   The author assumes NO responsibility for how anyone uses it.
        If vsockets_nc makes you rich somehow and you're feeling generous, send me
        some bitcoins.
 
-NOTES
-       Some  port  names  in /etc/services contain hyphens -- netcat currently
-       will not correctly parse those unless you escape the hyphens with back‐
-       slashes (e.g. "netcat localhost 'ftp\-data'").
 
 BUGS
-       Efforts  have  been made to have netcat "do the right thing" in all its
-       various modes.  If you believe that it is doing the wrong  thing  under
+       Efforts  have  been made to have vsockets_nc "do the right thing" in 
+	   all its various modes.  
+	   If you believe that it is doing the wrong  thing  under
        whatever  circumstances,  please notify me and tell me how you think it
-       should behave.  If netcat is not able to do some  task  you  think  up,
-       minor  tweaks  to the code will probably fix that.  It provides a basic
+       should behave.  If vsockets_nc is not able to do some  task  you  
+	   think  up,   minor  tweaks  to the code will probably fix that.  
+	   It provides a basic
        and easily-modified template for writing  other  network  applications,
        and  I  certainly  encourage people to make custom mods and send in any
        improvements they make to it. Continued feedback from the Internet com‐
        munity is always welcome!
 
-EXAMPLES
-       For  several netcat recipes, please see /usr/share/doc/netcat/README.gz
-       and /usr/share/doc/netcat/README.Debian.gz.
 
 AUTHOR
-       This manual page was written by Joey Hess <joeyh@debian.org> and Robert
+       This manual page was written by Pedro Mendes da Silva, based on
+	   the man page for "nc" written by Joey Hess <joeyh@debian.org> and Robert
        Woodcock <rcw@debian.org>, cribbing heavily from Netcat's README file.
 
-       Netcat was written by a guy we know as the Hobbit <hobbit@avian.org>.
+       "vsockets_nc" was written by Pedro Mendes da Silva <tagido@gmail.com>.
 
 
 
-                                                                         NC(1)
+                                                                  VSOCKETS_NC(1)
