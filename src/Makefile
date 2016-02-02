@@ -38,6 +38,8 @@ ifeq ($(PLATFORM),WIN32)
 INCLUDES:= ../lib/tmp/liblist-2.4.mingw32/include
 LIBS:= -L../lib/tmp/liblist-2.4.mingw32/lib  -llist -lws2_32
 
+PLATFORM_DIR=win32
+
 else
 
 # -L../lib/tmp/liblist-2.4.mingw32/lib
@@ -47,6 +49,8 @@ else
 LIBS:= ../lib/tmp/list.o
 INCLUDES:= .
 
+PLATFORM_DIR=linux
+
 endif
 
 DEFINES:= -DBUILD_DATE="$(BUILD_DATE)"
@@ -55,7 +59,7 @@ COPTIONS:=-g -static -Wall -I$(INCLUDES) $(DEFINES)
 
 COMMON_C_FILES:= vsockets_common.c sockets_common.c debug_common.c
 
-TARGETDIR:=./target
+TARGETDIR:=../target/$(PLATFORM_DIR)
 
 TARGETBINDIR:=$(TARGETDIR)/bin
 

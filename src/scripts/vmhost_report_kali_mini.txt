@@ -1,0 +1,282 @@
+#### VMware Host Fingerprinting Report from Guest
+####
+#### (Starting at  Mon May 11 06:26:36 UTC 2015)
+#### Available stats:
+session 
+host 
+resources 
+vscsi ide0:0
+vnet 00:0c:29:32:0a:6a
+vnet 00:0c:29:32:0a:74
+#### Session stats:
+session = -8168698359495121639
+uptime = 6664499511
+version = VMware ESX 6.0.0 build-2494585
+provider = 
+uuid.bios = 56 4d 41 c0 a9 72 3d 10-5f 84 b6 06 38 32 0a 6a
+#### Host stats:
+host.cpu.processorMHz = 2593
+host.cpu.coresPerPkg = 1
+#### VM stats:
+vm.cpu.reserved = 0
+vm.cpu.limit = -1
+vm.cpu.used = 835101825
+vm.cpu.contention.cpu = 85941947
+vm.cpu.contention.mem = 0
+guest.mem.reserved = 0
+guest.mem.limit = 3221225456
+guest.mem.mapped = 1048576
+guest.mem.consumed = 1035848
+guest.mem.swapped = 0
+guest.mem.ballooned = 0
+guest.mem.swapIn = 0
+guest.mem.swapOut = 0
+ovhd.mem.swapped = 0
+ovhd.mem.swapIn = 0
+ovhd.mem.swapOut = 0
+#### VM Guest stats (legacy)
+11 May 2015 06:26:37
+2594 MHz
+0x8ea2f41f24fa2519
+0 MB
+0 MB
+3145727 MB
+0 MB
+0 MHz
+4294967295 MHz
+#### VM Guest tools stats
+VMware Tools daemon, version 9.10.0.43888 (build-2476743)
+#### VM check stats (legacy)
+#### -- Hypervisor type:
+ESX Server
+#### -- VM hardware version:
+VM's hw version is 4
+VMware software version 6 (good)
+0 0
+#### VM storage stats:
+num.reads = 1311
+num.writes = 1556
+size.reads = 25649152
+size.writes = 18219008
+latency.reads = 8747160
+latency.writes = 1934046
+#### VM networking stats:
+num.tx = 2170
+size.tx = 162393
+num.rx = 1358
+size.rx = 160761
+reservation = 0
+limit = -1
+#### VM ARP networking stats:
+Address                  HWtype  HWaddress           Flags Mask            Iface
+192.168.189.254          ether   00:50:56:e4:79:05   C                     eth0
+192.168.189.128          ether   00:0c:29:3a:80:a1   C                     eth0
+192.168.189.2            ether   00:50:56:fc:0d:df   C                     eth0
+192.168.189.1            ether   00:50:56:c0:00:08   C                     eth0
+192.168.189.134          ether   00:0c:29:bd:16:1f   C                     eth0
+#### VM IP routing networking stats:
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+default         192.168.189.2   0.0.0.0         UG    1024   0        0 eth0
+192.168.189.0   *               255.255.255.0   U     0      0        0 eth0
+#### VM IP networking stats:
+eth0      Link encap:Ethernet  HWaddr 00:0c:29:32:0a:6a  
+          inet addr:192.168.189.147  Bcast:192.168.189.255  Mask:255.255.255.0
+          inet6 addr: fe80::20c:29ff:fe32:a6a/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:43356 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:52161 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:11892970 (11.3 MiB)  TX bytes:3669674 (3.4 MiB)
+
+eth1      Link encap:Ethernet  HWaddr 00:0c:29:32:0a:74  
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:2 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:120 (120.0 B)  TX bytes:0 (0.0 B)
+
+lo        Link encap:Local Loopback  
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          inet6 addr: ::1/128 Scope:Host
+          UP LOOPBACK RUNNING  MTU:65536  Metric:1
+          RX packets:2204 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:2204 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0 
+          RX bytes:95120 (92.8 KiB)  TX bytes:95120 (92.8 KiB)
+
+#### BIOS strings:
+	Manufacturer: VMware, Inc.
+	Product Name: VMware Virtual Platform
+	Serial Number: VMware-56 4d 41 c0 a9 72 3d 10-5f 84 b6 06 38 32 0a 6a
+	Description: VMware SVGA II
+#### BIOS signature:
+BIOS Information
+	Vendor: Phoenix Technologies LTD
+	Version: 6.00
+	Release Date: 09/30/2014
+	Address: 0xE9A40
+	Runtime Size: 91584 bytes
+	ROM Size: 64 kB
+	Characteristics:
+		ISA is supported
+		PCI is supported
+#### BIOS Release date:
+	Release Date: 09/30/2014
+#### PCI strings:
+00:00.0 Host bridge: Intel Corporation 440BX/ZX/DX - 82443BX/ZX/DX Host bridge (rev 01)
+00:01.0 PCI bridge: Intel Corporation 440BX/ZX/DX - 82443BX/ZX/DX AGP bridge (rev 01)
+00:07.0 ISA bridge: Intel Corporation 82371AB/EB/MB PIIX4 ISA (rev 08)
+00:07.1 IDE interface: Intel Corporation 82371AB/EB/MB PIIX4 IDE (rev 01)
+00:07.3 Bridge: Intel Corporation 82371AB/EB/MB PIIX4 ACPI (rev 08)
+00:07.7 System peripheral: VMware Virtual Machine Communication Interface (rev 10)
+00:0f.0 VGA compatible controller: VMware SVGA II Adapter
+00:11.0 PCI bridge: VMware PCI bridge (rev 02)
+00:15.0 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:15.1 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:15.2 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:15.3 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:15.4 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:15.5 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:15.6 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:15.7 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:16.0 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:16.1 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:16.2 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:16.3 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:16.4 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:16.5 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:16.6 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:16.7 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:17.0 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:17.1 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:17.2 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:17.3 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:17.4 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:17.5 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:17.6 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:17.7 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:18.0 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:18.1 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:18.2 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:18.3 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:18.4 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:18.5 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:18.6 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:18.7 PCI bridge: VMware PCI Express Root Port (rev 01)
+02:00.0 Ethernet controller: Intel Corporation 82545EM Gigabit Ethernet Controller (Copper) (rev 01)
+03:00.0 Ethernet controller: VMware VMXNET3 Ethernet Controller (rev 01)
+#### CPU features:
+Architecture:          x86_64
+CPU op-mode(s):        32-bit, 64-bit
+Byte Order:            Little Endian
+CPU(s):                1
+On-line CPU(s) list:   0
+Thread(s) per core:    1
+Core(s) per socket:    1
+Socket(s):             1
+NUMA node(s):          1
+Vendor ID:             AuthenticAMD
+CPU family:            18
+Model:                 1
+Model name:            AMD Athlon(tm) II X4 631 Quad-Core Processor
+Stepping:              0
+CPU MHz:               2593.570
+BogoMIPS:              5187.14
+Hypervisor vendor:     VMware
+Virtualization type:   full
+L1d cache:             64K
+L1i cache:             64K
+L2 cache:              1024K
+NUMA node0 CPU(s):     0
+processor	: 0
+vendor_id	: AuthenticAMD
+cpu family	: 18
+model		: 1
+model name	: AMD Athlon(tm) II X4 631 Quad-Core Processor
+stepping	: 0
+microcode	: 0x3000027
+cpu MHz		: 2593.570
+cache size	: 1024 KB
+physical id	: 0
+siblings	: 1
+core id		: 0
+cpu cores	: 1
+apicid		: 0
+initial apicid	: 0
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 6
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 syscall nx mmxext fxsr_opt rdtscp lm 3dnowext 3dnow constant_tsc rep_good nopl tsc_reliable nonstop_tsc aperfmperf pni cx16 popcnt hypervisor lahf_lm extapic abm sse4a misalignsse 3dnowprefetch osvw arat vmmcall
+bugs		: fxsave_leak
+bogomips	: 5187.14
+TLB size	: 1536 4K pages
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 40 bits physical, 48 bits virtual
+power management:
+
+#### vsockets environment:
+#### VM network basic scan:
+#### --- scanning for interesting services:
+
+Starting Nmap 6.49BETA4 ( https://nmap.org ) at 2015-05-11 06:26 UTC
+Nmap scan report for 192.168.189.1
+Host is up (0.00064s latency).
+PORT    STATE    SERVICE        VERSION
+80/tcp  filtered http
+443/tcp filtered https
+902/tcp filtered iss-realsecure
+912/tcp open     vmware-auth    VMware Authentication Daemon 1.0 (Uses VNC, SOAP)
+MAC Address: 00:50:56:C0:00:08 (VMware)
+
+Nmap scan report for 192.168.189.2
+Host is up (0.00043s latency).
+PORT    STATE  SERVICE        VERSION
+MAC Address: 00:50:56:FC:0D:DF (VMware)
+
+Nmap scan report for 192.168.189.128
+Host is up (-0.063s latency).
+PORT    STATE  SERVICE        VERSION
+MAC Address: 00:0C:29:3A:80:A1 (VMware)
+
+Nmap scan report for 192.168.189.134
+Host is up (-0.072s latency).
+PORT    STATE    SERVICE         VERSION
+80/tcp  open     http            VMware ESXi Server httpd
+443/tcp open     ssl/http        VMware ESXi Server httpd
+902/tcp open     ssl/vmware-auth VMware Authentication Daemon 1.10 (Uses VNC, SOAP)
+912/tcp filtered apex-mesh
+MAC Address: 00:0C:29:BD:16:1F (VMware)
+Service Info: Host: localhost.localdomain; CPE: cpe:/o:vmware:esxi
+
+Nmap scan report for 192.168.189.254
+Host is up (-0.10s latency).
+PORT    STATE    SERVICE        VERSION
+80/tcp  filtered http
+443/tcp filtered https
+902/tcp filtered iss-realsecure
+912/tcp filtered apex-mesh
+MAC Address: 00:50:56:E4:79:05 (VMware)
+
+Nmap scan report for 192.168.189.147
+Host is up (0.00022s latency).
+PORT    STATE  SERVICE        VERSION
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 256 IP addresses (6 hosts up) scanned in 18.36 seconds
+#### --- scanning for interesting VMware operating systems:
+Nmap scan report for 192.168.189.1
+Running: Microsoft Windows 2008|7|Phone|Vista
+Nmap scan report for 192.168.189.2
+Aggressive OS guesses: Aethra Starvoice 1042 ADSL router (90%), Bluebird SuperDOS (90%), Brother NC-130h print server (90%), Brother HL-1870N printer (90%), Brother HL-2070N or MFC-5460CN printer (90%), Brother HL-2070N printer (90%), Brother HL-5070N printer (90%), Brother MFC-7820N printer (90%), Brother MFC-9420CN printer (90%), Elk ELK-M1EXP Ethernet-to-serial bridge (90%)
+Nmap scan report for 192.168.189.128
+Too many fingerprints match this host to give specific OS details
+Nmap scan report for 192.168.189.134
+Aggressive OS guesses: VMware ESXi Server 5.0 - 5.5 (96%), VMware ESXi Server 5.5 (92%), VMware ESXi Server 4.1 (92%), Crestron XPanel control system (92%), FreeBSD 7.0-RELEASE-p1 - 10.0-CURRENT (90%), FreeBSD 8.0-BETA2 - 10.1-RELEASE (90%), FreeBSD 5.3 - 5.5 (89%), FreeNAS 0.686 (FreeBSD 6.2-RELEASE) or VMware ESXi Server 3.0 - 4.0 (89%), FreeBSD 8.0-RELEASE (89%), VMware ESX Server 4.0.1 (89%)
+Nmap scan report for 192.168.189.254
+Too many fingerprints match this host to give specific OS details
+Nmap scan report for 192.168.189.147
+Too many fingerprints match this host to give specific OS details
+#### (Finished at  Mon May 11 06:27:10 UTC 2015)

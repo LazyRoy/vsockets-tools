@@ -1,0 +1,375 @@
+#### VMware Host Fingerprinting Report from Guest
+####
+#### (Starting at  Mon Jan 25 12:37:54 EST 2016)
+#### Available stats:
+#### Session stats:
+#### Host stats:
+#### VM stats:
+#### VM Guest stats (legacy)
+25 Jan 2016 12:37:54
+2594 MHz
+#### VM Guest devices (visible if isolation is disabled in .vmx)
+#### VM Guest virtual drive mountpoints
+/
+#### VM Guest operation scripts
+#### ... power
+/etc/vmware-tools/poweron-vm-default
+#### ... resume
+/etc/vmware-tools/resume-vm-default
+#### ... suspend
+/etc/vmware-tools/dmi.txt
+#### ... shutdown
+/etc/vmware-tools/poweroff-vm-default
+#### VM Guest tools stats
+VMware Tools daemon, version 9.9.2.44151 (build-2496486)
+#### VM Guest backdoor low-level info
+#### ... Host screen size
+     EAX      EBX      ECX      EDX      ESI      EDI      EBP
+> bfc48270 bfc48274 bfc48278 bfc4827c bfc48288 bfc48284 bfc48280
+< bfc48270 bfc48274 bfc48278 bfc4827c bfc48288 bfc48284 bfc48280
+#### ... BIOS UUID
+     EAX      EBX      ECX      EDX      ESI      EDI      EBP
+> bfe6e190 bfe6e194 bfe6e198 bfe6e19c bfe6e1a8 bfe6e1a4 bfe6e1a0
+< bfe6e190 bfe6e194 bfe6e198 bfe6e19c bfe6e1a8 bfe6e1a4 bfe6e1a0
+56 4d dc b9 f4 df ab 44 ad 00 9d 95 e2 3a 80 a1 
+#### ... Paste from clipboard
+     EAX      EBX      ECX      EDX      ESI      EDI      EBP
+> bffcdf40 bffcdf44 bffcdf48 bffcdf4c bffcdf58 bffcdf54 bffcdf50
+< bffcdf40 bffcdf44 bffcdf48 bffcdf4c bffcdf58 bffcdf54 bffcdf50
+#### ... List connectable devices
+     EAX      EBX      ECX      EDX      ESI      EDI      EBP
+> bfec9e00 bfec9e04 bfec9e08 bfec9e0c bfec9e18 bfec9e14 bfec9e10
+< bfec9e00 bfec9e04 bfec9e08 bfec9e0c bfec9e18 bfec9e14 bfec9e10
+#### ... RPC: machine.id.get
+RPC channel: 2 (cookie 87f5a36b:2c6300b8)
+RPC command: machine.id.get
+RPC reply  : 0 No machine id
+RPC channel closed
+#### ... RPC: guestInfo
+#### ..... info-get guestinfo.joebanana
+RPC channel: 2 (conventional)
+RPC command: info-get guestinfo.joebanana
+RPC reply  : 1 banana
+RPC channel closed
+#### ..... info-set guestinfo.joebanana
+RPC channel: 2 (conventional)
+RPC command: info-set guestinfo.joebanana banana
+RPC reply  : 1 
+RPC channel closed
+#### ..... info-get guestinfo.joebanana
+RPC channel: 2 (conventional)
+RPC command: info-get guestinfo.joebanana
+RPC reply  : 1 banana
+RPC channel closed
+#### ... RPC: log
+#### ..... log
+RPC channel: 2 (conventional)
+RPC command: log joebanana
+RPC reply  : 1 
+RPC channel closed
+#### ..... log -e
+RPC channel: 2 (cookie 69850274:623105ee)
+RPC command: log joebanana
+RPC reply  : 1 
+RPC channel closed
+#### VM check stats (legacy)
+#### -- Hypervisor type:
+Workstation
+#### -- VM hardware version:
+VM's hw version is 4
+VMware software version 6 (good)
+0 0
+#### VM storage stats:
+#### VM networking stats:
+#### VM ARP networking stats:
+Address                  HWtype  HWaddress           Flags Mask            Iface
+192.168.189.147          ether   00:0c:29:32:0a:6a   C                     eth0
+192.168.189.254          ether   00:50:56:e4:79:05   C                     eth0
+192.168.189.134          ether   00:0c:29:bd:16:1f   C                     eth0
+192.168.189.2            ether   00:50:56:fc:0d:df   C                     eth0
+192.168.189.1            ether   00:50:56:c0:00:08   C                     eth0
+#### VM IP routing networking stats:
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+default         192.168.189.2   0.0.0.0         UG    0      0        0 eth0
+192.168.189.0   *               255.255.255.0   U     0      0        0 eth0
+#### VM IP networking stats:
+eth0      Link encap:Ethernet  HWaddr 00:0c:29:3a:80:a1  
+          inet addr:192.168.189.128  Bcast:192.168.189.255  Mask:255.255.255.0
+          inet6 addr: fe80::20c:29ff:fe3a:80a1/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:163313 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:481776 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:24627064 (23.4 MiB)  TX bytes:32666036 (31.1 MiB)
+          Interrupt:19 Base address:0x2000 
+
+lo        Link encap:Local Loopback  
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          inet6 addr: ::1/128 Scope:Host
+          UP LOOPBACK RUNNING  MTU:65536  Metric:1
+          RX packets:29944 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:29944 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0 
+          RX bytes:1501296 (1.4 MiB)  TX bytes:1501296 (1.4 MiB)
+
+#### BIOS strings:
+	Manufacturer: VMware, Inc.
+	Product Name: VMware Virtual Platform
+	Serial Number: VMware-56 4d dc b9 f4 df ab 44-ad 00 9d 95 e2 3a 80 a1
+	Description: VMware SVGA II
+#### BIOS signature:
+BIOS Information
+	Vendor: Phoenix Technologies LTD
+	Version: 6.00
+	Release Date: 05/20/2014
+	Address: 0xE9A50
+	Runtime Size: 91568 bytes
+	ROM Size: 64 kB
+	Characteristics:
+		ISA is supported
+		PCI is supported
+#### BIOS Release date:
+	Release Date: 05/20/2014
+#### PCI strings:
+00:00.0 Host bridge: Intel Corporation 440BX/ZX/DX - 82443BX/ZX/DX Host bridge (rev 01)
+00:01.0 PCI bridge: Intel Corporation 440BX/ZX/DX - 82443BX/ZX/DX AGP bridge (rev 01)
+00:07.0 ISA bridge: Intel Corporation 82371AB/EB/MB PIIX4 ISA (rev 08)
+00:07.1 IDE interface: Intel Corporation 82371AB/EB/MB PIIX4 IDE (rev 01)
+00:07.3 Bridge: Intel Corporation 82371AB/EB/MB PIIX4 ACPI (rev 08)
+00:07.7 System peripheral: VMware Virtual Machine Communication Interface (rev 10)
+00:0f.0 VGA compatible controller: VMware SVGA II Adapter
+00:10.0 SCSI storage controller: LSI Logic / Symbios Logic 53c1030 PCI-X Fusion-MPT Dual Ultra320 SCSI (rev 01)
+00:11.0 PCI bridge: VMware PCI bridge (rev 02)
+00:15.0 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:15.1 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:15.2 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:15.3 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:15.4 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:15.5 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:15.6 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:15.7 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:16.0 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:16.1 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:16.2 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:16.3 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:16.4 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:16.5 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:16.6 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:16.7 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:17.0 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:17.1 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:17.2 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:17.3 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:17.4 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:17.5 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:17.6 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:17.7 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:18.0 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:18.1 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:18.2 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:18.3 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:18.4 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:18.5 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:18.6 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:18.7 PCI bridge: VMware PCI Express Root Port (rev 01)
+02:00.0 USB controller: VMware USB1.1 UHCI Controller
+02:01.0 Ethernet controller: Advanced Micro Devices [AMD] 79c970 [PCnet32 LANCE] (rev 10)
+02:02.0 Multimedia audio controller: Ensoniq ES1371 [AudioPCI-97] (rev 02)
+#### CPU features:
+Architecture:          i686
+CPU op-mode(s):        32-bit, 64-bit
+Byte Order:            Little Endian
+CPU(s):                1
+On-line CPU(s) list:   0
+Thread(s) per core:    1
+Core(s) per socket:    1
+Socket(s):             1
+Vendor ID:             AuthenticAMD
+CPU family:            18
+Model:                 1
+Stepping:              0
+CPU MHz:               2593.569
+BogoMIPS:              5187.13
+Hypervisor vendor:     VMware
+Virtualization type:   full
+L1d cache:             64K
+L1i cache:             64K
+L2 cache:              1024K
+processor	: 0
+vendor_id	: AuthenticAMD
+cpu family	: 18
+model		: 1
+model name	: AMD Athlon(tm) II X4 631 Quad-Core Processor
+stepping	: 0
+microcode	: 0x3000027
+cpu MHz		: 2593.569
+cache size	: 1024 KB
+fdiv_bug	: no
+f00f_bug	: no
+coma_bug	: no
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 6
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 syscall nx mmxext fxsr_opt rdtscp lm 3dnowext 3dnow constant_tsc rep_good tsc_reliable nonstop_tsc aperfmperf pni cx16 popcnt hypervisor lahf_lm extapic abm sse4a misalignsse 3dnowprefetch osvw arat vmmcall
+bugs		: fxsave_leak
+bogomips	: 5187.13
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 40 bits physical, 48 bits virtual
+power management:
+
+#### Kernel modules:
+vmw_vsock_vmci_transport    29401  3 
+vsock                  26240  4 vmw_vsock_vmci_transport
+vmw_balloon            12586  0 
+vmwgfx                146807  1 
+ttm                    50758  1 vmwgfx
+drm_kms_helper         67474  1 vmwgfx
+drm                   212910  5 ttm,drm_kms_helper,vmwgfx
+vmw_vmci               50587  1 vmw_vsock_vmci_transport
+#### vsockets environment:
+#### VM network basic scan:
+#### --- scanning for interesting services:
+
+Starting Nmap 6.47 ( http://nmap.org ) at 2016-01-25 12:37 EST
+Nmap scan report for 192.168.189.1
+Host is up (0.00061s latency).
+PORT    STATE    SERVICE         VERSION
+80/tcp  filtered http
+443/tcp filtered https
+902/tcp open     ssl/vmware-auth VMware Authentication Daemon 1.10 (Uses VNC, SOAP)
+912/tcp open     vmware-auth     VMware Authentication Daemon 1.0 (Uses VNC, SOAP)
+MAC Address: 00:50:56:C0:00:08 (VMware)
+
+Nmap scan report for 192.168.189.2
+Host is up (0.00019s latency).
+PORT    STATE  SERVICE        VERSION
+MAC Address: 00:50:56:FC:0D:DF (VMware)
+
+Nmap scan report for 192.168.189.134
+Host is up (0.0041s latency).
+PORT    STATE    SERVICE         VERSION
+80/tcp  open     http            VMware ESXi Server httpd
+443/tcp open     ssl/http        VMware ESXi Server httpd
+902/tcp open     ssl/vmware-auth VMware Authentication Daemon 1.10 (Uses VNC, SOAP)
+912/tcp filtered apex-mesh
+MAC Address: 00:0C:29:BD:16:1F (VMware)
+Service Info: Host: localhost.localdomain
+
+Nmap scan report for 192.168.189.147
+Host is up (0.0020s latency).
+PORT    STATE  SERVICE        VERSION
+MAC Address: 00:0C:29:32:0A:6A (VMware)
+
+Nmap scan report for 192.168.189.254
+Host is up (0.000092s latency).
+PORT    STATE    SERVICE        VERSION
+80/tcp  filtered http
+443/tcp filtered https
+902/tcp filtered iss-realsecure
+912/tcp filtered apex-mesh
+MAC Address: 00:50:56:E4:79:05 (VMware)
+
+Nmap scan report for 192.168.189.128
+Host is up (0.000061s latency).
+PORT    STATE  SERVICE        VERSION
+
+Service detection performed. Please report any incorrect results at http://nmap.org/submit/ .
+Nmap done: 256 IP addresses (6 hosts up) scanned in 15.61 seconds
+#### --- scanning for interesting VMware operating systems:
+Nmap scan report for 192.168.189.1
+Running: Microsoft Windows 2008|Phone|Vista|7
+Nmap scan report for 192.168.189.2
+Aggressive OS guesses: Aethra Starvoice 1042 ADSL router (91%), Bluebird SuperDOS (91%), Brother NC-130h print server (91%), Brother HL-1870N printer (91%), Brother HL-2070N or MFC-5460CN printer (91%), Brother HL-2070N printer (91%), Brother HL-5070N printer (91%), Brother MFC-7820N printer (91%), Brother MFC-9420CN printer (91%), Elk ELK-M1EXP Ethernet-to-serial bridge (91%)
+Nmap scan report for 192.168.189.134
+Aggressive OS guesses: VMware ESXi Server 5.0 - 5.5 (97%), VMware ESXi Server 4.1 (92%), Crestron XPanel control system (92%), FreeBSD 7.0-RELEASE-p1 - 10.0-CURRENT (91%), FreeBSD 5.3 - 5.5 (90%), FreeNAS 0.686 (FreeBSD 6.2-RELEASE) or VMware ESXi Server 3.0 - 4.0 (90%), FreeBSD 8.0-RELEASE (90%), VMware ESX Server 4.0.1 (90%), VMware ESX Server 5 (90%), FreeBSD 8.0-BETA2 - 9.1-RELEASE (90%)
+Nmap scan report for 192.168.189.147
+Too many fingerprints match this host to give specific OS details
+Nmap scan report for 192.168.189.254
+Too many fingerprints match this host to give specific OS details
+Nmap scan report for 192.168.189.128
+Too many fingerprints match this host to give specific OS details
+### ESXi basic scan:
+### ...ESXi: 192.168.189.134
+### ..... SSL certificate
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number:
+            21:29:fb:1d:d3:cd
+    Signature Algorithm: sha256WithRSAEncryption
+        Issuer: O=VMware Installer
+        Validity
+            Not Before: May 10 03:28:23 2015 GMT
+            Not After : Nov  8 03:28:23 2026 GMT
+        Subject: C=US, ST=California, L=Palo Alto, O=VMware, Inc, OU=VMware ESX Server Default Certificate/emailAddress=ssl-certificates@vmware.com, CN=localhost.localdomain/unstructuredName=1431228503,564d7761726520496e632e
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+                Public-Key: (2048 bit)
+                Modulus:
+                    00:d2:c4:90:a1:ba:fb:93:fe:2f:6a:b1:d6:32:d9:
+                    1d:b5:50:55:a9:5d:0d:a2:e2:ca:5f:40:69:b6:b9:
+                    30:b5:eb:1e:3e:75:d7:c2:ed:b0:a1:07:82:92:98:
+                    32:10:30:75:45:f6:1a:e9:05:14:b7:69:12:6f:9f:
+                    5f:fa:4c:3c:3e:41:a9:a9:aa:79:51:b2:e3:db:0c:
+                    7d:a4:c9:be:df:63:c0:f0:3e:46:73:3d:77:7a:c1:
+                    9d:f4:8e:a0:ae:9b:8f:c6:9c:19:b1:8c:91:23:f6:
+                    9c:94:44:5e:f3:df:39:65:d9:62:80:a5:5a:9d:b3:
+                    77:54:83:b9:8d:d5:35:5c:32:fa:f0:64:a2:1f:a9:
+                    1a:11:e0:ea:e2:7e:2d:1d:c3:ed:28:6b:01:4c:b3:
+                    b1:61:54:f6:9c:ca:ec:50:93:cb:00:dc:12:3c:6a:
+                    18:53:0b:c7:f2:c0:1b:c1:6a:b4:c4:50:d6:3e:61:
+                    25:68:bd:e2:96:d2:23:15:bf:64:e8:30:22:98:01:
+                    7e:73:55:02:19:d4:25:8e:f2:a7:4b:a8:8a:0f:91:
+                    49:5f:38:9f:c0:bb:20:71:49:aa:0f:3b:05:24:d8:
+                    a2:64:c3:cc:ca:56:07:bf:73:5c:5b:3d:8b:c6:5a:
+                    5f:c2:18:42:03:33:d7:4a:8f:fb:a9:5a:08:d7:1f:
+                    f2:0b
+                Exponent: 65537 (0x10001)
+        X509v3 extensions:
+            X509v3 Basic Constraints: 
+                CA:FALSE
+            X509v3 Key Usage: 
+                Digital Signature, Key Encipherment, Data Encipherment
+            X509v3 Extended Key Usage: 
+                TLS Web Server Authentication, TLS Web Client Authentication
+            X509v3 Subject Alternative Name: 
+                DNS:localhost.localdomain
+    Signature Algorithm: sha256WithRSAEncryption
+         1a:aa:18:45:3c:14:d6:ad:cc:11:e6:29:a9:d3:42:ed:a7:7b:
+         90:15:51:6a:33:6f:32:3c:5a:71:43:2f:f8:d0:21:a3:25:33:
+         cd:6a:b8:80:e6:84:0a:e4:b5:09:13:f5:e4:c3:28:94:1c:ee:
+         ab:71:12:1f:6a:bd:e2:83:98:bb:0b:3a:0c:61:c0:94:39:ec:
+         89:b4:ad:12:2e:4e:6c:70:50:a4:e2:23:1e:a6:1b:62:44:a1:
+         86:17:98:66:b8:d9:b9:75:88:85:a6:d6:8a:94:9c:04:59:45:
+         1a:ac:81:04:16:02:3b:1d:6b:0b:93:08:ae:f8:dc:40:a9:be:
+         37:43:37:9e:ff:59:da:bd:2f:a9:f6:77:90:03:f8:d1:a4:11:
+         15:b6:d8:18:7c:25:5c:cd:a7:04:08:a9:5e:2e:fb:f1:12:4f:
+         5b:d6:e9:ef:62:bb:b3:3f:a2:f4:a7:ef:1f:09:09:64:9f:35:
+         dc:ed:80:75:bf:c3:6e:8c:77:b7:b1:c1:f0:88:9a:d3:d5:4a:
+         1b:af:8b:32:7e:b2:19:05:1f:18:01:d4:6d:75:1e:ef:6b:f7:
+         c6:0b:eb:60:49:c6:c8:55:39:eb:d8:b3:89:66:1b:7c:44:7e:
+         90:53:ec:ce:1f:86:4f:b3:1d:7a:5b:49:44:dc:ef:a2:11:8c:
+         05:ee:19:33
+issuer= /O=VMware Installer
+subject= /C=US/ST=California/L=Palo Alto/O=VMware, Inc/OU=VMware ESX Server Default Certificate/emailAddress=ssl-certificates@vmware.com/CN=localhost.localdomain/unstructuredName=1431228503,564d7761726520496e632e
+### ..... API
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+   Copyright 2005-2015 VMware, Inc.  All rights reserved.
+-->
+<definitions targetNamespace="urn:vim25Service"
+   xmlns="http://schemas.xmlsoap.org/wsdl/"
+   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+   xmlns:interface="urn:vim25"
+>
+   <import location="vim.wsdl" namespace="urn:vim25" />
+   <service name="VimService">
+      <port binding="interface:VimBinding" name="VimPort">
+         <soap:address location="https://localhost/sdk/vimService" />
+      </port>
+   </service>
+</definitions>
+#### (Finished at  Mon Jan 25 12:38:22 EST 2016)
