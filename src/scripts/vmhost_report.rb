@@ -1,3 +1,5 @@
+require_relative "vmware_hypervisor_version.rb"
+
 def check_running_user
 
 	current_user = `whoami`
@@ -178,6 +180,7 @@ print "#### -- VM hardware version:\n"
 system "vmware-checkvm -h"
 system "vmware-checkvm -r"
 
+check_vm_host_version
 
 
 print "#### VM Guest stats (legacy)\n"
