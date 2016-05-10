@@ -24,7 +24,7 @@ VMware Player has port “vsockets[connection-oriented]/976” open, for communi
     + vsockets_nc
     + vsockets_hostname
 * Documentation
-    + 
+    + Paper: https://www.academia.edu/25202828/VMware_vsockets_tools_vsockets_nc_and_vsockets_hostname_
 
 ### How do I get set up? ###
 
