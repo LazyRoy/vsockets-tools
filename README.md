@@ -18,20 +18,18 @@ VMware Player has port “vsockets[connection-oriented]/976” open, for communi
 
 * Quick summary
     + Network tools for VMware vsockets
-* Version: 0.1
-    + working on Linux
+* Version: 0.12
+    + working on Linux and Windows
 * Tools:
     + vsockets_nc
     + vsockets_hostname
+* Documentation
+    + 
 
 ### How do I get set up? ###
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+* Download ZIP
+* Unzip and run from the command-line
 
 * [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
 
