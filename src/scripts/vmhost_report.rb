@@ -1,4 +1,5 @@
 require_relative "vmware_hypervisor_version.rb"
+require 'ostruct'
 #require "./vmware_hypervisor_version.rb"
 
 # TODO: abstract ESXi commands / Windows commands
@@ -21,6 +22,8 @@ module OS
 end
 
 REPORT_FILE="vmhost_report.log"
+TMP_STDOUT_FILE="vmhost_report.stdout.log"
+TMP_STDERR_FILE="vmhost_report.stderr.log"
 
 VMW_PATH="../../vmw"
 
@@ -36,6 +39,13 @@ end
 
 def vmhost_report_print_section_break
     vmhost_report_print "\n---X---X---X---X---X---X---X---X---X---\n\n"
+end
+
+def vmhost_report_system_return_output command
+   system "#{command} > #{TMP_STDOUT_FILE} 2> #{TMP_STDERR_FILE}"
+   output = `cat #{TMP_STDOUT_FILE} #{TMP_STDERR_FILE}` 
+   system "cat #{TMP_STDOUT_FILE} #{TMP_STDERR_FILE} >> #{REPORT_FILE}"
+   return output
 end
 
 def vmhost_report_system command
@@ -301,13 +311,65 @@ def vm_network_basic_scan netmask
 	vmhost_report_print "#### VM network basic scan:\n"
 	vmhost_report_print "#### network mask: #{netmask}\n"
 	vmhost_report_print "#### --- scanning for interesting services:\n"
-	vmhost_report_system "nmap -sV --version-all -p 902,912,80,443 192.168.189.0/24  | grep -v closed"
+	output = vmhost_report_system_return_output "nmap -sV --version-all -p 902,912,80,443,53 192.168.189.0/24  | grep -v closed"
+	
+	vmhost_report_print "#### --- output=#{output}\n"
+	
+	#host_candidates = output.scan(/Nmap scan report for ([0-9]+.[0-9]+.[0-9]+.[0-9]+)(.*)(?<!VMware)(VMware) /m)
+	host_candidates = output.scan(/Nmap scan report for ([0-9]+.[0-9]+.[0-9]+.[0-9]+)(.*?)\(VMware\)/m)
+	#host_candidates = host_candidates_aux.split("Nmap scan report for")
+	
+	vmhost_report_print "#### --- candidates=#{host_candidates}\n"
 
-	vmhost_report_print "#### --- scanning for interesting VMware operating systems:\n"
-	vmhost_report_system "nmap -vv -O --osscan-guess -p 902,912,80,443,8080 192.168.189.0/24 | grep 'Nmap scan report for\|guesses\|Running\|Too many fingerprints' | grep -v 'host down'"
-
-# TODO: return EXSi servers, VMware player brigdes, servers
+	# fill return struct
+	vmreport_hosts = OpenStruct.new
+	vmreport_hosts.others = Array.new
+	vmreport_hosts.workstation_player_hypervisors = Array.new
+	vmreport_hosts.network_devices = Array.new
+	vmreport_hosts.ESXi_hypervisors = Array.new
+	
+	host_candidates.each do |host_i|  		
+		signature=host_i[1]
+		
+		vmhost_report_print "#### host address=#{host_i[0]} \n\n signature=#{host_i[1]}\n"
+		
+		if signature.include? "VMware ESXi Server httpd"
+			puts "String includes 'VMware ESXi Server httpd', looks like a VMware ESXi Server httpd"
+			
+			vmreport_hosts.ESXi_hypervisors.insert(0, host_i[0])
+			
+			next
+		end
+		
+		if signature.include? "VMware Authentication Daemon"
+			puts "String includes 'VMware Authentication Daemon', looks like a VMware Player hypervisor"
+			
+			vmreport_hosts.workstation_player_hypervisors.insert(0, host_i[0])
+			
+			next
+		end
+		
+		if (signature.include? "apex-mesh") || (signature.include? "dnsmasq")
+			puts "String includes 'dnsmasq' or 'apex-mesh', looks like a VMware network device"
+			
+			vmreport_hosts.network_devices.insert(0, host_i[0])
+			
+			next
+		end
+		
+		# An unidentified VM
+				
+		vmhost_report_print "#### VMware virtual machine at IP=#{host_i}\n\n"
+		vmreport_hosts.others.insert(0, host_i[0])
+		
+	end
+	
+	#vmhost_report_print "#### --- scanning for interesting VMware operating systems:\n"
+	#vmhost_report_system "nmap -vv -O --osscan-guess -p 902,912,80,443,8080 #{netmask} | grep 'Nmap scan report for\|guesses\|Running\|Too many fingerprints' | grep -v 'host down'"
+  
 	vmhost_report_print_section_break
+	
+	return vmreport_hosts
 end
 
 def vm_esxi_basic_scan esxi_host
@@ -324,6 +386,57 @@ def vm_esxi_basic_scan esxi_host
 	vmhost_report_print_section_break
 end
 
+def vm_host_DNS_services_scan host
+	vmhost_report_print "#### DNS services scan for IP=#{host}\n\n"
+	vmhost_report_system "nmap -sV --version-all -p 53 #{host}"
+end
+
+def vm_host_os_scan host
+    vmhost_report_print "#### OS scan for IP=#{host}\n\n"
+	vmhost_report_system "nmap -vv -O --osscan-guess -sSU -p 902,912,80,443,8080 #{host}"
+end
+
+def vm_handle_network_hosts vmhosts
+
+	vmhosts.workstation_player_hypervisors.each do |host_i|  
+				
+		vmhost_report_print "#### VMware Player hypervisor at IP=#{host_i}\n\n"
+		
+		# TODO: fazer mais coisas interessantes ...
+		
+		vm_host_os_scan host_i
+	end
+
+	vmhosts.network_devices.each do |host_i|  
+				
+		vmhost_report_print "#### VMware network device at IP=#{host_i}\n\n"
+		
+		# TODO: fazer mais coisas interessantes ...
+		vm_host_os_scan host_i
+		
+		vm_host_DNS_services_scan host_i
+	end
+	
+	vmhosts.ESXi_hypervisors.each do |host_i|  
+				
+		vmhost_report_print "#### VMware ESXi host at IP=#{host_i}\n\n"
+		
+		# TODO: fazer mais coisas interessantes ...
+		vm_host_os_scan host_i
+		
+		vm_esxi_basic_scan host_i
+	end
+	
+	vmhosts.others.each do |host_i|  
+				
+		vmhost_report_print "#### VMware virtual machine at IP=#{host_i}\n\n"
+		
+		# TODO: fazer mais coisas interessantes ...
+		vm_host_os_scan host_i
+		
+		vm_host_DNS_services_scan host_i
+	end
+end
 
 def vm_scan_local_networks
 # call "ifconfig" and get all the entries like:
@@ -343,12 +456,12 @@ def vm_scan_local_networks
 	netmask = convert_netmask network_i[1], network_i[2]
 	vmhost_report_print "#### local network mask #{netmask}\n"
 	
-	vm_network_basic_scan netmask
+	vmhosts = vm_network_basic_scan netmask
+	
+	vm_handle_network_hosts vmhosts
 	
   end
 
-  # TODO: remove hardcoded
-  vm_esxi_basic_scan "192.168.189.134"
   
 end
 
@@ -368,10 +481,6 @@ check_running_user
 
 check_vm_host_version
 
-# TMP/TODO
-vm_scan_local_networks
-
-exit
 
 # Basic stats
 
