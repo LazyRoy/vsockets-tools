@@ -2,7 +2,7 @@ require_relative "vmware_hypervisor_version.rb"
 require 'ostruct'
 #require "./vmware_hypervisor_version.rb"
 
-# TODO: abstract ESXi commands / Windows commands
+# TODO: abstract Windows commands
 module OS
   def OS.windows?
     (/cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM) != nil
@@ -16,6 +16,11 @@ module OS
     !OS.windows?
   end
 
+  def OS.ESXi?
+		uname = `uname`
+		uname.include? "VMkernel"
+  end
+  
   def OS.linux?
     OS.unix? and not OS.mac?
   end
@@ -25,7 +30,13 @@ REPORT_FILE="vmhost_report.log"
 TMP_STDOUT_FILE="vmhost_report.stdout.log"
 TMP_STDERR_FILE="vmhost_report.stderr.log"
 
+if OS.ESXi?
+VMW_PATH="./vmw"
+VM_BACKDUMP="./vm_backdump"
+else
 VMW_PATH="../../vmw"
+VM_BACKDUMP="../../vm_backdump"
+end
 
 def vmhost_report_create_log_file
    File.open(REPORT_FILE, 'w') { |file| file.write("#############################################\n") }
@@ -52,9 +63,21 @@ def vmhost_report_system command
    return system command+" >> #{REPORT_FILE}"
 end
 
+def get_running_user
+
+#Linux + ESXi
+
+	current_user_aux = `env | grep LOGNAME`
+	current_user = current_user_aux.split("=")[1]
+	
+	return current_user
+	
+end
+
 def check_running_user
 
-	current_user = `whoami`
+	#current_user = `whoami`
+	current_user = get_running_user
 
 	vmhost_report_print "current user=#{current_user}\n"
 
@@ -67,6 +90,13 @@ def check_running_user
 	vmhost_report_print_section_break
 end
 
+def check_vm_host_version
+	vmhost_report_print "#### VM Hypervisor Version \n"
+    vmhost_report_print "VM hypervisor version=#{vmhost_get_version}\n"
+    vmhost_report_print "patch level=#{vmhost_get_patch_level}\n"
+	vmhost_report_print_section_break  
+end
+
 def vm_storage_stats
 
 	vmhost_report_print "#### VM Guest devices (visible if isolation is disabled in .vmx)\n"
@@ -77,13 +107,16 @@ def vm_storage_stats
 
 	print "#### VM storage stats:\n"
 
-	device_list = `vmware-toolbox-cmd device list`
+	begin  
+		device_list = `vmware-toolbox-cmd device list`
 	
-	vmhost_report_print "device_list=#{device_list} \n"
+		vmhost_report_print "device_list=#{device_list} \n"
 	
-	vmhost_report_system "vmware-toolbox-cmd stat raw text vscsi scsi0:0"
+		vmhost_report_system "vmware-toolbox-cmd stat raw text vscsi scsi0:0"
 
-	vmhost_report_system "vmware-toolbox-cmd stat raw text vscsi ide0:0"
+		vmhost_report_system "vmware-toolbox-cmd stat raw text vscsi ide0:0"
+	rescue
+	end
 
 # TODO: fix hardcoded devices
 
@@ -95,41 +128,67 @@ def vm_networking_stats
 	print "#### VM networking stats:\n"
 
 # TODO: fix hardcoded devices
-	device_list = `vmware-toolbox-cmd device list`
+    begin
+		device_list = `vmware-toolbox-cmd device list`
+		
+		vmhost_report_print "device_list=#{device_list} \n"
+		
+		vmhost_report_system "vmware-toolbox-cmd stat raw text vnet 00:0c:29:1e:23:f3"
+		vmhost_report_system "vmware-toolbox-cmd stat raw text vnet 00:0c:29:32:0a:6a"
+	rescue
 	
-	vmhost_report_print "device_list=#{device_list} \n"
+	end
+
+	begin	
+		vmhost_report_print "#### VM ARP networking stats:\n"
+		if (!OS.ESXi?)
+			vmhost_report_system "arp"
+		else
+			vmhost_report_system "/bin/esxcfg-route -n"
+		end		
+
+		vmhost_report_print "#### VM IP routing networking stats:\n"
+		if (!OS.ESXi?)
+			vmhost_report_system "route"
+		else
+			vmhost_report_system "/bin/esxcfg-route -l"
+		end
+
+		vmhost_report_print "#### VM IP networking stats:\n"
+		if (!OS.ESXi?)
+			vmhost_report_system "ifconfig"
+		else
+			vmhost_report_system "esxcfg-vmknic -l"
+		end
+		
+	rescue
 	
-	vmhost_report_system "vmware-toolbox-cmd stat raw text vnet 00:0c:29:1e:23:f3"
-	vmhost_report_system "vmware-toolbox-cmd stat raw text vnet 00:0c:29:32:0a:6a"
-
-	vmhost_report_print "#### VM ARP networking stats:\n"
-	vmhost_report_system "arp"
-	vmhost_report_system "/bin/esxcfg-route -n"
-
-	vmhost_report_print "#### VM IP routing networking stats:\n"
-	vmhost_report_system "route"
-	vmhost_report_system "/bin/esxcfg-route -l"
-
-	vmhost_report_print "#### VM IP networking stats:\n"
-	vmhost_report_system "ifconfig"
-
+	end
+	
 	vmhost_report_print_section_break
 end
 
 def vm_bios_stats
 
 	vmhost_report_print "#### BIOS strings:\n"
-	vmhost_report_system "dmidecode|grep -i vmware"
-	vmhost_report_system "esxcfg-info -w | head -30"
+	if (!OS.ESXi?)
+		vmhost_report_system "dmidecode|grep -i vmware"
+	else
+		vmhost_report_system "esxcfg-info -w | head -30"
+	end
 	vmhost_report_print_section_break
 
-	vmhost_report_print "#### BIOS signature:\n"
-	vmhost_report_system "dmidecode|head -16 | tail -10"
-	vmhost_report_print_section_break
+	if (!OS.ESXi?)
+	
+		vmhost_report_print "#### BIOS signature:\n"
+		vmhost_report_system "dmidecode|head -16 | tail -10"
+		vmhost_report_print_section_break
 
-	vmhost_report_print "#### BIOS Release date:\n"
-	vmhost_report_system "dmidecode|grep \"Release Date:\""
-	vmhost_report_print_section_break
+		vmhost_report_print "#### BIOS Release date:\n"
+		vmhost_report_system "dmidecode|grep \"Release Date:\""
+		vmhost_report_print_section_break
+	
+	end
 
 	vmhost_report_print "#### PCI strings:\n"
 	vmhost_report_system "lspci"
@@ -140,13 +199,19 @@ def vm_bios_stats
 	vmhost_report_print_section_break
 	
 	vmhost_report_print "#### CPU features:\n"
-	vmhost_report_system "lscpu"
-	vmhost_report_system "cat /proc/cpuinfo"
+	if (!OS.ESXi?)	
+		vmhost_report_system "lscpu"
+	else
+		vmhost_report_system "cat /proc/cpuinfo"
+	end
 	vmhost_report_print_section_break
 	
 	vmhost_report_print "#### Kernel modules:\n"
-	vmhost_report_system "lsmod | grep vm"
-	vmhost_report_system "esxcfg-module  -l"
+	if (!OS.ESXi?)
+		vmhost_report_system "lsmod | grep vm"
+	else
+		vmhost_report_system "esxcfg-module  -l"
+	end
 	vmhost_report_print_section_break
 
 end
@@ -190,9 +255,11 @@ end
 
 def vm_host_raw_stats
 
-	vmhost_report_print "#### Available stats:\n"
+  vmhost_report_print "#### Available stats:\n"
 
-	stats_raw = `vmware-toolbox-cmd stat raw`
+  begin  
+    
+    stats_raw = `vmware-toolbox-cmd stat raw`
 
 	vmhost_report_print "stats_raw=#{stats_raw}\n"
 
@@ -213,6 +280,10 @@ def vm_host_raw_stats
 		
 		vmhost_report_print_section_break
 	end
+  rescue  
+    puts 'I am rescued.\n'  
+  end  
+	
 end
 
 def vm_guest_tools_stats
@@ -259,6 +330,10 @@ def vmguest_backdoor_info
 	vmhost_report_system "#{VMW_PATH} r \"log joebanana\" -v"
 	vmhost_report_print "#### ..... log -e\n"
 	vmhost_report_system "#{VMW_PATH} r -e \"log joebanana\" -v"
+	vmhost_report_print_section_break
+	
+	vmhost_report_print "#### VM Guest backdoor dump (very low-level)\n"
+	vmhost_report_system "#{VM_BACKDUMP}"
 	vmhost_report_print_section_break
 
 end
@@ -439,21 +514,45 @@ def vm_handle_network_hosts vmhosts
 end
 
 def vm_scan_local_networks
-# call "ifconfig" and get all the entries like:
-# inet addr:192.168.189.128  Bcast:192.168.189.255  Mask:255.255.255.0
 
-  local_networks_aux = `ifconfig`
+	if (!OS.ESXi?)
+	
+		# call "ifconfig" and get all the entries like:
+		# 	inet addr:192.168.189.128  Bcast:192.168.189.255  Mask:255.255.255.0
+
+		local_networks_aux = `ifconfig`
   
-  local_networks = local_networks_aux.scan(/inet addr:([0-9]+.[0-9]+.[0-9]+.[0-9]+)  Bcast:([0-9]+.[0-9]+.[0-9]+.[0-9]+)  Mask:([0-9]+.[0-9]+.[0-9]+.[0-9]+)/)
+		local_networks = local_networks_aux.scan(/inet addr:([0-9]+.[0-9]+.[0-9]+.[0-9]+)  Bcast:([0-9]+.[0-9]+.[0-9]+.[0-9]+)  Mask:([0-9]+.[0-9]+.[0-9]+.[0-9]+)/)
+		
+	else
+	
+	    # like:
+		#  esxcfg-vmknic -l
+		#	Interface  Port Group/DVPort/Opaque Network        IP Family IP Address                              Netmask         Broadcast       MAC Address       MTU     TSO MSS   Enabled Type                NetStack
+		#	vmk0       Management Network                      IPv4      192.168.189.134                         255.255.255.0   192.168.189.255 00:0c:29:bd:16:1f 1500    65535     true    DHCP                defaultTcpipStack
+		#	vmk0       Management Network                      IPv6      fe80::20c:29ff:febd:161f                64                          
+	
+		local_networks_aux = `esxcfg-vmknic -l`
+		
+		local_networks = local_networks_aux.scan(/IPv4      ([0-9]+.[0-9]+.[0-9]+.[0-9]+)(.*?)([0-9]+.[0-9]+.[0-9]+.[0-9]+)(.*?)([0-9]+.[0-9]+.[0-9]+.[0-9]+)/)
+	end
 
   vmhost_report_print "#### VM local networks #{local_networks} \n"
   
   local_networks.each do |network_i|
   
-    vmhost_report_print "#### local network address=#{network_i[1]} mask=#{network_i[2]}\n"
+    if (!OS.ESXi?)
+		network_address = network_i[1]
+		network_mask = network_i[2]
+	else
+		network_address = network_i[4]
+		network_mask = network_i[2]
+	end
+  
+    vmhost_report_print "#### local network address=#{network_address} mask=#{network_mask}\n"
 	
 	# Like: 192.168.189.0/24
-	netmask = convert_netmask network_i[1], network_i[2]
+	netmask = convert_netmask network_address, network_mask
 	vmhost_report_print "#### local network mask #{netmask}\n"
 	
 	vmhosts = vm_network_basic_scan netmask
@@ -471,15 +570,19 @@ vmhost_report_create_log_file
 
 NOW = `date`.strip
 
+OSNAME = `uname -a`
+
 vmhost_report_print "#### VMware Host Fingerprinting Report from Guest\n"
 vmhost_report_print "####\n"
 vmhost_report_print "#### (Starting at #{NOW})\n"
 vmhost_report_print "####\n"
-vmhost_report_print "#### Platform: #{RUBY_PLATFORM}\n"
+vmhost_report_print "#### Platform: #{RUBY_PLATFORM} - #{OSNAME} \n"
 
 check_running_user
 
-check_vm_host_version
+if (!OS.ESXi?)
+	check_vm_host_version
+end
 
 
 # Basic stats

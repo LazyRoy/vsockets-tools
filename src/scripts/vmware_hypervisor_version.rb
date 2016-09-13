@@ -131,10 +131,3 @@ def vmhost_get_patch_level
     update
 end
 
-def check_vm_host_version
-
-    print "VM host version=",vmhost_get_version,"\n"
-
-    print "patch level=",vmhost_get_patch_level,"\n"
-    
-end
