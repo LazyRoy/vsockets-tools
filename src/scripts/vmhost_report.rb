@@ -59,6 +59,7 @@ def vmhost_report_system_return_output command
    return output
 end
 
+#TODO: gravar todos o stderr ...
 def vmhost_report_system command
    return system command+" >> #{REPORT_FILE}"
 end
@@ -108,17 +109,20 @@ def vm_storage_stats
 	print "#### VM storage stats:\n"
 
 	begin  
-		device_list = `vmware-toolbox-cmd device list`
+		device_list_aux = `vmware-toolbox-cmd stat raw | grep vscsi`
+		device_list = device_list_aux.split("\n")
 	
 		vmhost_report_print "device_list=#{device_list} \n"
 	
-		vmhost_report_system "vmware-toolbox-cmd stat raw text vscsi scsi0:0"
-
-		vmhost_report_system "vmware-toolbox-cmd stat raw text vscsi ide0:0"
+		device_list.each do |device_i|
+			vmhost_report_print "####    storage device #{device_i} stats:\n"
+			vmhost_report_system "vmware-toolbox-cmd stat raw text #{device_i}"
+			vmhost_report_print_section_break
+		end
+	
+		
 	rescue
 	end
-
-# TODO: fix hardcoded devices
 
 	vmhost_report_print_section_break
 end
@@ -127,14 +131,18 @@ def vm_networking_stats
 
 	print "#### VM networking stats:\n"
 
-# TODO: fix hardcoded devices
     begin
-		device_list = `vmware-toolbox-cmd device list`
-		
+		device_list_aux = `vmware-toolbox-cmd stat raw | grep vnet`
+		device_list = device_list_aux.split("\n")
+	
 		vmhost_report_print "device_list=#{device_list} \n"
-		
-		vmhost_report_system "vmware-toolbox-cmd stat raw text vnet 00:0c:29:1e:23:f3"
-		vmhost_report_system "vmware-toolbox-cmd stat raw text vnet 00:0c:29:32:0a:6a"
+	
+		device_list.each do |device_i|
+			vmhost_report_print "####    network device #{device_i} stats:\n"
+			vmhost_report_system "vmware-toolbox-cmd stat raw text #{device_i}"
+			vmhost_report_print_section_break
+		end
+				
 	rescue
 	
 	end
@@ -331,6 +339,8 @@ def vmguest_backdoor_info
 	vmhost_report_print "#### ..... log -e\n"
 	vmhost_report_system "#{VMW_PATH} r -e \"log joebanana\" -v"
 	vmhost_report_print_section_break
+
+	#TODO: embelezar o código de ambos os binários
 	
 	vmhost_report_print "#### VM Guest backdoor dump (very low-level)\n"
 	vmhost_report_system "#{VM_BACKDUMP}"
@@ -582,6 +592,11 @@ check_running_user
 
 if (!OS.ESXi?)
 	check_vm_host_version
+else
+    vmhost_report_print "#### Nested Hypervisor ESXi\n"
+	vmhost_report_print "####        Guest Hypervisor Version\n"
+	vmhost_report_system "vmware -vl"
+	vmhost_report_print_section_break	
 end
 
 

@@ -18,6 +18,8 @@
 
 def vmhost_get_version 
  
+	product = "Physical or Unknown"
+ 
     hasdmi = `which dmidecode`
     if hasdmi.nil?
       #no dmidecode
@@ -32,6 +34,8 @@ def vmhost_get_version
         else
           #we're good
           mainver  = 'vmware-linux'
+		  product = "ESXi"
+		  
           if foobar.include? 'Address'
             address = foobar.match(/Address: 0x(.*)/i)[0]
           else
@@ -66,10 +70,11 @@ def vmhost_get_version
           when address.match(/E9A40/)
             mainver = '6.0'
           when address.match(/E9A50/)
-            mainver = 'Player 7'
+			product = "Player"
+            mainver = '7'
           end
         
-          result=mainver
+          result=product+" "+mainver
         end
       end
     end
