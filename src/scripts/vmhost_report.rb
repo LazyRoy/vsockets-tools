@@ -34,8 +34,8 @@ if OS.ESXi?
 VMW_PATH="./vmw"
 VM_BACKDUMP="./vm_backdump"
 else
-VMW_PATH="../../vmw"
-VM_BACKDUMP="../../vm_backdump"
+VMW_PATH="bin.aux/linux32/vmw"
+VM_BACKDUMP="bin.aux/linux32/vm_backdump"
 end
 
 def vmhost_report_create_log_file
