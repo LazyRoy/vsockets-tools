@@ -1,0 +1,1066 @@
+#############################################
+#### VMware Host Fingerprinting Report from Guest
+####
+#### (Starting at Thu Sep 15 12:45:45 EDT 2016)
+####
+#### Tool version: 0.51
+#### Platform:     i486-linux - Linux kali 3.18.0-kali1-586 #1 Debian 3.18.3-1~kali4 (2015-01-22) i686 GNU/Linux
+ 
+current user=root
+
+===> Running as root, all info available
+
+---X---X---X---X---X---X---X---X---X---
+
+#### VM Hypervisor Version 
+VM hypervisor version=Player 7
+patch level=unknown
+
+---X---X---X---X---X---X---X---X---X---
+
+#### BIOS strings:
+	Manufacturer: VMware, Inc.
+	Product Name: VMware Virtual Platform
+	Serial Number: VMware-56 4d dc b9 f4 df ab 44-ad 00 9d 95 e2 3a 80 a1
+	Description: VMware SVGA II
+
+---X---X---X---X---X---X---X---X---X---
+
+#### BIOS signature:
+BIOS Information
+	Vendor: Phoenix Technologies LTD
+	Version: 6.00
+	Release Date: 05/20/2014
+	Address: 0xE9A50
+	Runtime Size: 91568 bytes
+	ROM Size: 64 kB
+	Characteristics:
+		ISA is supported
+		PCI is supported
+
+---X---X---X---X---X---X---X---X---X---
+
+#### BIOS Release date:
+	Release Date: 05/20/2014
+
+---X---X---X---X---X---X---X---X---X---
+
+#### PCI strings:
+00:00.0 Host bridge: Intel Corporation 440BX/ZX/DX - 82443BX/ZX/DX Host bridge (rev 01)
+00:01.0 PCI bridge: Intel Corporation 440BX/ZX/DX - 82443BX/ZX/DX AGP bridge (rev 01)
+00:07.0 ISA bridge: Intel Corporation 82371AB/EB/MB PIIX4 ISA (rev 08)
+00:07.1 IDE interface: Intel Corporation 82371AB/EB/MB PIIX4 IDE (rev 01)
+00:07.3 Bridge: Intel Corporation 82371AB/EB/MB PIIX4 ACPI (rev 08)
+00:07.7 System peripheral: VMware Virtual Machine Communication Interface (rev 10)
+00:0f.0 VGA compatible controller: VMware SVGA II Adapter
+00:10.0 SCSI storage controller: LSI Logic / Symbios Logic 53c1030 PCI-X Fusion-MPT Dual Ultra320 SCSI (rev 01)
+00:11.0 PCI bridge: VMware PCI bridge (rev 02)
+00:15.0 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:15.1 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:15.2 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:15.3 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:15.4 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:15.5 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:15.6 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:15.7 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:16.0 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:16.1 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:16.2 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:16.3 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:16.4 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:16.5 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:16.6 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:16.7 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:17.0 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:17.1 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:17.2 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:17.3 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:17.4 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:17.5 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:17.6 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:17.7 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:18.0 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:18.1 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:18.2 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:18.3 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:18.4 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:18.5 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:18.6 PCI bridge: VMware PCI Express Root Port (rev 01)
+00:18.7 PCI bridge: VMware PCI Express Root Port (rev 01)
+02:00.0 USB controller: VMware USB1.1 UHCI Controller
+02:01.0 Ethernet controller: Advanced Micro Devices [AMD] 79c970 [PCnet32 LANCE] (rev 10)
+02:02.0 Multimedia audio controller: Ensoniq ES1371 [AudioPCI-97] (rev 02)
+
+---X---X---X---X---X---X---X---X---X---
+
+#### USB devices:
+Bus 001 Device 003: ID 0e0f:0002 VMware, Inc. Virtual USB Hub
+Bus 001 Device 002: ID 0e0f:0003 VMware, Inc. Virtual Mouse
+Bus 001 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+
+---X---X---X---X---X---X---X---X---X---
+
+#### CPU features:
+Architecture:          i686
+CPU op-mode(s):        32-bit, 64-bit
+Byte Order:            Little Endian
+CPU(s):                1
+On-line CPU(s) list:   0
+Thread(s) per core:    1
+Core(s) per socket:    1
+Socket(s):             1
+Vendor ID:             AuthenticAMD
+CPU family:            18
+Model:                 1
+Stepping:              0
+CPU MHz:               2593.569
+BogoMIPS:              5187.13
+Hypervisor vendor:     VMware
+Virtualization type:   full
+L1d cache:             64K
+L1i cache:             64K
+L2 cache:              1024K
+
+---X---X---X---X---X---X---X---X---X---
+
+#### Kernel modules:
+vmw_vsock_vmci_transport    29401  3 
+vsock                  26240  4 vmw_vsock_vmci_transport
+vmw_balloon            12586  0 
+vmwgfx                146807  1 
+ttm                    50758  1 vmwgfx
+drm_kms_helper         67474  1 vmwgfx
+drm                   212910  5 ttm,drm_kms_helper,vmwgfx
+vmw_vmci               50587  1 vmw_vsock_vmci_transport
+
+---X---X---X---X---X---X---X---X---X---
+
+#### VM Guest stats (legacy)
+15 Sep 2016 12:45:45
+2594 MHz
+
+---X---X---X---X---X---X---X---X---X---
+
+#### VM check stats (legacy)
+#### -- Hypervisor type:
+Workstation
+#### -- VM hardware version:
+VM's hw version is 4
+VMware software version 6 (good)
+0 0
+
+---X---X---X---X---X---X---X---X---X---
+
+#### Available stats:
+stats_raw=
+stats raw not available
+#### VM Guest tools info
+VMware Tools daemon, version 9.9.2.44151 (build-2496486)
+#### Host VM shares (HGFS):
+Downloads
+vsocketstools
+#### VM Guest operation scripts
+#### ... power
+/etc/vmware-tools/poweron-vm-default
+#### ... resume
+/etc/vmware-tools/resume-vm-default
+#### ... suspend
+/etc/vmware-tools/dmi.txt
+#### ... shutdown
+/etc/vmware-tools/poweroff-vm-default
+
+---X---X---X---X---X---X---X---X---X---
+
+#### VM Guest devices (visible if isolation is disabled in .vmx)
+#### VM Guest virtual drive mountpoints
+/
+device_list=[] 
+
+---X---X---X---X---X---X---X---X---X---
+
+device_list=[] 
+#### VM ARP networking stats:
+Address                  HWtype  HWaddress           Flags Mask            Iface
+192.168.189.254          ether   00:50:56:e8:45:2f   C                     eth0
+192.168.189.2            ether   00:50:56:fc:0d:df   C                     eth0
+192.168.189.1            ether   00:50:56:c0:00:08   C                     eth0
+#### VM IP routing networking stats:
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+default         192.168.189.2   0.0.0.0         UG    0      0        0 eth0
+192.168.189.0   *               255.255.255.0   U     0      0        0 eth0
+#### VM IP networking stats:
+eth0      Link encap:Ethernet  HWaddr 00:0c:29:3a:80:a1  
+          inet addr:192.168.189.128  Bcast:192.168.189.255  Mask:255.255.255.0
+          inet6 addr: fe80::20c:29ff:fe3a:80a1/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:707598 errors:1 dropped:0 overruns:0 frame:0
+          TX packets:907153 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:355835363 (339.3 MiB)  TX bytes:186826901 (178.1 MiB)
+          Interrupt:19 Base address:0x2000 
+
+lo        Link encap:Local Loopback  
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          inet6 addr: ::1/128 Scope:Host
+          UP LOOPBACK RUNNING  MTU:65536  Metric:1
+          RX packets:57575 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:57575 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0 
+          RX bytes:34902721 (33.2 MiB)  TX bytes:34902721 (33.2 MiB)
+
+
+---X---X---X---X---X---X---X---X---X---
+
+#### Scaning vsockets environment
+####      vsockets properties:
+VMware vsockets environment properties
+=======================================
+VMware vmci address familly=40
+VMware vmci is present
+VMware vmci local CID=3669014335
+Guest machine detected (CID=3669014335)
+
+---X---X---X---X---X---X---X---X---X---
+
+####      scaning open connection-oriented ports on Hypervisor:
+Scanning vsocket ports for CID=0...
+-+-host port 976 open
+VMware vsockets environment properties
+=======================================
+VMware vmci address familly=40
+VMware vmci is present
+VMware vmci local CID=3669014335
+Guest machine detected (CID=3669014335)
+
+---X---X---X---X---X---X---X---X---X---
+
+#### VM Guest backdoor low-level info
+#### ... Host screen size
+
+
+---X---X---X---X---X---X---X---X---X---
+
+#### ... BIOS UUID
+
+56 4d dc b9 f4 df ab 44 ad 00 9d 95 e2 3a 80 a1 
+
+---X---X---X---X---X---X---X---X---X---
+
+#### ... Paste from clipboard
+
+vmhost_report_print "####\n"
+---X---X---X---X---X---X---X---X---X---
+
+#### ... List connectable devices
+
+
+---X---X---X---X---X---X---X---X---X---
+
+#### ... RPC: machine.id.get
+
+RPC channel: 2 (cookie d084f678:eefb4425)
+RPC command: machine.id.get
+RPC reply  : 0 No machine id
+RPC channel closed
+
+#### ... RPC: guestInfo
+#### ..... info-get guestinfo.joebanana
+
+RPC channel: 2 (conventional)
+RPC command: info-get guestinfo.joebanana
+RPC reply  : 1 banana
+RPC channel closed
+
+#### ..... info-set guestinfo.joebanana
+
+RPC channel: 2 (conventional)
+RPC command: info-set guestinfo.joebanana banana
+RPC reply  : 1 
+RPC channel closed
+
+#### ..... info-get guestinfo.joebanana
+
+RPC channel: 2 (conventional)
+RPC command: info-get guestinfo.joebanana
+RPC reply  : 1 banana
+RPC channel closed
+
+#### ... RPC: log
+#### ..... log
+
+RPC channel: 2 (conventional)
+RPC command: log joebanana
+RPC reply  : 1 
+RPC channel closed
+
+#### ..... log -e
+
+RPC channel: 2 (cookie 1ff0a22d:46596c97)
+RPC command: log joebanana
+RPC reply  : 1 
+RPC channel closed
+
+---X---X---X---X---X---X---X---X---X---
+
+#### VM Guest backdoor dump (very low-level)
+vm_backdump : vmware backdoor commands dump tool 
+=================================================
+   [BUILD=Thu Sep 15 15:51:44 UTC 2016] Linux
+=================================================
+
+Backdoor Cmd(Get Version (Hypervisor version)) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x0000000a (backdoor cmd)
+OUT: EAX=00000006 (OK)   EBX=564d5868 (Changed)   ECX=00000004 <==(Changed)   EDX=00005658 (Unchanged)   
+
+=================================================
+
+@@@@@ Backdump_Dump all backdoor commands (even unknown/undocumented)
+@@@@@ 
+
+
+Backdoor Cmd((null)) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000001 (backdoor cmd)
+OUT: EAX=00000a22 (OK)   EBX=00000000 (Unchanged)   ECX=00000001 (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_APMFUNCTION) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000002 (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=00000002 (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_GETDISKGEO) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000003 (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=00000003 (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_GETPTRLOCATION) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000004 (backdoor cmd)
+OUT: EAX=01e0010f (OK)   EBX=00000000 (Unchanged)   ECX=00000004 (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_SETPTRLOCATION) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000005 (backdoor cmd)
+OUT: EAX=00000000 (OK)   EBX=00000000 (Unchanged)   ECX=00000005 (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_GETSELLENGTH) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000006 (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=00000006 (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_GETNEXTPIECE) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000007 (backdoor cmd)
+OUT: EAX=00000000 (OK)   EBX=00000000 (Unchanged)   ECX=00000007 (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_SETSELLENGTH) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000008 (backdoor cmd)
+OUT: EAX=00000000 (OK)   EBX=00000000 (Unchanged)   ECX=00000008 (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_SETNEXTPIECE) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000009 (backdoor cmd)
+OUT: EAX=00000000 (OK)   EBX=00000000 (Unchanged)   ECX=00000009 (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_GETVERSION) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x0000000a (backdoor cmd)
+OUT: EAX=00000006 (OK)   EBX=564d5868 (Changed)   ECX=00000004 <==(Changed)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_GETDEVICELISTELEMENT) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x0000000b (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=0000000b (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_TOGGLEDEVICE) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x0000000c (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=0000000c (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_GETGUIOPTIONS) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x0000000d (backdoor cmd)
+OUT: EAX=00000a13 (OK)   EBX=00000000 (Unchanged)   ECX=0000000d (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_SETGUIOPTIONS) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x0000000e (backdoor cmd)
+OUT: EAX=00000000 (OK)   EBX=00000000 (Unchanged)   ECX=0000000e (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_GETSCREENSIZE) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x0000000f (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=0000000f (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_MONITOR_CONTROL) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000010 (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=00000010 (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_GETHWVERSION) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000011 (backdoor cmd)
+OUT: EAX=00000004 (OK)   EBX=00000000 (Unchanged)   ECX=00000011 (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_OSNOTFOUND) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000012 (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=00000012 (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_GETUUID) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000013 (backdoor cmd)
+OUT: EAX=b9dc4d56 (OK)   EBX=44abdff4 (Changed)   ECX=959d00ad <==(Changed)   EDX=a1803ae2 <==Changed   
+
+Backdoor Cmd(BDOOR_CMD_GETMEMSIZE) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000014 (backdoor cmd)
+OUT: EAX=00000800 (OK)   EBX=00001177 (Changed)   ECX=00000014 (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_HOSTCOPY) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000015 (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=00000015 (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd((null)) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000016 (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=00000016 (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_GETTIME) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000017 (backdoor cmd)
+OUT: EAX=57dad03c (OK)   EBX=000abe00 (Changed)   ECX=000f4240 <==(Changed)   EDX=00000000 <==Changed   
+
+Backdoor Cmd(BDOOR_CMD_STOPCATCHUP) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000018 (backdoor cmd)
+OUT: EAX=00000000 (OK)   EBX=00000000 (Unchanged)   ECX=00000018 (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_PUTCHR) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000019 (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=00000019 (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_ENABLE_MSG) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x0000001a (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=0000001a (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_GOTO_TCL) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x0000001b (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=0000001b (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_INITPCIOPROM) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x0000001c (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=0000001c (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd((null)) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x0000001d (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=0000001d (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_MESSAGE) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x0000001e (backdoor cmd)
+OUT: EAX=00000000 (OK)   EBX=00000000 (Unchanged)   ECX=00000000 <==(Changed)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_SIDT) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x0000001f (backdoor cmd)
+OUT: EAX=fffbb000 (OK)   EBX=564d5868 (Changed)   ECX=000007ff <==(Changed)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_SGDT) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000020 (backdoor cmd)
+OUT: EAX=c15ad000 (OK)   EBX=564d5868 (Changed)   ECX=000000ff <==(Changed)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_SLDT_STR) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000021 (backdoor cmd)
+OUT: EAX=00000000 (OK)   EBX=564d5868 (Changed)   ECX=00000080 <==(Changed)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_ISACPIDISABLED) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000022 (backdoor cmd)
+OUT: EAX=00000000 (OK)   EBX=00000000 (Unchanged)   ECX=00000022 (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd((null)) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000023 (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=00000023 (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_ISMOUSEABSOLUTE) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000024 (backdoor cmd)
+OUT: EAX=00000001 (OK)   EBX=00000000 (Unchanged)   ECX=00000024 (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_PATCH_SMBIOS_STRUCTS) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000025 (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=00000025 (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_MAPMEM) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000026 (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=00000026 (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_ABSPOINTER_DATA) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000027 (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=00000027 (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_ABSPOINTER_STATUS) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000028 (backdoor cmd)
+OUT: EAX=00000000 (OK)   EBX=00000000 (Unchanged)   ECX=00000028 (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_ABSPOINTER_COMMAND) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000029 (backdoor cmd)
+OUT: EAX=00000001 (OK)   EBX=00000000 (Unchanged)   ECX=00000029 (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd((null)) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x0000002a (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=0000002a (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_PATCH_ACPI_TABLES) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x0000002b (backdoor cmd)
+OUT: EAX=564d5868 (Unchanged)   EBX=00000000 (Unchanged)   ECX=0000002b (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd((null)) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x0000002c (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=0000002c (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_GETHZ) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x0000002d (backdoor cmd)
+OUT: EAX=564d5868 (Unchanged)   EBX=00000000 (Unchanged)   ECX=0000002d (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_GETTIMEFULL) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x0000002e (backdoor cmd)
+OUT: EAX=564d5868 (Unchanged)   EBX=000ac1e8 (Changed)   ECX=000f4240 <==(Changed)   EDX=57dad03c <==Changed   
+
+Backdoor Cmd((null)) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x0000002f (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=0000002f (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_CHECKFORCEBIOSSETUP) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000030 (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=00000030 (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_LAZYTIMEREMULATION) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000031 (backdoor cmd)
+OUT: EAX=564d5868 (Unchanged)   EBX=00000000 (Unchanged)   ECX=00000031 (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_BIOSBBS) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000032 (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=00000032 (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd((null)) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000033 (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=00000033 (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_ISGOSDARWIN) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000034 (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=00000034 (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_DEBUGEVENT) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000035 (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=00000035 (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_OSNOTMACOSXSERVER) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000036 (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=00000036 (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_GETTIMEFULL_WITH_LAG) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000037 (backdoor cmd)
+OUT: EAX=564d5868 (Unchanged)   EBX=000ac5d0 (Changed)   ECX=000f4240 <==(Changed)   EDX=57dad03c <==Changed   
+
+Backdoor Cmd(BDOOR_CMD_ACPI_HOTPLUG_DEVICE) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000038 (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=00000038 (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_ACPI_HOTPLUG_MEMORY) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000039 (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=00000039 (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_ACPI_HOTPLUG_CBRET) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x0000003a (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=0000003a (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd((null)) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x0000003b (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=0000003b (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_ACPI_HOTPLUG_CPU) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x0000003c (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=0000003c (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd((null)) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x0000003d (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=0000003d (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_XPMODE) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x0000003e (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=0000003e (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_NESTING_CONTROL) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x0000003f (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=0000003f (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_FIRMWARE_INIT) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000040 (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=00000040 (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_FIRMWARE_ACPI_SERVICES) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000041 (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=00000041 (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_SENDPSHAREHINTS) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000042 (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=00000042 (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_ENABLE_USB_MOUSE) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000043 (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=00000043 (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_GET_VCPU_INFO) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000044 (backdoor cmd)
+OUT: EAX=00000002 (OK)   EBX=00000000 (Unchanged)   ECX=00000044 (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_EFI_SERIALCON_CONFIG) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000045 (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=00000045 (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_BUG328986) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000046 (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=00000046 (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_FIRMWARE_ERROR) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000047 (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=00000047 (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_VMK_INFO) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000048 (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=00000048 (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_EFI_BOOT_CONFIG) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000049 (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=00000049 (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_GET_HW_MODEL) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x0000004a (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=0000004a (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_GET_SVGA_CAPABILITIES) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x0000004b (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=0000004b (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd((null)) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x0000004c (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=0000004c (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_SET_PCI_HOLE) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x0000004d (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=0000004d (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_GET_PCI_HOLE) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x0000004e (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=0000004e (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_GET_PCI_BAR) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x0000004f (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=0000004f (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_SHOULD_GENERATE_SYSTEMID) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000050 (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=00000050 (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_READ_DEBUG_FILE) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000051 (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=00000051 (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_SCREENSHOT) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000052 (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=00000052 (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_INJECT_KEY) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000053 (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=00000053 (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_INJECT_MOUSE) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000054 (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=00000054 (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_MKS_GUEST_STATS) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000055 (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=00000055 (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_ABSPOINTER_RESTRICT) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000056 (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=00000056 (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_GUESTINTEGRITY) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000057 (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=00000057 (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_MKSSTATS_SNAPSHOT) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000058 (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=00000058 (Unchanged)   EDX=00005658 (Unchanged)   
+
+
+@@@@@ End (Backdump_Dump all backdoor commands) <<<<<
+
+@@@@@ Backdump_Dump Hypervisor Nesting Related Commands
+@@@@@ 
+
+
+Backdoor Command(NestingSupported - BDOOR_CMD_NESTING_CONTROL) --- IN: 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x0002003f (backdoor cmd)
+OUT:   EAX=00000002   EBX=00000002   ECX=00000002   EDX=00000002   
+Nesting supported=1
+
+Backdoor Command(NestingControl - BDOOR_CMD_NESTING_CONTROL) --- IN: 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x0000003f (backdoor cmd)
+OUT:   EAX=ffffffff   EBX=ffffffff   ECX=ffffffff   EDX=ffffffff   
+
+Backdoor Command(NestingControl - BDOOR_CMD_NESTING_CONTROL) --- IN: 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x0001003f (backdoor cmd)
+OUT:   EAX=ffffffff   EBX=ffffffff   ECX=ffffffff   EDX=ffffffff   
+
+Backdoor Command(NestingControl - BDOOR_CMD_NESTING_CONTROL) --- IN: 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x0002003f (backdoor cmd)
+OUT:   EAX=00000002   EBX=00000002   ECX=00000002   EDX=00000002   
+
+VCPUInfoBackdoor
+
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000044 (backdoor cmd)
+OUT:   EAX=00000002   EBX=00000002   ECX=00000002   EDX=00000002   
+BDOOR_CMD_VCPU_SYNC_VTSCS supported
+BDOOR_CMD_VCPU_RESERVED=001f
+(1 << BDOOR_CMD_VCPU_RESERVED)=80000000
+(1 << bit)=0004
+NestedHVReplaySupported supported=0
+
+Backdoor Cmd(BDOOR_CMD_SIDT) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x0000001f (backdoor cmd)
+OUT: EAX=fffbb000 (OK)   EBX=564d5868 (Changed)   ECX=000007ff <==(Changed)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_SGDT) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000020 (backdoor cmd)
+OUT: EAX=c15ad000 (OK)   EBX=564d5868 (Changed)   ECX=000000ff <==(Changed)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_SLDT_STR) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000021 (backdoor cmd)
+OUT: EAX=00000000 (OK)   EBX=564d5868 (Changed)   ECX=00000080 <==(Changed)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_ISACPIDISABLED) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000022 (backdoor cmd)
+OUT: EAX=00000000 (OK)   EBX=00000000 (Unchanged)   ECX=00000022 (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_ABSPOINTER_DATA) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000027 (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=00000027 (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_ABSPOINTER_STATUS) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000028 (backdoor cmd)
+OUT: EAX=00000000 (OK)   EBX=00000000 (Unchanged)   ECX=00000028 (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_ABSPOINTER_COMMAND) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000029 (backdoor cmd)
+OUT: EAX=00000001 (OK)   EBX=00000000 (Unchanged)   ECX=00000029 (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_GETHZ) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x0000002d (backdoor cmd)
+OUT: EAX=564d5868 (Unchanged)   EBX=00000000 (Unchanged)   ECX=0000002d (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_GETTIMEFULL) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x0000002e (backdoor cmd)
+OUT: EAX=564d5868 (Unchanged)   EBX=000ac9b8 (Changed)   ECX=000f4240 <==(Changed)   EDX=57dad03c <==Changed   
+
+Backdoor Cmd(BDOOR_CMD_ISGOSDARWIN) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000034 (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=00000034 (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_DEBUGEVENT) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000035 (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=00000035 (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_GETTIMEFULL_WITH_LAG) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000037 (backdoor cmd)
+OUT: EAX=564d5868 (Unchanged)   EBX=000ac9b8 (Changed)   ECX=000f4240 <==(Changed)   EDX=57dad03c <==Changed   
+
+Backdoor Cmd(BDOOR_CMD_ENABLE_USB_MOUSE) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000043 (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=00000043 (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_VMK_INFO) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000048 (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=00000048 (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_ABSPOINTER_RESTRICT) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000056 (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=00000056 (Unchanged)   EDX=00005658 (Unchanged)   
+
+Backdoor Cmd(BDOOR_CMD_GUESTINTEGRITY) 
+IN: ===> [ASM] IN DX, EAX ;--- DX=0x5658 (backdoor port) , EAX=0x00000057 (backdoor cmd)
+OUT: EAX=ffffffff (ERR)   EBX=00000000 (Unchanged)   ECX=00000057 (Unchanged)   EDX=00005658 (Unchanged)   
+
+
+@@@@@<<<<<
+
+
+---X---X---X---X---X---X---X---X---X---
+
+#### VM local networks [["192.168.189.128", "192.168.189.255", "255.255.255.0"]] 
+#### local network address=192.168.189.255 mask=255.255.255.0
+#### local network mask 192.168.189.0/24
+#### VM network basic scan:
+#### network mask: 192.168.189.0/24
+#### --- scanning for interesting services:
+
+Starting Nmap 6.47 ( http://nmap.org ) at 2016-09-15 12:45 EDT
+Nmap scan report for 192.168.189.1
+Host is up (0.00067s latency).
+PORT    STATE    SERVICE         VERSION
+53/tcp  filtered domain
+80/tcp  filtered http
+443/tcp filtered https
+902/tcp open     ssl/vmware-auth VMware Authentication Daemon 1.10 (Uses VNC, SOAP)
+912/tcp open     vmware-auth     VMware Authentication Daemon 1.0 (Uses VNC, SOAP)
+MAC Address: 00:50:56:C0:00:08 (VMware)
+
+Nmap scan report for 192.168.189.2
+Host is up (0.00084s latency).
+PORT    STATE  SERVICE        VERSION
+53/tcp  open   domain         dnsmasq 2.51
+MAC Address: 00:50:56:FC:0D:DF (VMware)
+
+Nmap scan report for 192.168.189.254
+Host is up (0.00027s latency).
+PORT    STATE    SERVICE        VERSION
+53/tcp  filtered domain
+80/tcp  filtered http
+443/tcp filtered https
+902/tcp filtered iss-realsecure
+912/tcp filtered apex-mesh
+MAC Address: 00:50:56:E8:45:2F (VMware)
+
+Nmap scan report for 192.168.189.128
+Host is up (0.000083s latency).
+PORT    STATE  SERVICE        VERSION
+
+Service detection performed. Please report any incorrect results at http://nmap.org/submit/ .
+Nmap done: 256 IP addresses (4 hosts up) scanned in 10.06 seconds
+#### --- output=
+Starting Nmap 6.47 ( http://nmap.org ) at 2016-09-15 12:45 EDT
+Nmap scan report for 192.168.189.1
+Host is up (0.00067s latency).
+PORT    STATE    SERVICE         VERSION
+53/tcp  filtered domain
+80/tcp  filtered http
+443/tcp filtered https
+902/tcp open     ssl/vmware-auth VMware Authentication Daemon 1.10 (Uses VNC, SOAP)
+912/tcp open     vmware-auth     VMware Authentication Daemon 1.0 (Uses VNC, SOAP)
+MAC Address: 00:50:56:C0:00:08 (VMware)
+
+Nmap scan report for 192.168.189.2
+Host is up (0.00084s latency).
+PORT    STATE  SERVICE        VERSION
+53/tcp  open   domain         dnsmasq 2.51
+MAC Address: 00:50:56:FC:0D:DF (VMware)
+
+Nmap scan report for 192.168.189.254
+Host is up (0.00027s latency).
+PORT    STATE    SERVICE        VERSION
+53/tcp  filtered domain
+80/tcp  filtered http
+443/tcp filtered https
+902/tcp filtered iss-realsecure
+912/tcp filtered apex-mesh
+MAC Address: 00:50:56:E8:45:2F (VMware)
+
+Nmap scan report for 192.168.189.128
+Host is up (0.000083s latency).
+PORT    STATE  SERVICE        VERSION
+
+Service detection performed. Please report any incorrect results at http://nmap.org/submit/ .
+Nmap done: 256 IP addresses (4 hosts up) scanned in 10.06 seconds
+
+#### --- candidates=[["192.168.189.1", "\nHost is up (0.00067s latency).\nPORT    STATE    SERVICE         VERSION\n53/tcp  filtered domain\n80/tcp  filtered http\n443/tcp filtered https\n902/tcp open     ssl/vmware-auth VMware Authentication Daemon 1.10 (Uses VNC, SOAP)\n912/tcp open     vmware-auth     VMware Authentication Daemon 1.0 (Uses VNC, SOAP)\nMAC Address: 00:50:56:C0:00:08 "], ["192.168.189.2", "\nHost is up (0.00084s latency).\nPORT    STATE  SERVICE        VERSION\n53/tcp  open   domain         dnsmasq 2.51\nMAC Address: 00:50:56:FC:0D:DF "], ["192.168.189.254", "\nHost is up (0.00027s latency).\nPORT    STATE    SERVICE        VERSION\n53/tcp  filtered domain\n80/tcp  filtered http\n443/tcp filtered https\n902/tcp filtered iss-realsecure\n912/tcp filtered apex-mesh\nMAC Address: 00:50:56:E8:45:2F "]]
+#### host address=192.168.189.1 
+
+ signature=
+Host is up (0.00067s latency).
+PORT    STATE    SERVICE         VERSION
+53/tcp  filtered domain
+80/tcp  filtered http
+443/tcp filtered https
+902/tcp open     ssl/vmware-auth VMware Authentication Daemon 1.10 (Uses VNC, SOAP)
+912/tcp open     vmware-auth     VMware Authentication Daemon 1.0 (Uses VNC, SOAP)
+MAC Address: 00:50:56:C0:00:08 
+#### host address=192.168.189.2 
+
+ signature=
+Host is up (0.00084s latency).
+PORT    STATE  SERVICE        VERSION
+53/tcp  open   domain         dnsmasq 2.51
+MAC Address: 00:50:56:FC:0D:DF 
+#### host address=192.168.189.254 
+
+ signature=
+Host is up (0.00027s latency).
+PORT    STATE    SERVICE        VERSION
+53/tcp  filtered domain
+80/tcp  filtered http
+443/tcp filtered https
+902/tcp filtered iss-realsecure
+912/tcp filtered apex-mesh
+MAC Address: 00:50:56:E8:45:2F 
+
+---X---X---X---X---X---X---X---X---X---
+
+#### VMware Player hypervisor at IP=192.168.189.1
+
+#### OS scan for IP=192.168.189.1
+
+
+Starting Nmap 6.47 ( http://nmap.org ) at 2016-09-15 12:45 EDT
+Initiating ARP Ping Scan at 12:45
+Scanning 192.168.189.1 [1 port]
+Completed ARP Ping Scan at 12:45, 0.00s elapsed (1 total hosts)
+Initiating Parallel DNS resolution of 1 host. at 12:45
+Completed Parallel DNS resolution of 1 host. at 12:45, 0.01s elapsed
+Initiating SYN Stealth Scan at 12:45
+Scanning 192.168.189.1 [5 ports]
+Discovered open port 902/tcp on 192.168.189.1
+Discovered open port 912/tcp on 192.168.189.1
+Completed SYN Stealth Scan at 12:46, 1.21s elapsed (5 total ports)
+Initiating UDP Scan at 12:46
+Scanning 192.168.189.1 [5 ports]
+Completed UDP Scan at 12:46, 1.21s elapsed (5 total ports)
+Initiating OS detection (try #1) against 192.168.189.1
+Nmap scan report for 192.168.189.1
+Host is up (0.00079s latency).
+Scanned at 2016-09-15 12:45:59 EDT for 4s
+PORT     STATE         SERVICE
+80/tcp   filtered      http
+443/tcp  filtered      https
+902/tcp  open          iss-realsecure
+912/tcp  open          apex-mesh
+8080/tcp filtered      http-proxy
+80/udp   open|filtered http
+443/udp  open|filtered https
+902/udp  open|filtered ideafarm-door
+912/udp  open|filtered unknown
+8080/udp open|filtered unknown
+MAC Address: 00:50:56:C0:00:08 (VMware)
+Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port
+Device type: general purpose|phone
+Running: Microsoft Windows 2008|7|Phone|Vista
+OS CPE: cpe:/o:microsoft:windows_server_2008:r2 cpe:/o:microsoft:windows_7::-:professional cpe:/o:microsoft:windows_8 cpe:/o:microsoft:windows cpe:/o:microsoft:windows_vista::- cpe:/o:microsoft:windows_vista::sp1
+OS details: Windows Server 2008 R2, Microsoft Windows 7 Professional or Windows 8, Microsoft Windows Phone 7.5 or 8.0, Microsoft Windows Vista SP0 or SP1, Windows Server 2008 SP1, or Windows 7, Microsoft Windows Vista SP2, Windows 7 SP1, or Windows Server 2008
+TCP/IP fingerprint:
+OS:SCAN(V=6.47%E=4%D=9/15%OT=902%CT=%CU=%PV=Y%DS=1%DC=D%G=N%M=005056%TM=57D
+OS:AD04B%P=i686-pc-linux-gnu)SEQ(SP=104%GCD=1%ISR=109%TI=I%II=I%SS=S%TS=7)O
+OS:PS(O1=M5B4NW8ST11%O2=M5B4NW8ST11%O3=M5B4NW8NNT11%O4=M5B4NW8ST11%O5=M5B4N
+OS:W8ST11%O6=M5B4ST11)WIN(W1=2000%W2=2000%W3=2000%W4=2000%W5=2000%W6=2000)E
+OS:CN(R=Y%DF=Y%TG=80%W=2000%O=M5B4NW8NNS%CC=N%Q=)T1(R=Y%DF=Y%TG=80%S=O%A=S+
+OS:%F=AS%RD=0%Q=)T2(R=N)T3(R=N)T4(R=N)U1(R=N)IE(R=Y%DFI=N%TG=80%CD=Z)
+
+Uptime guess: 30.274 days (since Tue Aug 16 06:11:50 2016)
+Network Distance: 1 hop
+TCP Sequence Prediction: Difficulty=260 (Good luck!)
+IP ID Sequence Generation: Incremental
+
+Read data files from: /usr/bin/../share/nmap
+OS detection performed. Please report any incorrect results at http://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 4.85 seconds
+           Raw packets sent: 56 (4.142KB) | Rcvd: 12 (850B)
+#### VMware network device at IP=192.168.189.254
+
+#### OS scan for IP=192.168.189.254
+
+
+Starting Nmap 6.47 ( http://nmap.org ) at 2016-09-15 12:46 EDT
+Initiating ARP Ping Scan at 12:46
+Scanning 192.168.189.254 [1 port]
+Completed ARP Ping Scan at 12:46, 0.00s elapsed (1 total hosts)
+Initiating Parallel DNS resolution of 1 host. at 12:46
+Completed Parallel DNS resolution of 1 host. at 12:46, 0.01s elapsed
+Initiating SYN Stealth Scan at 12:46
+Scanning 192.168.189.254 [5 ports]
+Completed SYN Stealth Scan at 12:46, 1.21s elapsed (5 total ports)
+Initiating UDP Scan at 12:46
+Scanning 192.168.189.254 [5 ports]
+Completed UDP Scan at 12:46, 1.21s elapsed (5 total ports)
+Initiating OS detection (try #1) against 192.168.189.254
+Retrying OS detection (try #2) against 192.168.189.254
+Nmap scan report for 192.168.189.254
+Host is up (0.00018s latency).
+Scanned at 2016-09-15 12:46:04 EDT for 5s
+PORT     STATE         SERVICE
+80/tcp   filtered      http
+443/tcp  filtered      https
+902/tcp  filtered      iss-realsecure
+912/tcp  filtered      apex-mesh
+8080/tcp filtered      http-proxy
+80/udp   open|filtered http
+443/udp  open|filtered https
+902/udp  open|filtered ideafarm-door
+912/udp  open|filtered unknown
+8080/udp open|filtered unknown
+MAC Address: 00:50:56:E8:45:2F (VMware)
+Too many fingerprints match this host to give specific OS details
+TCP/IP fingerprint:
+SCAN(V=6.47%E=4%D=9/15%OT=%CT=%CU=%PV=Y%DS=1%DC=D%G=N%M=005056%TM=57DAD051%P=i686-pc-linux-gnu)
+U1(R=N)
+IE(R=N)
+
+Network Distance: 1 hop
+
+Read data files from: /usr/bin/../share/nmap
+OS detection performed. Please report any incorrect results at http://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 5.61 seconds
+           Raw packets sent: 69 (7.420KB) | Rcvd: 1 (28B)
+#### DNS services scan for IP=192.168.189.254
+
+
+Starting Nmap 6.47 ( http://nmap.org ) at 2016-09-15 12:46 EDT
+Nmap scan report for 192.168.189.254
+Host is up (0.00019s latency).
+PORT   STATE    SERVICE VERSION
+53/tcp filtered domain
+MAC Address: 00:50:56:E8:45:2F (VMware)
+
+Service detection performed. Please report any incorrect results at http://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 0.46 seconds
+#### VMware network device at IP=192.168.189.2
+
+#### OS scan for IP=192.168.189.2
+
+
+Starting Nmap 6.47 ( http://nmap.org ) at 2016-09-15 12:46 EDT
+Initiating ARP Ping Scan at 12:46
+Scanning 192.168.189.2 [1 port]
+Completed ARP Ping Scan at 12:46, 0.00s elapsed (1 total hosts)
+Initiating Parallel DNS resolution of 1 host. at 12:46
+Completed Parallel DNS resolution of 1 host. at 12:46, 0.01s elapsed
+Initiating SYN Stealth Scan at 12:46
+Scanning 192.168.189.2 [5 ports]
+Completed SYN Stealth Scan at 12:46, 0.00s elapsed (5 total ports)
+Initiating UDP Scan at 12:46
+Scanning 192.168.189.2 [5 ports]
+Completed UDP Scan at 12:46, 1.21s elapsed (5 total ports)
+Initiating OS detection (try #1) against 192.168.189.2
+Retrying OS detection (try #2) against 192.168.189.2
+Nmap scan report for 192.168.189.2
+Host is up (0.00032s latency).
+Scanned at 2016-09-15 12:46:10 EDT for 4s
+PORT     STATE         SERVICE
+80/tcp   closed        http
+443/tcp  closed        https
+902/tcp  closed        iss-realsecure
+912/tcp  closed        apex-mesh
+8080/tcp closed        http-proxy
+80/udp   open|filtered http
+443/udp  open|filtered https
+902/udp  open|filtered ideafarm-door
+912/udp  open|filtered unknown
+8080/udp open|filtered unknown
+MAC Address: 00:50:56:FC:0D:DF (VMware)
+Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port
+OS fingerprint not ideal because: Missing an open TCP port so results incomplete
+Aggressive OS guesses: Aethra Starvoice 1042 ADSL router (91%), Bluebird SuperDOS (91%), Brother NC-130h print server (91%), Brother HL-1870N printer (91%), Brother HL-2070N or MFC-5460CN printer (91%), Brother HL-2070N printer (91%), Brother HL-5070N printer (91%), Brother MFC-7820N printer (91%), Brother MFC-9420CN printer (91%), Elk ELK-M1EXP Ethernet-to-serial bridge (91%)
+No exact OS matches for host (test conditions non-ideal).
+TCP/IP fingerprint:
+SCAN(V=6.47%E=4%D=9/15%OT=%CT=80%CU=%PV=Y%DS=1%DC=D%G=N%M=005056%TM=57DAD056%P=i686-pc-linux-gnu)
+SEQ(CI=I%II=I)
+T5(R=Y%DF=N%TG=80%W=7FFF%S=Z%A=S+%F=AR%O=%RD=0%Q=)
+T6(R=Y%DF=N%TG=80%W=7FFF%S=A%A=Z%F=R%O=%RD=0%Q=)
+T7(R=Y%DF=N%TG=80%W=7FFF%S=Z%A=S%F=AR%O=%RD=0%Q=)
+U1(R=N)
+IE(R=Y%DFI=N%TG=80%CD=Z)
+
+Network Distance: 1 hop
+
+Read data files from: /usr/bin/../share/nmap
+OS detection performed. Please report any incorrect results at http://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 4.20 seconds
+           Raw packets sent: 34 (4.164KB) | Rcvd: 16 (1.120KB)
+#### DNS services scan for IP=192.168.189.2
+
+
+Starting Nmap 6.47 ( http://nmap.org ) at 2016-09-15 12:46 EDT
+Nmap scan report for 192.168.189.2
+Host is up (0.00076s latency).
+PORT   STATE SERVICE VERSION
+53/tcp open  domain  dnsmasq 2.51
+MAC Address: 00:50:56:FC:0D:DF (VMware)
+
+Service detection performed. Please report any incorrect results at http://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 6.50 seconds
+#### (Ending at Thu Sep 15 12:46:20 EDT 2016)

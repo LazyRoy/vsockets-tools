@@ -26,17 +26,18 @@ module OS
   end
 end
 
+VM_HOST_REPORT_VERSION="0.51"
 REPORT_FILE="vmhost_report.log"
 TMP_STDOUT_FILE="vmhost_report.stdout.log"
 TMP_STDERR_FILE="vmhost_report.stderr.log"
 
-if OS.ESXi?
-VMW_PATH="./vmw"
-VM_BACKDUMP="./vm_backdump"
-else
 VMW_PATH="bin.aux/linux32/vmw"
 VM_BACKDUMP="bin.aux/linux32/vm_backdump"
-end
+VSOCKETS_TOOLS_PATH="bin.aux/linux32"
+VSOCKETS_HOSTNAME="#{VSOCKETS_TOOLS_PATH}/vsockets_hostname"
+VSOCKETS_NC="#{VSOCKETS_TOOLS_PATH}/vsockets_nc"
+
+
 
 def vmhost_report_create_log_file
    File.open(REPORT_FILE, 'w') { |file| file.write("#############################################\n") }
@@ -61,7 +62,8 @@ end
 
 #TODO: gravar todos o stderr ...
 def vmhost_report_system command
-   return system command+" >> #{REPORT_FILE}"
+	vmhost_report_system_return_output command
+#   return system command+" >> #{REPORT_FILE}"
 end
 
 def get_running_user
@@ -575,6 +577,17 @@ def vm_scan_local_networks
   
 end
 
+def vm_scan_vsockets
+	vmhost_report_print "#### Scaning vsockets environment\n"
+	vmhost_report_print "####      vsockets properties:\n"
+	vmhost_report_system "#{VSOCKETS_HOSTNAME}"
+	vmhost_report_print_section_break	
+	
+	vmhost_report_print "####      scaning open connection-oriented ports on Hypervisor:\n"
+	vmhost_report_system "#{VSOCKETS_NC} -n"
+	vmhost_report_print_section_break	
+end
+
 ### MAIN
 
 vmhost_report_create_log_file
@@ -587,7 +600,8 @@ vmhost_report_print "#### VMware Host Fingerprinting Report from Guest\n"
 vmhost_report_print "####\n"
 vmhost_report_print "#### (Starting at #{NOW})\n"
 vmhost_report_print "####\n"
-vmhost_report_print "#### Platform: #{RUBY_PLATFORM} - #{OSNAME} \n"
+vmhost_report_print "#### Tool version: #{VM_HOST_REPORT_VERSION}\n"
+vmhost_report_print "#### Platform:     #{RUBY_PLATFORM} - #{OSNAME} \n"
 
 check_running_user
 
@@ -617,13 +631,14 @@ vm_storage_stats
 
 vm_networking_stats
 
+vm_scan_vsockets
+
 
 # Advanced stats
 
 vmguest_backdoor_info
 
 vm_scan_local_networks
-
 
 
 
