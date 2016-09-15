@@ -1,3 +1,6 @@
+
+# VMware Hypervisor Products and Versions
+#
 # ESXi 3.5    207095 ( Address: 0xE66C0 Release Date: 03/19/2009)
 # ESXi 4.0    171294 ( Address: 0xEA550 Release Date: 03/26/2009)
 # ESXi 4.0u1  208167 ( Address: 0xEA550 Release Date: 09/22/2009)

@@ -305,38 +305,39 @@ end
 def vmguest_backdoor_info 
 
 	vmhost_report_print "#### VM Guest backdoor low-level info\n"
-	vmhost_report_print "#### ... Host screen size\n"
-	vmhost_report_system "#{VMW_PATH} s -d -v"
+	vmhost_report_print "#### ... Host screen size\n\n"
+	#vmhost_report_system "#{VMW_PATH} s -d -v"
+	vmhost_report_system "#{VMW_PATH} s "
 	vmhost_report_print_section_break
 	
-	vmhost_report_print "#### ... BIOS UUID\n"
-	vmhost_report_system "#{VMW_PATH} u -v -d"
+	vmhost_report_print "#### ... BIOS UUID\n\n"
+	vmhost_report_system "#{VMW_PATH} u "
 	vmhost_report_print_section_break
 
-	vmhost_report_print "#### ... Paste from clipboard\n"
-	vmhost_report_system "#{VMW_PATH} p -v -d"
+	vmhost_report_print "#### ... Paste from clipboard\n\n"
+	vmhost_report_system "#{VMW_PATH} p"
 	vmhost_report_print_section_break
 
-	vmhost_report_print "#### ... List connectable devices\n"
-	vmhost_report_system "#{VMW_PATH} d -v -d"
+	vmhost_report_print "#### ... List connectable devices\n\n"
+	vmhost_report_system "#{VMW_PATH} d"
 	vmhost_report_print_section_break
 
-	vmhost_report_print "#### ... RPC: machine.id.get\n"
+	vmhost_report_print "#### ... RPC: machine.id.get\n\n"
 	vmhost_report_system "#{VMW_PATH} rpc -e machine.id.get -v"
-	vmhost_report_print "#### ... RPC: guestInfo\n"
-	vmhost_report_print "#### ..... info-get guestinfo.joebanana\n"
+	vmhost_report_print "\n#### ... RPC: guestInfo\n"
+	vmhost_report_print "#### ..... info-get guestinfo.joebanana\n\n"
 	vmhost_report_system "#{VMW_PATH} r \"info-get guestinfo.joebanana\" -v"
 	vmhost_report_print "\n"
-	vmhost_report_print "#### ..... info-set guestinfo.joebanana\n"
+	vmhost_report_print "#### ..... info-set guestinfo.joebanana\n\n"
 	vmhost_report_system "#{VMW_PATH} r \"info-set guestinfo.joebanana banana\" -v"
 	vmhost_report_print "\n"
-	vmhost_report_print "#### ..... info-get guestinfo.joebanana\n"
+	vmhost_report_print "#### ..... info-get guestinfo.joebanana\n\n"
 	vmhost_report_system "#{VMW_PATH} r \"info-get guestinfo.joebanana\" -v"
 	vmhost_report_print "\n"
 	vmhost_report_print "#### ... RPC: log\n"
-	vmhost_report_print "#### ..... log\n"
+	vmhost_report_print "#### ..... log\n\n"
 	vmhost_report_system "#{VMW_PATH} r \"log joebanana\" -v"
-	vmhost_report_print "#### ..... log -e\n"
+	vmhost_report_print "\n#### ..... log -e\n\n"
 	vmhost_report_system "#{VMW_PATH} r -e \"log joebanana\" -v"
 	vmhost_report_print_section_break
 
