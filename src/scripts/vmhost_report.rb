@@ -1,3 +1,21 @@
+#
+# vmhost_report.rb - vmware host reporting from guest VM
+#
+# Copyright (C) 2016 Pedro Mendes da Silva
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#  You should have received a copy of the GNU General Public License
+#  along with this program; if not, write to the Free Software
+#  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ 
+
 require_relative "vmware_hypervisor_version.rb"
 require 'ostruct'
 #require "./vmware_hypervisor_version.rb"
@@ -26,7 +44,7 @@ module OS
   end
 end
 
-VM_HOST_REPORT_VERSION="0.51"
+VM_HOST_REPORT_VERSION="0.52"
 REPORT_FILE="vmhost_report.log"
 TMP_STDOUT_FILE="vmhost_report.stdout.log"
 TMP_STDERR_FILE="vmhost_report.stderr.log"
@@ -73,7 +91,7 @@ def get_running_user
 	current_user_aux = `env | grep LOGNAME`
 	current_user = current_user_aux.split("=")[1]
 	
-	return current_user
+	return current_user.to_s
 	
 end
 
@@ -84,7 +102,7 @@ def check_running_user
 
 	vmhost_report_print "current user=#{current_user}\n"
 
-	if current_user <=> "root" then
+	if current_user.eql? "root" then
 		vmhost_report_print "===> Running as root, all info available\n"
 	else
 		vmhost_report_print "===> WARNING: Running as unprivileged user, not all info will be available\n"
@@ -94,9 +112,13 @@ def check_running_user
 end
 
 def check_vm_host_version
-	vmhost_report_print "#### VM Hypervisor Version \n"
-    vmhost_report_print "VM hypervisor version=#{vmhost_get_version}\n"
-    vmhost_report_print "patch level=#{vmhost_get_patch_level}\n"
+	begin
+		vmhost_report_print "#### VM Hypervisor Version \n"
+		vmhost_report_print "VM hypervisor version=#{vmhost_get_version}\n"
+		vmhost_report_print "patch level=#{vmhost_get_patch_level}\n"
+	rescue
+		vmhost_report_print "Error: could not fetch hypervisor version from BIOS\n"
+	end
 	vmhost_report_print_section_break  
 end
 
@@ -399,7 +421,7 @@ def vm_network_basic_scan netmask
 	vmhost_report_print "#### VM network basic scan:\n"
 	vmhost_report_print "#### network mask: #{netmask}\n"
 	vmhost_report_print "#### --- scanning for interesting services:\n"
-	output = vmhost_report_system_return_output "nmap -sV --version-all -p 902,912,80,443,53 192.168.189.0/24  | grep -v closed"
+	output = vmhost_report_system_return_output "nmap -sV --version-all -p 902,912,80,443,53 #{netmask}  | grep -v closed"
 	
 	vmhost_report_print "#### --- output=#{output}\n"
 	
@@ -528,14 +550,23 @@ end
 
 def vm_scan_local_networks
 
+	used_ip_route = false
+
 	if (!OS.ESXi?)
 	
 		# call "ifconfig" and get all the entries like:
 		# 	inet addr:192.168.189.128  Bcast:192.168.189.255  Mask:255.255.255.0
 
-		local_networks_aux = `ifconfig`
+		begin
+			local_networks_aux = `ifconfig`
   
-		local_networks = local_networks_aux.scan(/inet addr:([0-9]+.[0-9]+.[0-9]+.[0-9]+)  Bcast:([0-9]+.[0-9]+.[0-9]+.[0-9]+)  Mask:([0-9]+.[0-9]+.[0-9]+.[0-9]+)/)
+			local_networks = local_networks_aux.scan(/inet addr:([0-9]+.[0-9]+.[0-9]+.[0-9]+)  Bcast:([0-9]+.[0-9]+.[0-9]+.[0-9]+)  Mask:([0-9]+.[0-9]+.[0-9]+.[0-9]+)/)
+		rescue
+		   #TODO: try "ip route" instead of ifconfig for unprivileged users
+		   local_networks_aux = `ip route`
+		   local_networks = local_networks_aux.scan(/([0-9]+.[0-9]+.[0-9]+.[0-9]+\/[0-9]+)/)
+		   used_ip_route = true
+		end
 		
 	else
 	
@@ -553,19 +584,24 @@ def vm_scan_local_networks
   vmhost_report_print "#### VM local networks #{local_networks} \n"
   
   local_networks.each do |network_i|
-  
-    if (!OS.ESXi?)
-		network_address = network_i[1]
-		network_mask = network_i[2]
-	else
-		network_address = network_i[4]
-		network_mask = network_i[2]
+	if (!used_ip_route)
+		if (!OS.ESXi?)
+			network_address = network_i[1]
+			network_mask = network_i[2]
+		else
+			network_address = network_i[4]
+			network_mask = network_i[2]
+		end
 	end
   
     vmhost_report_print "#### local network address=#{network_address} mask=#{network_mask}\n"
 	
 	# Like: 192.168.189.0/24
-	netmask = convert_netmask network_address, network_mask
+	if (used_ip_route)
+		netmask = network_i[0]
+	else
+		netmask = convert_netmask network_address, network_mask
+	end
 	vmhost_report_print "#### local network mask #{netmask}\n"
 	
 	vmhosts = vm_network_basic_scan netmask
