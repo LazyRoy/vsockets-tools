@@ -44,7 +44,7 @@ module OS
   end
 end
 
-VM_HOST_REPORT_VERSION="0.52"
+VM_HOST_REPORT_VERSION="0.53"
 REPORT_FILE="vmhost_report.log"
 TMP_STDOUT_FILE="vmhost_report.stdout.log"
 TMP_STDERR_FILE="vmhost_report.stderr.log"
@@ -88,11 +88,12 @@ def get_running_user
 
 #Linux + ESXi
 
-	current_user_aux = `env | grep LOGNAME`
-	current_user = current_user_aux.split("=")[1]
+	#current_user_aux = `env | grep LOGNAME`
+	#current_user = current_user_aux.split("=")[1]
 	
-	return current_user.to_s
+	#return current_user.to_s.chomp('\n')
 	
+	return ENV['LOGNAME']	
 end
 
 def check_running_user
@@ -101,7 +102,7 @@ def check_running_user
 	current_user = get_running_user
 
 	vmhost_report_print "current user=#{current_user}\n"
-
+	
 	if current_user.eql? "root" then
 		vmhost_report_print "===> Running as root, all info available\n"
 	else
