@@ -22,7 +22,7 @@
 #define vsockets_tools_version_H
 
 #define VSOCKETS_TOOLS_MAJOR_VERSION 0
-#define VSOCKETS_TOOLS_MINOR_VERSION 12
+#define VSOCKETS_TOOLS_MINOR_VERSION 13
 
 #ifndef BUILD_DATE
 #define BUILD_DATE Unknown

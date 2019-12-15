@@ -116,3 +116,5 @@ int socket_getpeername(int sockfd, struct sockaddr *addr, socklen_t *addrlen);
 char* socket_handle2string(SOCKET_HANDLE socket);
 
 #endif
+
+void psockerror(const char *s);

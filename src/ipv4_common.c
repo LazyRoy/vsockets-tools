@@ -41,7 +41,7 @@ int try_ipv4_connection(int CID, int port)
 
    sockfd_stream = socket(afVMCI, SOCK_STREAM, 0);
    if (sockfd_stream < 0) {
-     perror("error creating socket\n");  
+     psockerror("error creating socket\n");  
      exit(1);
    }
 
@@ -53,7 +53,7 @@ int try_ipv4_connection(int CID, int port)
    my_addr.svm_port = VMADDR_PORT_ANY;
 
    if (bind(sockfd_stream, (struct sockaddr *) &my_addr, sizeof my_addr) == -1) {
-     perror("bind");
+     psockerror("bind");
      socket_close(sockfd_stream);
      exit(1);
    }
@@ -63,7 +63,7 @@ int try_ipv4_connection(int CID, int port)
    their_addr.svm_cid = CID;
    their_addr.svm_port = port;
    if ((connect(sockfd_stream, (struct sockaddr *) &their_addr, sizeof their_addr)) == -1) {
-     perror("connect");
+     psockerror("connect");
      socket_close(sockfd_stream);
      return -1;
    }
@@ -82,7 +82,7 @@ int try_ipv4_listen(int port)
 
    sockfd_stream = socket(AF_INET, SOCK_STREAM, 0);
    if (sockfd_stream < 0) {
-     perror("error creating socket\n");  
+     psockerror("error creating socket\n");  
      exit(1);
    }
 
@@ -90,20 +90,20 @@ int try_ipv4_listen(int port)
 
    int enable = 1;
    if (setsockopt(sockfd_stream, SOL_SOCKET, SO_REUSEADDR, (char*)&enable, sizeof(int)) < 0)
-     perror("setsockopt(SO_REUSEADDR) failed");
+     psockerror("setsockopt(SO_REUSEADDR) failed");
 
    my_addr.sin_family = AF_INET;
    my_addr.sin_addr.s_addr = INADDR_ANY;
    my_addr.sin_port = ntohs(port);
 
    if (bind(sockfd_stream, (struct sockaddr *) &my_addr, sizeof my_addr) == -1) {
-     perror("bind");
+     psockerror("bind");
      socket_close(sockfd_stream);
      return -1;
    }
 
    if (listen(sockfd_stream, 100) == -1) {
-      perror("listen");
+     psockerror("listen");
      return -1;
    }
 

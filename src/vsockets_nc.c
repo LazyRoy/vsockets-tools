@@ -84,7 +84,7 @@ int bridged_socket_event_handler(SOCKET_HANDLE socket_in, void *context_data)
 		len = socket_write(socket_out, buffer, len);
 
 		if (len <= 0) {
-			perror("Error writing to descriptor");
+			psockerror("Error writing to descriptor");
 			exit(1);
 		}
 
@@ -93,7 +93,7 @@ int bridged_socket_event_handler(SOCKET_HANDLE socket_in, void *context_data)
 		return true;
 	}
 	else {
-		perror("Lost connection channel 1\n");
+		psockerror("Lost connection channel 1");
 	
 
 		socket_list_delete(&sockets, socket_in);
@@ -154,7 +154,7 @@ int vsocket_listen_event_handler(SOCKET_HANDLE socket, void *context_data)
 	socklen_t their_addr_len = sizeof their_addr;
 
 	if ((new_sock = socket_accept(socket, (struct sockaddr *) &their_addr, &their_addr_len)) == -1) {
-		perror("accept");
+		psockerror("accept");
 		exit(1);
 	}
 	else {
@@ -180,7 +180,7 @@ int vsocket_listen_event_handler(SOCKET_HANDLE socket, void *context_data)
 
 			}
 			else {
-				perror("[Tunnel]...Connection failed");
+				psockerror("[Tunnel]...Connection failed");
 			}
 		}
 		else {
@@ -337,7 +337,7 @@ main(int argc, char *argv[])
            }
 
 
-    dump_vsocket_properties();
+//     dump_vsocket_properties();
 
 	if (!vsockets_is_available()) {
 		fprintf(stderr, "vsockets are not available in this system\n");
@@ -380,7 +380,7 @@ main(int argc, char *argv[])
 		  }
 
        } else {
-          perror("...Connection failed");
+//           psockerror("...Connection failed");
        }
 
 
@@ -390,11 +390,12 @@ main(int argc, char *argv[])
 
        int socket;
 
+       fprintf(stderr, "listening on [%u] %i ...\n", VMCISock_GetLocalCID(), local_port);
+
 	   listening_mode(flag_listen,
 						local_port);
 
 
-	
 	}
 	else {
 

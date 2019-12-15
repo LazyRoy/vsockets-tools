@@ -44,8 +44,9 @@ int try_connection(int CID, int port)
    debug_printf( "vmci connecting to=[CID]%u:%u", CID, port);
 
    sockfd_stream = socket(afVMCI, SOCK_STREAM, 0);
+
    if (sockfd_stream < 0) {
-     perror("error creating socket\n"); 
+     psockerror("error creating socket"); 
      exit(1);
    }
 
@@ -57,8 +58,7 @@ int try_connection(int CID, int port)
    my_addr.svm_port = VMADDR_PORT_ANY;
 
    if (bind(sockfd_stream, (struct sockaddr *) &my_addr, sizeof my_addr) == -1) {
-     perror("bind");
-	 
+     psockerror("bind");
      socket_close(sockfd_stream);
      exit(1);
    }
@@ -68,7 +68,7 @@ int try_connection(int CID, int port)
    their_addr.svm_cid = (CID==-1) ? VMADDR_CID_ANY : CID;
    their_addr.svm_port = port;
    if ((connect(sockfd_stream, (struct sockaddr *) &their_addr, sizeof their_addr)) == -1) {
-     //perror("connect");
+     psockerror("connect");
 	 debug_printf("connect failed");
      debug_printf("Closing vmci socket %u", sockfd_stream );
 	 socket_close(sockfd_stream);
@@ -132,8 +132,9 @@ int try_listen(int port)
    debug_printf( "vmci listening in port %d", port);
 
    sockfd_stream = socket(afVMCI, SOCK_STREAM, 0);
+
    if (sockfd_stream < 0) {
-     perror("error creating socket\n");  
+     psockerror("error creating socket");  
      exit(1);
    }
 
@@ -145,7 +146,7 @@ int try_listen(int port)
    my_addr.svm_port = port;
 
    if (bind(sockfd_stream, (struct sockaddr *) &my_addr, sizeof my_addr) == -1) {
-     perror("bind");
+     psockerror("bind");
 	 fprintf(stderr, "Maybe you are not running as root or Administrator\n");
 	 if (port < 1024)
 		 fprintf(stderr, "Listening in ports lower than 1024 require running as root or Administrator\n");
@@ -154,12 +155,11 @@ int try_listen(int port)
    }
 
    if (listen(sockfd_stream, 100) == -1) {
-      perror("listen");
+     psockerror("listen");
      return -1;
    }
 
    return sockfd_stream;
-   return -1;
 }
 
 
@@ -231,3 +231,4 @@ int dump_vsocket_properties()
    }
 
 }
+

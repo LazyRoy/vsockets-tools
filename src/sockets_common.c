@@ -34,6 +34,25 @@
 
 #include "debug_common.h"
 
+void psockerror(const char *s) {
+#ifdef linux
+    perror(s);
+#else
+    char error_message[256];
+
+    FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+               NULL, GetLastError(), MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), 
+               error_message, sizeof(error_message), NULL);
+
+    fprintf(stderr, "%s: (WinSock error %d) %s\n", s, WSAGetLastError(), error_message);
+    if ( WSAGetLastError() == WSAEAFNOSUPPORT ) {
+        fprintf(stderr, "Seems vSockets protocol (%d) not registred in WinSock protocols catalog\n", VMCISock_GetAFValue());
+        fprintf(stderr, "Please check: netsh winsock show catalog\n");
+        fprintf(stderr, "Or: HKLM\\SYSTEM\\CurrentControlSet\\Services\\WinSock2\\Parameters\\\n");
+    }
+#endif
+}
+
 /* TODO: implementar umas cascas */
 
 /*
