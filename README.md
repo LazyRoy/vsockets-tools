@@ -3,7 +3,7 @@
 VMware Player/Workstation/ESXi supports “VMware vsockets”, which a vendor-specific socket interface for communication between the host and the guest machine
 
 * not to be confused with TCP/IP sockets
-* vsockets have a different address familly
+vsockets have a different address familly
 
 VMware Player has port “vsockets[connection-oriented]/976” open, for communication with the guest OS and the VMware tools running in the guest
 
@@ -35,103 +35,102 @@ VMware Player has port “vsockets[connection-oriented]/976” open, for communi
 
 ### "vsockets_nc" Usage guidelines ###
 
-/// Ligação guest => host
+Guest link => host
 
 ~~~~
 [root@localhost:/vmfs/volumes/5548c165-50642975-ae44-000c29bd161f/ftp] ./vsockets_nc -l 5000
 VMware vsockets environment properties
 =======================================
-vmci address familly=56
+vmci address familly-56
 vmci is present
 vmci local CID=2
-vmware ESXi host machine detected (CID=0)
+vmware ESXi host machine detected (CID-0)
 vmci listening in port 5000
 vmci socket=5
-...listening in port:5000
+... listening in port:5000
 Accepted connection from CID=942803562 , port=1029
 Read 3 bytes from channel 1
-oi
+Hi
 Wrote 3 bytes to channel 2
 Read 9 bytes from channel 1
-como vai
+How are you
 Wrote 9 bytes to channel 2
-o hospedeiro vai bem
+the host goes well
 Read 21 bytes from channel 2
 Wrote 21 bytes to channel 1
 ~~~~
 
 
-//// Erro quando o CID remoto não existe
+Error when remote ICD does not exist
 
 ~~~~
 [root@localhost:/vmfs/volumes/5548c165-50642975-ae44-000c29bd161f/ftp] ./vsockets_nc -c 942893562 -s 7000
 VMware vsockets environment properties
 =======================================
-vmci address familly=56
+vmci address familly-56
 vmci is present
 vmci local CID=2
-vmware ESXi host machine detected (CID=0)
-...Connecting to CID=942893562 : Port:7000
+vmware ESXi host machine detected (CID-0)
+... Connecting to CID=942893562 : Port:7000
 vmci connecting to=[CID]942893562:7000
 vmci socket=5
 connect: Invalid argument
 Closing vmci socket 5
-...Connection failed: Invalid argument
+... Connection failed: Invalid argument
 ~~~~
 
-/// Ligação  host => guest
+Host link => guest
 
 ~~~~
 [root@localhost:/vmfs/volumes/5548c165-50642975-ae44-000c29bd161f/ftp] ./vsockets_nc -c 942803562 -s 7000
 VMware vsockets environment properties
 =======================================
-vmci address familly=56
+vmci address familly-56
 vmci is present
 vmci local CID=2
-vmware ESXi host machine detected (CID=0)
-...Connecting to CID=942803562 : Port:7000
+vmware ESXi host machine detected (CID-0)
+... Connecting to CID=942803562 : Port:7000
 vmci connecting to=[CID]942803562:7000
 vmci socket=5
-...Connection established to CID=942803562 : Port:7000
+... Connection established to CID=942803562 : Port:7000
 ~~~~
 
 ### vsockets_hostname examples ###
 
 #### Windows VMWare Player Host ###
-
 ~~~~
 D:\vsockets tools [GIT]\src\target\bin>vsockets_hostname.exe
 VMware vsockets environment properties
 =======================================
-VMware vmci address familly=28
+VMware vmci address familly
 VMware vmci is present
 VMware vmci local CID=2
 VMware Hypervisor host machine detected (CID=2)
 ~~~~
 
 
-### ESXi port scans ###
+ESXi port scans ###
 
-* guest => CID=2 : só vê os portos novos abertos pelo vsockets_nc
-* guest => CID=0 : vê o porto 976 aberto
-* guest => guest : só vê os portos novos abertos pelo vsockets_nc
+* guest => CID=2 : only sees new ports opened by the vsockets_nc
+* guest => CID=0 : sees port 976 open
+* guest => guest : only sees new ports opened by the vsockets_nc
 
-* host => guest : só vê os portos novos abertos pelo vsockets_nc
-   * (fica muito lento, o ESXi deve dar pouca prioridade a processos lançados na linha de comandos)
+* host => guest : only sees new ports opened by the vsockets_nc
+   * (slows down, the ESXi should give little priority to processes released on the command line)
 
-* host => CID=0 : não vê nenhum porto aberto
-   * (fica muito lento, o ESXi deve dar pouca prioridade a processos lançados na linha de comandos)
+* host => CID=0 : sees no open port
+   * (slows down, the ESXi should give little priority to processes released on the command line)
 
-* host => CID=2 : vê porto 2222 aberto
+* host => CID=2 : seeport 2222 open
 
 ### VMware Player 7 port scans ###
 
-* guest => host (CID=2) : só vê os portos novos abertos pelo vsockets_nc
-* guest => hypervisor (CID=0) : vê o porto 976 aberto
-* guest => guest : só vê os portos novos abertos pelo vsockets_nc
+* guest => host (CID=2) : only sees new ports opened by the vsockets_nc
+* guest => hypervisor (CID=0) : sees port 976 open
+* guest => guest : only sees new ports opened by the vsockets_nc
 
-* host => CID=2 : não vê nada aberto 
-* host => CID=0 : não vê nada aberto
+* host => CID=2 : sees nothing open 
+* host => CID=0 : sees nothing open
 
 
 ### References ###
@@ -147,7 +146,7 @@ VMware Hypervisor host machine detected (CID=2)
 
 ### Donations ###
 
-![Bitcoin-accepted-here-printable.png](https://bitbucket.org/repo/XE88rK/images/1985448334-Bitcoin-accepted-here-printable.png)
+! [Bitcoin-accepted-here-printable.png] (https://bitbucket.org/repo/XE88rK/images/1985448334-Bitcoin-accepted-here-printable.png)
 
 * Bitcoin address: 18T5tnGrUyKMnYw59bi7h2tt8CvEu19KrG
 * Bitcoin URI: bitcoin:18T5tnGrUyKMnYw59bi7h2tt8CvEu19KrG?label=vsockets%20donations&message=vsockets%20development%20support%20donations
