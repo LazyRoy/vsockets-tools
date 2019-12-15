@@ -35,8 +35,8 @@ endif
 
 ifeq ($(PLATFORM),WIN32)
 
-INCLUDES:= ../lib/tmp/liblist-2.4.mingw32/include
-LIBS:= -L../lib/tmp/liblist-2.4.mingw32/lib  -llist -lws2_32
+INCLUDES:= ./lib/liblist-2.4/
+LIBS:= ./lib/liblist-2.4.mingw32/list.o -lws2_32
 
 PLATFORM_DIR=win32
 
@@ -55,7 +55,7 @@ endif
 
 DEFINES:= -DBUILD_DATE="$(BUILD_DATE)"
 
-COPTIONS:=-g -static -Wall -I$(INCLUDES) $(DEFINES)
+COPTIONS:=-g -static -I$(INCLUDES) $(DEFINES)
 
 COMMON_C_FILES:= vsockets_common.c sockets_common.c debug_common.c
 
