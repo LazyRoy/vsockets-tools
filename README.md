@@ -1,4 +1,5 @@
 # vsockets tools README #
+originated by Pedro Mendes da Silva (https://bitbucket.org/tagido/)
 
 VMware Player/Workstation/ESXi supports “VMware vsockets”, which a vendor-specific socket interface for communication between the host and the guest machine
 
@@ -18,7 +19,7 @@ VMware Player has port “vsockets[connection-oriented]/976” open, for communi
 
 * Quick summary
     + Network tools for VMware vsockets
-* Version: 0.12
+* Version: 0.13
     + working on Linux and Windows
 * Tools:
     + vsockets_nc
@@ -30,8 +31,6 @@ VMware Player has port “vsockets[connection-oriented]/976” open, for communi
 
 * Download ZIP
 * Unzip and run from the command-line
-
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
 
 ### "vsockets_nc" Usage guidelines ###
 
